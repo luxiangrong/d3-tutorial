@@ -26,6 +26,12 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
+    <svg class="progress" width="32" height="186">
+        <g class="bg">
+            
+        </g>
+    </svg>
+
     <div id="progress-container"></div>
 
     <!-- build:js(.) scripts/vendor.js -->
@@ -41,9 +47,12 @@
     <!-- endbuild -->
 
     <script type="text/javascript">
-        var progress = myChart.progress('#progress-container', {width: 50, height: 400});
-        progress.width(100).height(600);
-        progress();
+        var progressBar = myChart.progressBar('#progress-container', {width: 60, height: 420, itemHeight: 10});
+        progressBar({max: 150, progress: 100});
+        window.setTimeout(function(){
+            progressBar.update({progress: 120});
+        }, 2000);
+        
     </script>
 </body>
 
