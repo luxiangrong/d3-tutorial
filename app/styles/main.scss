@@ -1,16 +1,18 @@
 .progress-bar {
     background: #272727;
-    .bg {
-        fill: #272727;
-    }
+   
     rect {
-        &.rest {
+        &.bg {
             fill: #464847;
         }
     }
     rect {
         &.progress {
-            fill: #00a8fd;
+            fill: #464847;
         }
     }
+}
+
+div {
+    display: inline-block;
 }
