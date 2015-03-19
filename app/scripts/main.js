@@ -177,3 +177,116 @@ myChart.progressBar = function(selector, config) {
 
     return progressBar;
 };
+
+myChart.progressKnob = function(selector, config) {
+    var defaults = {
+        ringWidth: 14, //外层圆环的宽度
+        intervalNum: 60, //外层圆环切分成的个数
+        radius: 100,
+    };
+
+    config = myChart.extend(defaults, config);
+
+    var svg, radius = config.radius;
+    var sliceData = [];
+
+    for (var i = 0; i < config.intervalNum; i++) {
+        sliceData.push(1);
+    }
+
+    var arcGenerator = d3.svg.arc()
+        .outerRadius(radius)
+        .innerRadius(radius - config.ringWidth);
+
+    var pie = d3.layout.pie();
+
+    svg = d3.select(selector)
+        .append('svg')
+        .attr('class', 'progress-knob')
+        .attr('width', radius * 2 + 2)
+        .attr('height', radius * 2 + 2)
+        .append("g")
+        .attr("transform", "translate(" + (radius + 1) + "," + (radius + 1) + ")");
+
+    svg.append("g")
+        .attr("class", "slices");
+
+    var buttons = svg.append('g')
+        .attr('class', 'buttons')
+        .attr("transform", "translate(-" + (radius - 5) + ", -" + (radius - 10) + ")");
+
+    var slice = svg.select(".slices").selectAll("path.slice")
+        .data(pie(sliceData));
+
+    slice.enter()
+        .insert("path")
+        .attr("d", function(d) {
+            return arcGenerator(d);
+        })
+        .attr("class", "slice");
+
+    var progressSlice = svg.select(".slices").append('path')
+            .attr('class', 'progressSlice');
+
+    buttons.append('image')
+        .attr('xlink:href', 'images/knob01.png')
+        .attr('width', 189)
+        .attr('height', 189)
+        .attr('x', 0)
+        .attr('y', 0);
+
+    var progressDot = svg.append('image')
+            .attr('xlink:href', 'images/knob02.png')
+            .attr('width', 12)
+            .attr('height', 12);
+
+    var progressKnob = function() {};
+    var lastProgress = 0;
+
+    progressKnob.update = function(progress) {
+
+        var progressAngle = progress / config.max * 2 * Math.PI;
+        var lastProgressAngle = lastProgress / config.max * 2 * Math.PI;
+
+        // var progressSlice = svg.select(".slices").selectAll('.progressSlice')
+        //     .data(pie([progress, config.max - progress]));
+
+
+        progressSlice.transition()
+            .duration(800)
+            // .attr('d', arcGenerator({startAngle:0, endAngle: progress / config.max * Math.PI * 2}))
+            .attrTween("d", function(d) {
+                this._current = this._current || {startAngle: 0, endAngle: progressAngle};
+                var interpolate = d3.interpolateObject(this._current, {startAngle: 0, endAngle: progressAngle});
+                this._current = interpolate(0);
+                return function(t) {
+                    return arcGenerator(interpolate(t));
+                };
+            });
+
+        progressDot.transition()
+            .duration(800)
+            .attrTween('x', function(d){
+                this._current = this._current || progressAngle;
+                var interpolate = d3.interpolate(lastProgressAngle, progressAngle);
+                this._current = interpolate(0);
+                console.log('last: ' + lastProgressAngle);
+                console.log('current: ' + progressAngle);
+                return function(t) {
+                    return (radius - 30) * Math.cos(interpolate(t) - Math.PI / 2) - 6;
+                };
+            })
+            .attrTween('y', function(d){
+                this._current = this._current || progressAngle;
+                var interpolate = d3.interpolate(lastProgressAngle, progressAngle);
+                this._current = interpolate(0);
+                return function(t) {
+                    return (radius - 30) * Math.sin(interpolate(t) - Math.PI / 2) - 6;
+                };
+            });
+
+        lastProgress = progress;
+    }
+
+    return progressKnob;
+};

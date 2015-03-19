@@ -1,6 +1,5 @@
 .progress-bar {
     background: #272727;
-   
     rect {
         &.bg {
             fill: #464847;
@@ -9,6 +8,50 @@
     rect {
         &.progress {
             fill: #464847;
+        }
+    }
+}
+
+.progress-knob {
+    .slices {
+        path {
+            &.slice {
+                fill: #272727;
+                stroke-width: 1;
+                stroke: #4a4b4b;
+            }
+            &.progressSlice {
+                fill: #30dca8;
+                stroke-width: 1;
+                stroke: #30dca8;
+                opacity: 0.6;
+            }
+        }
+    }
+}
+
+#component1 {
+    .progress-knob {
+        .slices {
+            path {
+                &.progressSlice {
+                    fill: #30dca8;
+                    stroke: #30dca8;
+                }
+            }
+        }
+    }
+}
+
+#component2 {
+    .progress-knob {
+        .slices {
+            path {
+                &.progressSlice {
+                    fill: #00a8ff;
+                    stroke: #00a8ff;
+                }
+            }
         }
     }
 }

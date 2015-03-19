@@ -26,8 +26,8 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div id="progress-container"></div>
-    <div id="progress-container-2"></div>
+    <div id="component1"></div>
+    <div id="component2"></div>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -42,39 +42,17 @@
     <!-- endbuild -->
 
     <script type="text/javascript">
-        var progressBar = myChart.progressBar('#progress-container', {width: 160, height: 420, itemHeight: 5});
-        // var progressBar2 = myChart.progressBar('#progress-container-2', {width: 60, height: 720, itemHeight: 10});
-        progressBar({max: 150, progress: 0});
-        // progressBar2({max: 200, progress: 0});
+        var progressKnoba1 = myChart.progressKnob('#component1', {max: 1345});
+        var progressKnoba2 = myChart.progressKnob('#component2', {max: 1345});
 
         function update() {
-            progressBar.update({progress: Math.floor(Math.random() * 150)});
-            // progressBar2.update({progress: Math.floor(Math.random() * 200)});
-            setTimeout(function(){update()}, 1000);
+            progressKnoba1.update(Math.floor(Math.random() * 1345));
+            progressKnoba2.update(Math.floor(Math.random() * 1345));
+            setTimeout(function(){update()}, 2000);
         }
-
         update();
 
-        // window.setInterval(function(){
-        //     progressBar.update({progress: Math.floor(Math.random() * 150)});
-        // }, 1000);
-        
-        // window.setTimeout(function(){
-        //     progressBar.update({progress: 100});
-        // }, 1000);
-        // window.setTimeout(function(){
-        //     progressBar.update({progress: 70});
-        // }, 2000);
-        // window.setTimeout(function(){
-        //     progressBar.update({progress: 50});
-        // }, 3000);
-        // window.setTimeout(function(){
-        //     progressBar.update({progress: 20});
-        // }, 4000);
-        // window.setTimeout(function(){
-        //     progressBar.update({progress: 10});
-        // }, 5000);
-        
+
     </script>
 </body>
 
