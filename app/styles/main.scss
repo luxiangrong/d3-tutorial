@@ -21,16 +21,14 @@
                 stroke: #4a4b4b;
             }
             &.progressSlice {
-                fill: #30dca8;
                 stroke-width: 1;
-                stroke: #30dca8;
                 opacity: 0.6;
             }
         }
     }
 }
 
-#component1 {
+.progress-knoba-1 {
     .progress-knob {
         .slices {
             path {
@@ -43,7 +41,7 @@
     }
 }
 
-#component2 {
+.progress-knoba-2 {
     .progress-knob {
         .slices {
             path {

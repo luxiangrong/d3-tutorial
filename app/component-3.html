@@ -27,7 +27,6 @@
     <![endif]-->
 
     <div id="component1" class="progress-knoba-1"></div>
-    <div id="component2" class="progress-knoba-2"></div>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -42,12 +41,10 @@
     <!-- endbuild -->
 
     <script type="text/javascript">
-        var progressKnoba1 = myChart.progressKnob('#component1', {max: 1345});
-        var progressKnoba2 = myChart.progressKnob('#component2', {max: 1345});
+        var simpleGauge1 = myChart.simpleGauge('#component1', {});
 
         function update() {
-            progressKnoba1.update(Math.floor(Math.random() * 1345));
-            progressKnoba2.update(Math.floor(Math.random() * 1345));
+            simpleGauge1.update(Math.floor(Math.random() * 10));
             setTimeout(function(){update()}, 2000);
         }
         update();

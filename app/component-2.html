@@ -26,8 +26,7 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div id="component1" class="progress-knoba-1"></div>
-    <div id="component2" class="progress-knoba-2"></div>
+    <div id="component1"></div>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -42,17 +41,43 @@
     <!-- endbuild -->
 
     <script type="text/javascript">
-        var progressKnoba1 = myChart.progressKnob('#component1', {max: 1345});
-        var progressKnoba2 = myChart.progressKnob('#component2', {max: 1345});
-
+         var progressBar = myChart.progressBar('#component1', {width: 60, height: 490, max: 150, itemSize: 6});
+        
         function update() {
-            progressKnoba1.update(Math.floor(Math.random() * 1345));
-            progressKnoba2.update(Math.floor(Math.random() * 1345));
-            setTimeout(function(){update()}, 2000);
+            progressBar.update({progress: Math.floor(Math.random() * 150)});
+            setTimeout(function(){update()}, 1000);
         }
-        update();
 
-
+        // update();
+        
+        window.setTimeout(function(){
+            progressBar.update({progress: 0});
+        }, 1000);
+        window.setTimeout(function(){
+            progressBar.update({progress: 150});
+        }, 3000);
+        window.setTimeout(function(){
+            progressBar.update({progress: 75});
+        }, 5000);
+        window.setTimeout(function(){
+            progressBar.update({progress: 150});
+        }, 7000);
+        window.setTimeout(function(){
+            progressBar.update({progress: 0});
+        }, 9000);
+        window.setTimeout(function(){
+            progressBar.update({progress: 75});
+        }, 11000);
+        window.setTimeout(function(){
+            progressBar.update({progress: 150});
+        }, 13000);
+        window.setTimeout(function(){
+            progressBar.update({progress: 0});
+        }, 15000);
+        window.setTimeout(function(){
+            progressBar.update({progress: 150});
+        }, 17000);
+        
     </script>
 </body>
 
