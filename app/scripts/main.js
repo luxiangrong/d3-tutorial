@@ -117,23 +117,23 @@ myChart.progressBar = function(selector, config) {
             });
 
         return selection;
-    }
+    };
 
     /**
      * 生成进度条的过渡效果
      * @param  {transition} transition d3的transition对象
      * @return {transition}            返回d3的transition对象
      */
-    var transitionGenerator = function(transition) {
-        transition.delay(function(d, i) {
-                return i * 50
-            })
-            .style('fill', function(d) {
-                return colorScale(d);
-            });
+    // var transitionGenerator = function(transition) {
+    //     transition.delay(function(d, i) {
+    //             return i * 50;
+    //         })
+    //         .style('fill', function(d) {
+    //             return colorScale(d);
+    //         });
 
-        return transition;
-    }
+    //     return transition;
+    // };
 
     var bgData = d3.range(0, itemCount, 1);
 
@@ -153,7 +153,7 @@ myChart.progressBar = function(selector, config) {
         .call(itemBarGenerator);
 
     //创建一个函数对象，可以在初始化后调用其他扩展方法
-    var progressBar = new Function();
+    var progressBar = function() {};
 
     //更新进度条的状态
     progressBar.update = function(data) {
@@ -162,12 +162,11 @@ myChart.progressBar = function(selector, config) {
         var progressItemBar = svg.selectAll('rect.progress')
             .data(progressData, function(d) {
                 return d;
-            })
+            });
 
         progressItemBar.call(itemBarGenerator);
 
-        var enterSize = progressItemBar.enter().size(),
-            duration = config.duration;
+        var duration = config.duration;
 
         progressItemBar.enter()
             .append('rect')
@@ -176,27 +175,27 @@ myChart.progressBar = function(selector, config) {
             .style('fill', function(d) {
                 return colorScale(d);
             })
-            .style("fill-opacity", 0)
+            .style('fill-opacity', 0)
             .transition()
             .duration(duration)
             .delay(function(d, i) {
                 return (i + 1) / progressData.length * duration;
             })
-            .style("fill-opacity", 1);
+            .style('fill-opacity', 1);
 
         var exitSize = progressItemBar.exit().size();
 
         progressItemBar
             .exit()
-            .style("fill-opacity", 1)
+            .style('fill-opacity', 1)
             .transition()
             .duration(duration)
             .delay(function(d, i) {
                 return (exitSize - i + progressData.length - 1) / exitSize * duration;
             })
-            .style("fill-opacity", 0)
+            .style('fill-opacity', 0)
             .remove();
-    }
+    };
 
     return progressBar;
 };
@@ -228,27 +227,27 @@ myChart.progressKnob = function(selector, config) {
         .attr('class', 'progress-knob')
         .attr('width', radius * 2 + 2)
         .attr('height', radius * 2 + 2)
-        .append("g")
-        .attr("transform", "translate(" + (radius + 1) + "," + (radius + 1) + ")");
+        .append('g')
+        .attr('transform', 'translate(' + (radius + 1) + ',' + (radius + 1) + ')');
 
-    svg.append("g")
-        .attr("class", "slices");
+    svg.append('g')
+        .attr('class', 'slices');
 
     var buttons = svg.append('g')
         .attr('class', 'buttons')
-        .attr("transform", "translate(-" + (radius - 5) + ", -" + (radius - 10) + ")");
+        .attr('transform', 'translate(-' + (radius - 5) + ', -' + (radius - 10) + ')');
 
-    var slice = svg.select(".slices").selectAll("path.slice")
+    var slice = svg.select('.slices').selectAll('path.slice')
         .data(pie(sliceData));
 
     slice.enter()
-        .insert("path")
-        .attr("d", function(d) {
+        .insert('path')
+        .attr('d', function(d) {
             return arcGenerator(d);
         })
-        .attr("class", "slice");
+        .attr('class', 'slice');
 
-    var progressSlice = svg.select(".slices").append('path')
+    var progressSlice = svg.select('.slices').append('path')
         .attr('class', 'progressSlice');
 
     buttons.append('image')
@@ -273,7 +272,7 @@ myChart.progressKnob = function(selector, config) {
 
         progressSlice.transition()
             .duration(800)
-            .attrTween("d", function(d) {
+            .attrTween('d', function() {
                 this._current = this._current || {
                     startAngle: 0,
                     endAngle: progressAngle
@@ -290,7 +289,7 @@ myChart.progressKnob = function(selector, config) {
 
         progressDot.transition()
             .duration(800)
-            .attrTween('x', function(d) {
+            .attrTween('x', function() {
                 this._current = this._current || progressAngle;
                 var interpolate = d3.interpolate(lastProgressAngle, progressAngle);
                 this._current = interpolate(0);
@@ -298,7 +297,7 @@ myChart.progressKnob = function(selector, config) {
                     return (radius - 30) * Math.cos(interpolate(t) - Math.PI / 2) - 6;
                 };
             })
-            .attrTween('y', function(d) {
+            .attrTween('y', function() {
                 this._current = this._current || progressAngle;
                 var interpolate = d3.interpolate(lastProgressAngle, progressAngle);
                 this._current = interpolate(0);
@@ -308,7 +307,7 @@ myChart.progressKnob = function(selector, config) {
             });
 
         lastProgress = progress;
-    }
+    };
 
     return progressKnob;
 };
@@ -318,34 +317,186 @@ myChart.simpleGauge = function(selector, config) {
     var defaults = {
         width: 200,
         height: 200,
+        min: 0, //最小刻度
+        max: 7, //最大刻度
         tick: {
-            min: 0,         //最小刻度
-            max: 7,         //最大刻度
-            startDeg: 270,  //刻度起始角度
-            endDeg: 450,    //刻度结束角度
-            direction: 1    //刻度方向，1为顺时针，-1为逆时针
+            startDeg: 180, //刻度起始角度
+            endDeg: 360, //刻度结束角度
+            direction: 1, //刻度方向，1为顺时针，-1为逆时针
+            major: 8, //主要刻度数量
+            minor: 0, //主要刻度之间的次要刻度数量
+        },
+        unitLabel: { //计量单位标签
+            title: 'W/W', // 标题
+            pos: 'north' // 位置 north:上半部分， south:下半部分
         }
-    }
-    var config = myChart.extend(defaults, config);
-    var simpleGauge = new Function();
+    };
+    config = myChart.extend(defaults, config);
+    var simpleGauge = function() {};
 
-    var svg, ticksContainer, radius;
+    var svg, ticksContainer, labelsContainer, radius, valueLabel;
+    var tickScale, labelScale, pointScale;
 
     radius = d3.min([config.width, config.height]) / 2;
     svg = d3
         .select(selector)
-        .append('g')
-        .attr('class', 'simple-gauge');
+        .append('svg')
+        .attr('class', 'simple-gauge')
+        .attr('width', config.width)
+        .attr('height', config.height)
+        .append('g');
 
     ticksContainer = svg.append('g')
         .attr('class', 'ticks')
         .attr('transform', 'translate(' + radius + ',' + radius + ')');
 
-    var buildTicks = function(){
-        
-    };
+    labelsContainer  = svg.append('g')
+        .attr('class', 'labels')
+        .attr('transform', 'translate(' + radius + ',' + radius + ')');
 
-    simpleGauge.update = function(value){
+    //刻度缩放函数
+    tickScale = d3.scale.linear()
+        .domain([1, config.tick.major])
+        .range([config.tick.startDeg, config.tick.endDeg]);
+
+    labelScale = d3.scale.linear()
+        .domain([1, config.tick.major])
+        .rangeRound([config.min, config.max]);
+
+    pointScale = d3.scale.linear()
+        .domain([0, config.max])
+        .range([config.tick.startDeg, config.tick.endDeg]);
+
+    var majorData = d3.range(1, config.tick.major + 1, 1);
+
+    var buildTicks = function() {
+        ticksContainer.append('circle')
+            .attr('r', radius - 30);
+
+        ticksContainer.selectAll('line.tick-major')
+            .data(majorData)
+            .enter()
+            .append('line')
+            .attr('class', 'tick-major')
+            .attr('x1', function(d) {
+                return degreeToPoint(tickScale(d), 22).x;
+            })
+            .attr('y1', function(d) {
+                return degreeToPoint(tickScale(d), 22).y;
+            })
+            .attr('x2', function(d) {
+                return degreeToPoint(tickScale(d), 30).x;
+            })
+            .attr('y2', function(d) {
+                return degreeToPoint(tickScale(d), 30).y;
+            });
+
+        ticksContainer.selectAll('text.lable-tick-major')
+            .data(majorData)
+            .enter()
+            .append('text')
+            .attr('class', 'label-tick-major')
+            .attr('x', function(d) {
+                return degreeToPoint(tickScale(d), 10).x;
+            })
+            .attr('y', function(d) {
+                return degreeToPoint(tickScale(d), 10).y;
+            })
+            .attr('dy', '0.5em')
+            .attr('text-anchor', 'middle')
+            .text(function(d) {
+                return labelScale(d);
+            });
+    };
+    buildTicks();
+
+    var buildLabels = function(){
+        var unitLabel = labelsContainer.append('text')
+            .attr('class', 'label-unit')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .text(config.unitLabel.title);
+
+        var valueLabelWidth = radius - 30,
+            valueLabelHeight = valueLabelWidth / 2;
+
+        var valueLabelContainer = labelsContainer.append('g')
+            .attr('class', 'value');
+
+        valueLabelContainer.append('rect')
+            .attr('class', 'label-value')
+            .attr('rx', 3)
+            .attr('ry', 3)
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('width', valueLabelWidth)
+            .attr('height', valueLabelHeight)
+            ;
+
+        valueLabel = valueLabelContainer.append('text')
+            .attr('text-anchor', 'end')
+            .attr('x', valueLabelWidth)
+            .attr('y', valueLabelHeight / 2)
+            .attr('dy', '0.32em')
+            .text('0.00');
+
+        if(config.unitLabel.pos === 'north') {
+            unitLabel.attr('y', '-5');
+            valueLabelContainer.attr('transform', 'translate(' + valueLabelWidth / -2 + ', 0)')
+        } else {
+            unitLabel.attr('y', '20');
+            valueLabelContainer.attr('transform', 'translate(' + valueLabelWidth / -2 + ',' + valueLabelHeight * -1 + ')')
+        }
+    };
+    buildLabels();
+
+    var point;
+    var buildPoint = function() {
+        point = svg.append('g')
+            .attr('class', 'point')
+            .attr('x', 10)
+            .attr('y', 10)
+            .attr('transform', 'translate(' + radius + ',' + radius + ')');
+
+        point.append('circle')
+            .attr('class', 'c1')
+            .attr('r', 5);
+
+        point.append('circle')
+            .attr('class', 'c2')
+            .attr('r', 2)
+            .attr('cx', -1)
+            .attr('cy', -1);
+
+        point.append('circle')
+            .attr('class', 'c3')
+            .attr('r', 1)
+            .attr('cx', -1)
+            .attr('cy', -1);
+    };
+    buildPoint();
+
+    function degreeToPoint(deg, offset) {
+        return {
+            x: (radius - offset) * Math.cos(deg / 180 * Math.PI),
+            y: (radius - offset) * Math.sin(deg / 180 * Math.PI)
+        };
+    }
+
+    simpleGauge.update = function(value) {
+        value = Number(value);
+        valueLabel.text((value));
+
+        point.transition()
+            .duration(800)
+            .attrTween('transform', function() {
+                this._current = this._current || pointScale(value);
+                var interpolate = d3.interpolate(this._current , pointScale(value));
+                this._current = interpolate(1);
+                return function(t) {
+                    return 'translate(' + (radius + radius / 2 * Math.cos(interpolate(t) / 180 * Math.PI) ) + ',' + (radius + radius / 2 * Math.sin(interpolate(t) / 180 * Math.PI) ) + ')';
+                };
+            });
 
     };
     return simpleGauge;

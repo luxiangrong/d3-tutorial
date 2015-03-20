@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'ds-digitalbold';
+    src: url('fonts/DS-DIGIB-webfont.eot');
+    src: url('fonts/DS-DIGIB-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/DS-DIGIB-webfont.woff2') format('woff2'), url('fonts/DS-DIGIB-webfont.woff') format('woff'), url('fonts/DS-DIGIB-webfont.ttf') format('truetype'), url('fonts/DS-DIGIB-webfont.svg#ds-digitalbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .progress-bar {
     background: #272727;
     rect {
@@ -49,6 +57,62 @@
                     fill: #00a8ff;
                     stroke: #00a8ff;
                 }
+            }
+        }
+    }
+}
+
+.simple-gauge {
+    .ticks {
+        circle {
+            fill: transparent;
+            stroke: #30b9fa;
+            stroke-width: 1;
+        }
+        line {
+            &.tick-major {
+                stroke: #30b9fa;
+                stroke-width: 1;
+            }
+        }
+        text {
+            &.label-tick-major {
+                fill: #6d7378;
+                stroke-width: 0;
+                font-size: 14px;
+                font-family: Arial;
+                font-weight: bold;
+            }
+        }
+    }
+    .labels {
+        .label-unit {
+            font-family: Arial;
+            fill: #060606;
+            font-size: 16px;
+        }
+        .value {
+            rect {
+                fill: #2f3131;
+            }
+            text {
+                font-family: 'ds-digitalbold';
+                fill: #35bbfa;
+                font-size: 24px;
+            }
+        }
+    }
+    .point {
+        circle {
+            stroke-width: 0;
+            &.c1 {
+                fill: #1b1b20;
+            }
+            &.c2 {
+                fill: #aeaeae;
+            }
+            &.c3 {
+                fill: #ffffff;
             }
         }
     }

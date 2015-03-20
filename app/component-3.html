@@ -18,16 +18,17 @@
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
-
 </head>
 
 <body>
     <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
-    <div id="component1" class="progress-knoba-1"></div>
-
+    <div id="component1"></div>
+    <div id="component2"></div>
+    <div id="component3"></div>
+    <div id="component4"></div>
+    <div id="component5"></div>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -35,20 +36,110 @@
     <script src="bower_components/d3/d3.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-
     <!-- build:js({app,.tmp}) scripts/main.js -->
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
-
     <script type="text/javascript">
-        var simpleGauge1 = myChart.simpleGauge('#component1', {});
-
-        function update() {
-            simpleGauge1.update(Math.floor(Math.random() * 10));
-            setTimeout(function(){update()}, 2000);
+    var simpleGauge1 = myChart.simpleGauge('#component1', {});
+    var simpleGauge2 = myChart.simpleGauge('#component2', {
+        width: 150,
+        height: 150,
+        min: 0, //最小刻度
+        max: 7, //最大刻度
+        tick: {
+            startDeg: 120, //刻度起始角度
+            endDeg: 330, //刻度结束角度
+            direction: 1, //刻度方向，1为顺时针，-1为逆时针
+            major: 8, //主要刻度数量
+            minor: 0, //主要刻度之间的次要刻度数量
+        },
+        unitLabel: { //计量单位标签
+            title: 'W/W', // 标题
+            pos: 'north' // 位置 north:上半部分， south:下半部分
         }
-        update();
+    });
+    var simpleGauge3 = myChart.simpleGauge('#component3', {
+        width: 150,
+        height: 150,
+        min: 0, //最小刻度
+        max: 35, //最大刻度
+        tick: {
+            startDeg: 210, //刻度起始角度
+            endDeg: 420, //刻度结束角度
+            direction: 1, //刻度方向，1为顺时针，-1为逆时针
+            major: 8, //主要刻度数量
+            minor: 0, //主要刻度之间的次要刻度数量
+        },
+        unitLabel: { //计量单位标签
+            title: '°C', // 标题
+            pos: 'north' // 位置 north:上半部分， south:下半部分
+        }
+    });
+    var simpleGauge4 = myChart.simpleGauge('#component4', {
+        width: 150,
+        height: 150,
+        min: 0, //最小刻度
+        max: 14, //最大刻度
+        tick: {
+            startDeg: 30, //刻度起始角度
+            endDeg: 240, //刻度结束角度
+            direction: 1, //刻度方向，1为顺时针，-1为逆时针
+            major: 8, //主要刻度数量
+            minor: 0, //主要刻度之间的次要刻度数量
+        },
+        unitLabel: { //计量单位标签
+            title: '°C', // 标题
+            pos: 'south' // 位置 north:上半部分， south:下半部分
+        }
+    });
+    var simpleGauge5 = myChart.simpleGauge('#component5', {
+        width: 150,
+        height: 150,
+        min: 0, //最小刻度
+        max: 35, //最大刻度
+        tick: {
+            startDeg: -60, //刻度起始角度
+            endDeg: 150, //刻度结束角度
+            direction: 1, //刻度方向，1为顺时针，-1为逆时针
+            major: 8, //主要刻度数量
+            minor: 0, //主要刻度之间的次要刻度数量
+        },
+        unitLabel: { //计量单位标签
+            title: '%', // 标题
+            pos: 'south' // 位置 north:上半部分， south:下半部分
+        }
+    });
 
+    var format = d3.format('.1f');
+
+    function update() {
+        simpleGauge1.update(format(Math.random() * 7));
+        simpleGauge2.update(format(Math.random() * 7));
+        simpleGauge3.update(format(Math.random() * 35));
+        simpleGauge4.update(format(Math.random() * 14));
+        simpleGauge5.update(format(Math.random() * 35));
+        setTimeout(function() {
+            update()
+        }, 2000);
+    }
+    update();
+    // 
+    // 
+    // window.setTimeout(function(){
+    //     simpleGauge3.update(0);
+    // }, 1000);
+
+    // window.setTimeout(function(){
+    //     simpleGauge3.update(35);
+    // }, 2000);
+
+    // window.setTimeout(function(){
+    //     simpleGauge3.update(17);
+    // }, 3000);
+
+    // window.setTimeout(function(){
+    //     simpleGauge3.update(30);
+    // }, 4000);
 
     </script>
 </body>
