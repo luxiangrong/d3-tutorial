@@ -109,10 +109,83 @@
                 fill: #1b1b20;
             }
             &.c2 {
-                fill: #aeaeae;
+                fill: #b1b1b1;
             }
             &.c3 {
-                fill: #ffffff;
+                fill: #e1e1e1;
+            }
+        }
+    }
+}
+
+.adv-gauge {
+    .bg {
+        circle {
+            &.c1 {
+                fill: transparent;
+                stroke-width: 2;
+                stroke: #d0d0d0;
+            }
+            &.c2 {
+                stroke-width: 0;
+            }
+            &.c3 {
+                fill: #f8f8f8;
+                stroke-width: 0;
+            }
+        }
+    }
+    .ticks {
+        line {
+            &.tick-major {
+                stroke: #2ea2d2;
+            }
+            &.tick-minor {
+                stroke-width: 1;
+                stroke: #2ea2d2;
+            }
+        }
+        text {
+            &.label-tick-major {
+                font-family: Arial;
+                font-weight: bold;
+                fill: #656565;
+            }
+        }
+    }
+    .labels {
+        text {
+            &.label-unit {
+                font-family: Arial;
+                font-weight: bold;
+                fill: #656565;
+            }
+            &.label-title {
+                font-family: Arial;
+                font-weight: bold;
+                fill: #656565;
+            }
+        }
+        .value {
+            rect {
+                fill: #2e2f30;
+            }
+            text {
+                font-family: 'ds-digitalbold';
+                fill: #f7f7f7;
+                font-size: 24px;
+            }
+        }
+    }
+    .point {
+        circle {
+            fill: #313137;
+        }
+        path {
+            &.needle {
+                fill: #313137;
+                stroke-width:1;
+                stroke: transparent;
             }
         }
     }

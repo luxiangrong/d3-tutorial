@@ -70,7 +70,6 @@ myChart.progressBar = function(selector, config) {
         itemOuterWidth,
         itemOuterHeight,
         svg,
-        max,
         itemCount;
 
     if (config.direction === 'vertical') {
@@ -442,10 +441,10 @@ myChart.simpleGauge = function(selector, config) {
 
         if(config.unitLabel.pos === 'north') {
             unitLabel.attr('y', '-5');
-            valueLabelContainer.attr('transform', 'translate(' + valueLabelWidth / -2 + ', 0)')
+            valueLabelContainer.attr('transform', 'translate(' + valueLabelWidth / -2 + ', 0)');
         } else {
             unitLabel.attr('y', '20');
-            valueLabelContainer.attr('transform', 'translate(' + valueLabelWidth / -2 + ',' + valueLabelHeight * -1 + ')')
+            valueLabelContainer.attr('transform', 'translate(' + valueLabelWidth / -2 + ',' + valueLabelHeight * -1 + ')');
         }
     };
     buildLabels();
@@ -500,4 +499,299 @@ myChart.simpleGauge = function(selector, config) {
 
     };
     return simpleGauge;
+};
+
+// 高级仪表
+myChart.advGauge = function(selector, config) {
+    var defaults = {
+        width: 400,
+        height: 400,
+        min: 0, //最小刻度
+        max: 1200, //最大刻度
+        tick: {
+            startDeg: 170, //刻度起始角度
+            endDeg: 370, //刻度结束角度
+            direction: 1, //刻度方向，1为顺时针，-1为逆时针
+            major: 13, //主要刻度数量
+            minor: 10, //主要刻度之间的次要刻度数量
+
+        },
+        unitLabel: { //计量单位标签
+            title: 'kW', // 标题
+            pos: 'west' // 位置 north:上半部分， south:下半部分, west:左边， east:右边
+        },
+        title: '今日能耗'
+    };
+    config = myChart.extend(defaults, config);
+    var advGauge = function() {};
+
+    var svg, 
+        ticksContainer, //用于显示刻度的容器
+        labelsContainer, //用于显示标签的容器
+        bgContainer, //用于显示表盘背景的容器
+        pointContainer, //用于显示指针的容器
+        progressContainer, //用于指示当前进度的容器
+        radius, valueLabel,
+        progressWidth = radius * 0.125;
+    var majorTickScale, 
+        minorTickScale,
+        labelScale, pointScale;
+
+    radius = d3.min([config.width, config.height]) / 2;
+    svg = d3
+        .select(selector)
+        .append('svg')
+        .attr('class', 'adv-gauge')
+        .attr('width', config.width)
+        .attr('height', config.height)
+        .append('g')
+        .attr('transform', 'translate(' + radius + ',' + radius + ')');
+
+    bgContainer = svg.append('g')
+        .attr('class', 'bg');
+
+    progressContainer = svg.append('g')
+        .attr('class', 'progress');
+
+    ticksContainer = svg.append('g')
+        .attr('class', 'ticks');
+
+    labelsContainer  = svg.append('g')
+        .attr('class', 'labels');
+
+    //主要刻度缩放函数
+    majorTickScale = d3.scale.linear()
+        .domain([0, config.tick.major - 1])
+        .range([config.tick.startDeg, config.tick.endDeg]);
+
+    minorTickScale = d3.scale.linear()
+        .domain([0, (config.tick.major - 1) * config.tick.minor])
+        .range([config.tick.startDeg, config.tick.endDeg]);
+
+    labelScale = d3.scale.linear()
+        .domain([0, config.tick.major - 1])
+        .rangeRound([config.min, config.max]);
+
+    pointScale = d3.scale.linear()
+        .domain([0, config.max])
+        .range([config.tick.startDeg, config.tick.endDeg]);
+
+    var majorData = d3.range(0, config.tick.major, 1);
+    var minorData = d3.range(0, (config.tick.major - 1) * config.tick.minor);
+
+    var arcGenerator = d3.svg.arc()
+        .outerRadius(radius-3)
+        .innerRadius(radius * 0.875);
+
+    var buildBg = function(){
+        bgContainer.append('circle')
+            .attr('class', 'c1')
+            .attr('r', radius - 1);
+        bgContainer.append('circle')
+            .attr('class', 'c2')
+            .attr('r', radius - 2);
+        bgContainer.append('circle')
+            .attr('class', 'c3')
+            .attr('r', radius * 0.875);
+    };
+    buildBg();
+
+    var progress;
+    var buildProgress = function() {
+        progress = progressContainer.append('path')
+            .attr('d', arcGenerator({startAngle:config.tick.startAngle, endAngle:config.tick.startAngle}));
+    }
+    buildProgress();
+
+    var buildTicks = function() {
+        ticksContainer.selectAll('line.tick-major')
+            .data(majorData)
+            .enter()
+            .append('line')
+            .attr('class', 'tick-major')
+            .attr('x1', function(d) {
+                return degreeToPoint(majorTickScale(d), radius * 0.125).x;
+            })
+            .attr('y1', function(d) {
+                return degreeToPoint(majorTickScale(d), radius * 0.125).y;
+            })
+            .attr('x2', function(d) {
+                return degreeToPoint(majorTickScale(d), radius * 0.25).x;
+            })
+            .attr('y2', function(d) {
+                return degreeToPoint(majorTickScale(d), radius * 0.25).y;
+            })
+            .style('stroke-width', radius * 0.05);
+
+        ticksContainer.selectAll('line.tick-minor')
+            .data(minorData)
+            .enter()
+            .append('line')
+            .attr('class', 'tick-minor')
+            .attr('x1', function(d) {
+                return degreeToPoint(minorTickScale(d), radius * 0.125).x;
+            })
+            .attr('y1', function(d) {
+                return degreeToPoint(minorTickScale(d), radius * 0.125).y;
+            })
+            .attr('x2', function(d) {
+                if( d % 5 === 0) {
+                    return degreeToPoint(minorTickScale(d), radius * 0.22).x;
+                } else {
+                    return degreeToPoint(minorTickScale(d), radius * 0.2).x;
+                }
+            })
+            .attr('y2', function(d) {
+                if( d % 5 === 0) {
+                    return degreeToPoint(minorTickScale(d), radius * 0.22).y;
+                } else {
+                    return degreeToPoint(minorTickScale(d), radius * 0.2).y;
+                }
+            });
+
+        ticksContainer.selectAll('text.lable-tick-major')
+            .data(majorData)
+            .enter()
+            .append('text')
+            .attr('class', 'label-tick-major')
+            .attr('x', function(d) {
+                return degreeToPoint(majorTickScale(d), radius * 0.35).x + String(labelScale(d)).length * radius * 0.03;
+            })
+            .attr('y', function(d) {
+                return degreeToPoint(majorTickScale(d), radius * 0.35).y;
+            })
+            .attr('dy', '0.5em')
+            .attr('text-anchor', 'end')
+            .style('font-size', radius * 3 / 25)
+            .text(function(d) {
+                if(d % 2 === 0) {
+                    return labelScale(d);
+                } else {
+                    return '';
+                }
+            });
+    };
+    buildTicks();
+
+    var buildLabels = function(){
+        var unitLabel = labelsContainer.append('text')
+            .attr('class', 'label-unit')
+            .attr('text-anchor', 'middle')
+            .attr('x', radius * -0.7)
+            .attr('y', radius * 0.3)
+            .style('font-size', radius * 3 / 25)
+            .text(config.unitLabel.title);
+
+        var titleLable = labelsContainer.append('text')
+            .attr('class', 'label-title')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', radius * 0.3)
+            .style('font-size', radius * 3 / 25)
+            .text(config.title);
+
+        var valueLabelWidth = radius * 0.5,
+            valueLabelHeight = valueLabelWidth / 3;
+
+        var valueLabelContainer = labelsContainer.append('g')
+            .attr('class', 'value');
+
+        valueLabelContainer.append('rect')
+            .attr('class', 'label-value')
+            .attr('rx', 3)
+            .attr('ry', 3)
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('width', valueLabelWidth)
+            .attr('height', valueLabelHeight)
+            ;
+
+        valueLabel = valueLabelContainer.append('text')
+            .attr('text-anchor', 'end')
+            .attr('x', valueLabelWidth)
+            .attr('y', 0)
+            .attr('dy', valueLabelHeight * 0.85)
+            .text('0.00')
+            .style('font-size', valueLabelHeight);
+
+        valueLabelContainer.attr('transform', 'translate(' + valueLabelWidth / -2 + ', '+ radius * 0.4 +')');
+        
+    };
+    buildLabels();
+
+    var pointContainer, point;
+    var buildPoint = function() {
+        pointContainer = svg.append('g')
+            .attr('class', 'point')
+            .attr('x', 0)
+            .attr('y', 0);
+
+        
+
+        var r = radius * 0.03;
+        var s = radius * 0.7;
+        var x1 = r * 2 / s;
+        var y1 = Math.sqrt(r * r - x1 * x1);
+
+        var p1 = {x: s, y: 0};
+        var p2 = {x: x1, y: y1};
+        var p3 = {x: x1, y: -y1};
+        // pointContainer.append('polygon')
+        //     .attr('class', 'needle')
+        //     .attr('points', p1.x + ',' + p1.y + ' ' + p2.x + ',' + p2.y + ' ' + p3.x + ',' + p3.y);
+
+        point = pointContainer.append('path')
+            .attr('class', 'needle')
+            .attr('d', 'M' + p1.x + ',' + p1.y + 'L' + p2.x + ',' + p2.y + 'L' + p3.x + ',' + p3.y + 'Z')
+            .attr('transform', 'rotate(' + config.tick.startDeg + ')');
+
+        pointContainer.append('circle')
+            .attr('class', 'c1')
+            .attr('r', radius * 0.08);
+
+        pointContainer.append('image')
+            .attr('xlink:href', 'images/pointer.png')
+            .attr('width', radius * 0.12)
+            .attr('height', radius * 0.12)
+            .attr('x', - radius * 0.12 / 2)
+            .attr('y', - radius * 0.12 / 2);
+    };
+    buildPoint();
+
+    function degreeToPoint(deg, offset) {
+        return {
+            x: (radius - offset) * Math.cos(deg / 180 * Math.PI),
+            y: (radius - offset) * Math.sin(deg / 180 * Math.PI)
+        };
+    }
+
+    advGauge.update = function(value) {
+        value = Number(value);
+        valueLabel.text((value));
+
+        point.transition()
+            .duration(800)
+            .attrTween('transform', function() {
+                this._current = this._current || pointScale(value);
+                var interpolate = d3.interpolate(this._current , pointScale(value));
+                this._current = interpolate(1);
+                return function(t) {
+                    return 'rotate(' + interpolate(t) + ')';
+                };
+            });
+
+        // progress.transition()
+        //     .duration(800)
+        //     .attrTween('d', function() {
+        //         this._current = this._current || pointScale(value);
+        //         var interpolate = d3.interpolate(this._current , pointScale(value));
+        //         this._current = interpolate(1);
+        //         return function(t) {
+        //             console.log(interpolate(t));
+        //             // return arcGenerator({startAngle:config.tick.startAngle, endAngle: interpolate(t) / 180 * Math.PI});
+        //         };
+        //     });
+
+    };
+    return advGauge;
 };
