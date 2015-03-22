@@ -580,8 +580,8 @@ myChart.advGauge = function(selector, config) {
     var minorData = d3.range(0, (config.tick.major - 1) * config.tick.minor);
 
     var arcGenerator = d3.svg.arc()
-        .outerRadius(radius-3)
-        .innerRadius(radius * 0.875);
+        .outerRadius(radius-2)
+        .innerRadius(radius * 0.875 );
 
     var buildBg = function(){
         bgContainer.append('circle')
@@ -599,7 +599,7 @@ myChart.advGauge = function(selector, config) {
     var progress;
     var buildProgress = function() {
         progress = progressContainer.append('path')
-            .attr('d', arcGenerator({startAngle:config.tick.startAngle, endAngle:config.tick.startAngle}));
+            .attr('d', arcGenerator({startAngle:(config.tick.startDeg + 90) / 180 * Math.PI, endAngle:(config.tick.endDeg + 90) / 180 * Math.PI}));
     }
     buildProgress();
 
@@ -780,17 +780,16 @@ myChart.advGauge = function(selector, config) {
                 };
             });
 
-        // progress.transition()
-        //     .duration(800)
-        //     .attrTween('d', function() {
-        //         this._current = this._current || pointScale(value);
-        //         var interpolate = d3.interpolate(this._current , pointScale(value));
-        //         this._current = interpolate(1);
-        //         return function(t) {
-        //             console.log(interpolate(t));
-        //             // return arcGenerator({startAngle:config.tick.startAngle, endAngle: interpolate(t) / 180 * Math.PI});
-        //         };
-        //     });
+        progress.transition()
+            .duration(800)
+            .attrTween('d', function() {
+                this._current = this._current || pointScale(value);
+                var interpolate = d3.interpolate(this._current , pointScale(value));
+                this._current = interpolate(1);
+                return function(t) {
+                    return arcGenerator({startAngle:(config.tick.startDeg  + 90) / 180 * Math.PI, endAngle: (interpolate(t) + 90) / 180 * Math.PI});
+                };
+            });
 
     };
     return advGauge;
