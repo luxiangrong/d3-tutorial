@@ -2,8 +2,8 @@
   "name": "d3-tutorial",
   "private": true,
   "dependencies": {
-    "bootstrap-sass-official": "~3.3.2",
     "modernizr": "~2.8.2",
-    "d3": "~3.5.5"
+    "d3": "~3.5.5",
+    "normalize.css": "~3.0.2"
   }
 }

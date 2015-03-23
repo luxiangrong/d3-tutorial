@@ -1,15 +1,16 @@
 <!doctype html>
-<html class="no-js">
+<html lang="zh-CN">
 
 <head>
     <meta charset="utf-8">
-    <title>高级仪表</title>
+    <title>d3 tutorial</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/normalize.css/normalize.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -24,8 +25,11 @@
     <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div id="component1"></div>
-    <div id="component2"></div>
+    <header class="header">
+        <div class="container-fluid">
+            <h1><img src="images/sp02.png" alt=""></h1>
+        </div>
+    </header>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -37,29 +41,6 @@
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
     <script type="text/javascript">
-	var format = d3.format('.1f');
-
-    var advGauge1 = myChart.advGauge('#component1', {});
-    var advGauge2 = myChart.advGauge('#component2', {
-    	width: 300,
-    	height: 300
-    });
-    
-
-    function update() {
-        advGauge1.update(format(Math.random() * 1200));
-        advGauge2.update(format(Math.random() * 1200));
-        setTimeout(function() {
-            update()
-        }, 2000);
-    }
-    update();
-    // 
-    // 
-    window.setTimeout(function(){
-    }, 1000);
-
-
     </script>
 </body>
 

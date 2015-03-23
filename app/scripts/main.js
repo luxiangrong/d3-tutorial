@@ -525,6 +525,9 @@ myChart.advGauge = function(selector, config) {
     config = myChart.extend(defaults, config);
     var advGauge = function() {};
 
+    var borderWidth = 2,
+        progressFactor = 0.15;
+
     var svg, 
         ticksContainer, //用于显示刻度的容器
         labelsContainer, //用于显示标签的容器
@@ -532,10 +535,12 @@ myChart.advGauge = function(selector, config) {
         pointContainer, //用于显示指针的容器
         progressContainer, //用于指示当前进度的容器
         radius, valueLabel,
-        progressWidth = radius * 0.125;
+        progressWidth = radius * progressFactor;
     var majorTickScale, 
         minorTickScale,
         labelScale, pointScale;
+
+
 
     radius = d3.min([config.width, config.height]) / 2;
     svg = d3
@@ -580,19 +585,25 @@ myChart.advGauge = function(selector, config) {
     var minorData = d3.range(0, (config.tick.major - 1) * config.tick.minor);
 
     var arcGenerator = d3.svg.arc()
-        .outerRadius(radius-2)
-        .innerRadius(radius * 0.875 );
+        .outerRadius(radius - 3)
+        .innerRadius(radius * (1- progressFactor) );
 
     var buildBg = function(){
         bgContainer.append('circle')
             .attr('class', 'c1')
             .attr('r', radius - 1);
-        bgContainer.append('circle')
-            .attr('class', 'c2')
-            .attr('r', radius - 2);
-        bgContainer.append('circle')
-            .attr('class', 'c3')
-            .attr('r', radius * 0.875);
+
+        bgContainer.append('image')
+            .attr('xlink:href', 'images/advgauge01.png')
+            .attr('width', (radius - borderWidth) * 2)
+            .attr('height', (radius - borderWidth) * 2)
+            .attr('transform', 'translate(-' + (radius - borderWidth) + ',-' + (radius - borderWidth) + ')');
+        // bgContainer.append('circle')
+        //     .attr('class', 'c2')
+        //     .attr('r', radius - 2);
+        // bgContainer.append('circle')
+        //     .attr('class', 'c3')
+        //     .attr('r', radius * 0.875);
     };
     buildBg();
 
@@ -610,10 +621,10 @@ myChart.advGauge = function(selector, config) {
             .append('line')
             .attr('class', 'tick-major')
             .attr('x1', function(d) {
-                return degreeToPoint(majorTickScale(d), radius * 0.125).x;
+                return degreeToPoint(majorTickScale(d), radius * progressFactor).x;
             })
             .attr('y1', function(d) {
-                return degreeToPoint(majorTickScale(d), radius * 0.125).y;
+                return degreeToPoint(majorTickScale(d), radius * progressFactor).y; 
             })
             .attr('x2', function(d) {
                 return degreeToPoint(majorTickScale(d), radius * 0.25).x;
@@ -629,10 +640,10 @@ myChart.advGauge = function(selector, config) {
             .append('line')
             .attr('class', 'tick-minor')
             .attr('x1', function(d) {
-                return degreeToPoint(minorTickScale(d), radius * 0.125).x;
+                return degreeToPoint(minorTickScale(d), radius * progressFactor).x;
             })
             .attr('y1', function(d) {
-                return degreeToPoint(minorTickScale(d), radius * 0.125).y;
+                return degreeToPoint(minorTickScale(d), radius * progressFactor).y; 
             })
             .attr('x2', function(d) {
                 if( d % 5 === 0) {

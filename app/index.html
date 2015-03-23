@@ -10,6 +10,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/normalize.css/normalize.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -30,12 +31,12 @@
     <div id="component2"></div>
     <div id="component3" class="progress-knoba-1"></div>
     <div id="component4" class="progress-knoba-2"></div>
+    <div id="component5"></div>
+    <div id="component6"></div>
     
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
     <script src="bower_components/d3/d3.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
@@ -45,16 +46,22 @@
     <!-- endbuild -->
 
     <script type="text/javascript">
+        var format = d3.format('.1f');
+
         var progressBar1 = myChart.progressBar('#component1', {width: 60, height: 490, max: 150, itemSize: 6});
         var progressBar2 = myChart.progressBar('#component2', {width: 490, height: 60, max: 150, itemSize: 6, direction: 'vertical'});
         var progressKnoba1 = myChart.progressKnob('#component3', {max: 1345});
         var progressKnoba2 = myChart.progressKnob('#component4', {max: 1345});
+        var simpleGauge1 = myChart.simpleGauge('#component5', {});
+        var advGauge1 = myChart.advGauge('#component6', {});
        
         function update() {
             progressBar1.update({progress: Math.floor(Math.random() * 150)});
             progressBar2.update({progress: Math.floor(Math.random() * 150)});
             progressKnoba1.update(Math.floor(Math.random() * 1345));
             progressKnoba2.update(Math.floor(Math.random() * 1345));
+            simpleGauge1.update(format(Math.random() * 7));
+            advGauge1.update(format(Math.random() * 1200));
             
             setTimeout(function(){update()}, 1500);
         }

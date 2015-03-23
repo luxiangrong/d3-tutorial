@@ -1,3 +1,6 @@
+// bower:scss
+// endbower
+
 @font-face {
     font-family: 'ds-digitalbold';
     src: url('fonts/DS-DIGIB-webfont.eot');
@@ -126,13 +129,6 @@
                 stroke-width: 2;
                 stroke: #d0d0d0;
             }
-            &.c2 {
-                stroke-width: 0;
-            }
-            &.c3 {
-                fill: #f8f8f8;
-                stroke-width: 0;
-            }
         }
     }
     .ticks {
@@ -194,10 +190,17 @@
             fill: #36b6db;
             stroke-width:1;
             stroke: #36b6db;
+            opacity: 0.75;
         }
     }
 }
 
 div {
     display: inline-block;
+}
+
+.header {
+    h1 {
+        text-align: center;
+    }
 }
