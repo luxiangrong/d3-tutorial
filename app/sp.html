@@ -5,12 +5,11 @@
     <meta charset="utf-8">
     <title>d3 tutorial</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="shortcut icon" href="/favicon.ico">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/normalize.css/normalize.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -27,13 +26,42 @@
     <![endif]-->
     <header class="header">
         <div class="container-fluid">
-            <h1><img src="images/sp02.png" alt=""></h1>
+            <span class="logo"><img src="images/logo01.png" srcset="images/logo01.png 1x, images/logo01@2x.png 2x"></span>
+            <h1><img src="images/sp02.png" alt="" srcset="images/sp02.png 1x, images/sp02@2x.png 2x" /></h1>
         </div>
     </header>
+    <section id="gauge">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-4 col-sys-status">
+                    <div class="sys-status">
+                        系统状态<strong class="status-a"><i>优</i></strong>
+                    </div>
+                </div>
+                <div class="col-xs-4 col-wendu">
+                    <h2 class="wendu"><span>室外温度</span><strong>37°C</strong></h2>
+                </div>
+                <div class="col-xs-4 col-warning">
+                    <span class="warning">报警信息</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="main-gauge">
+                        <div id="simple-gauge-1"></div>
+                        <div id="simple-gauge-2"></div>
+                        <div id="simple-gauge-3"></div>
+                        <div id="simple-gauge-4"></div>
+                        <div id="adv-gauge"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
     <script src="bower_components/d3/d3.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
@@ -41,6 +69,100 @@
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
     <script type="text/javascript">
+    (function($) {
+        $(document).ready(function() {
+            var winWidth = $(window).width();
+            var advGauge = myChart.advGauge('#adv-gauge', {
+                width: 210,
+                height: 210
+            });
+
+            var simpleGauge1 = myChart.simpleGauge('#simple-gauge-1', {
+                width: 120,
+                height: 120,
+                min: 0, //最小刻度
+                max: 7, //最大刻度
+                tick: {
+                    startDeg: 120, //刻度起始角度
+                    endDeg: 330, //刻度结束角度
+                    direction: 1, //刻度方向，1为顺时针，-1为逆时针
+                    major: 8, //主要刻度数量
+                    minor: 0, //主要刻度之间的次要刻度数量
+                },
+                unitLabel: { //计量单位标签
+                    title: 'W/W', // 标题
+                    pos: 'north' // 位置 north:上半部分， south:下半部分
+                }
+            });
+
+            var simpleGauge2 = myChart.simpleGauge('#simple-gauge-2', {
+                width: 120,
+                height: 120,
+                min: 0, //最小刻度
+                max: 35, //最大刻度
+                tick: {
+                    startDeg: 210, //刻度起始角度
+                    endDeg: 420, //刻度结束角度
+                    direction: 1, //刻度方向，1为顺时针，-1为逆时针
+                    major: 8, //主要刻度数量
+                    minor: 0, //主要刻度之间的次要刻度数量
+                },
+                unitLabel: { //计量单位标签
+                    title: '°C', // 标题
+                    pos: 'north' // 位置 north:上半部分， south:下半部分
+                }
+            });
+
+            var simpleGauge3 = myChart.simpleGauge('#simple-gauge-3', {
+                width: 120,
+                height: 120,
+                min: 0, //最小刻度
+                max: 14, //最大刻度
+                tick: {
+                    startDeg: 30, //刻度起始角度
+                    endDeg: 240, //刻度结束角度
+                    direction: 1, //刻度方向，1为顺时针，-1为逆时针
+                    major: 8, //主要刻度数量
+                    minor: 0, //主要刻度之间的次要刻度数量
+                },
+                unitLabel: { //计量单位标签
+                    title: '°C', // 标题
+                    pos: 'south' // 位置 north:上半部分， south:下半部分
+                }
+            });
+            var simpleGauge4 = myChart.simpleGauge('#simple-gauge-4', {
+                width: 120,
+                height: 120,
+                min: 0, //最小刻度
+                max: 35, //最大刻度
+                tick: {
+                    startDeg: -60, //刻度起始角度
+                    endDeg: 150, //刻度结束角度
+                    direction: 1, //刻度方向，1为顺时针，-1为逆时针
+                    major: 8, //主要刻度数量
+                    minor: 0, //主要刻度之间的次要刻度数量
+                },
+                unitLabel: { //计量单位标签
+                    title: '%', // 标题
+                    pos: 'south' // 位置 north:上半部分， south:下半部分
+                }
+            });
+
+            var format = d3.format('.1f');
+
+            function update() {
+                advGauge.update(format(Math.random() * 1200));
+                simpleGauge1.update(format(Math.random() * 7));
+                simpleGauge2.update(format(Math.random() * 35));
+                simpleGauge3.update(format(Math.random() * 14));
+                simpleGauge4.update(format(Math.random() * 35));
+                setTimeout(function() {
+                    update()
+                }, 3000);
+            }
+            update();
+        });
+    })(jQuery);
     </script>
 </body>
 

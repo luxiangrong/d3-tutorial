@@ -1,6 +1,13 @@
-// bower:scss
-// endbower
+$font-family-sans-serif: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Hiragino Sans GB W3", SimHei, sans-serif !default;
+$font-family-serif: Georgia, "Times New Roman", Times, serif !default;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+$font-family-monospace: Menlo, Monaco, Consolas, "Courier New", monospace !default;
 
+$grid-gutter-width:         10px !default;
+
+// bower:scss
+@import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+// endbower
 @font-face {
     font-family: 'ds-digitalbold';
     src: url('fonts/DS-DIGIB-webfont.eot');
@@ -9,31 +16,177 @@
     font-style: normal;
 }
 
-.progress-bar {
-    background: #272727;
-    rect {
-        &.bg {
-            fill: #464847;
+
+/**
+ * 手机页面样式
+ */
+.header {
+    background: url(../images/sp01.png) repeat-x left center;
+    background-size: 100% 41px;
+    height: 41px;
+    position: relative;
+    .logo {
+        position: absolute;
+        left: 10px;
+        top: 6px;
+    }
+    h1 {
+        font-family: '黑体';
+        font-size: 18px;
+        line-height: 40px;
+        margin: 0;
+        padding-left: 30%;
+    }
+}
+
+#gauge {
+    margin-top: 7px;
+    .container-fluid {
+    }
+    @media (max-width: 360px) {
+        .col-sys-status {
+            width: 40% !important;
+            padding-right: 0;
+        }
+        .col-wendu {
+            width: 30% !important;
+            padding-left: 0;
+        }
+        .col-warning {
+            width: 30% !important;
         }
     }
-    rect {
-        &.progress {
-            fill: #464847;
+
+    .sys-status {
+        background-color: #dddedf;
+        line-height: 36px;
+        border-radius: 0 18px 18px 0;
+        color: #414141;
+        padding-left: 0.5em;
+        margin-left: -5px;
+        max-width: 105px;
+        font-size: 15px;
+        strong {
+            display: block;
+            float: right;
+            border: 1px solid #32dca9;
+            border-radius: 14px;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            padding: 2px;
+            margin-right: 4px;
+            margin-top: 4px; 
+            font-weight: normal;
+            i {
+                font-style: normal;
+                display: block;
+                border-radius: 14px;
+                line-height: 22px;
+            }
+            &.status-a {
+                border-color: #32dca9;
+                i {
+                    background-color: #32dca9;
+                }
+            }
+            &.status-b {
+                border-color: #FF3a3a;
+                i {
+                    background-color: #FF3a3a;
+                }
+            }
+        }
+    }
+    .wendu {
+        color: #303439;
+        margin: 0px;
+        font-size: 16px;
+        text-align: center;
+        span {
+            display: inline-block;
+            border-bottom: 1px solid #303439;
+        }
+        strong {
+            font-size: 26px;
+            display: block;
+        }
+    }
+    .warning {
+        font-size: 15px;
+        display: inline-block;
+        color: #ff0000;
+        line-height: 22px;
+        border: 1px solid #ff0000;
+        border-radius: 11px;
+        padding: 0 10px;
+    }
+    .main-gauge {
+        background: url(../images/gaugebg.png) no-repeat center center;
+        width: 250px;
+        height: 250px;
+        background-size: 100% 100%;
+        padding-top: 20px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+        margin-top: 50px;
+        #adv-gauge {
+            margin: 0 auto;
+            display: inline-block;
+        }
+        #simple-gauge-1 {
+            position: absolute;
+            top: -36px;
+            left: -39px;
+        }
+        #simple-gauge-2 {
+            position: absolute;
+            top: -36px;
+            right: -39px;
+        }
+        #simple-gauge-3 {
+            position: absolute;
+            bottom: -39px;
+            left: -39px;
+        }
+        #simple-gauge-4 {
+            position: absolute;
+            bottom: -39px;
+            right: -39px; 
         }
     }
 }
 
-.progress-knob {
-    .slices {
-        path {
-            &.slice {
-                fill: #272727;
-                stroke-width: 1;
-                stroke: #4a4b4b;
+
+//svg图表相关样式
+svg {
+    &.progress-bar-svg {
+        background: #272727;
+        rect {
+            &.bg {
+                fill: #464847;
             }
-            &.progressSlice {
-                stroke-width: 1;
-                opacity: 0.6;
+        }
+        rect {
+            &.progress {
+                fill: #464847;
+            }
+        }
+    }
+    &.progress-knob {
+        .slices {
+            path {
+                &.slice {
+                    fill: #272727;
+                    stroke-width: 1;
+                    stroke: #4a4b4b;
+                }
+                &.progressSlice {
+                    stroke-width: 1;
+                    opacity: 0.6;
+                }
             }
         }
     }
@@ -180,7 +333,7 @@
         path {
             &.needle {
                 fill: #313137;
-                stroke-width:1;
+                stroke-width: 1;
                 stroke: transparent;
             }
         }
@@ -188,19 +341,11 @@
     .progress {
         path {
             fill: #36b6db;
-            stroke-width:1;
+            stroke-width: 1;
             stroke: #36b6db;
             opacity: 0.75;
         }
     }
 }
 
-div {
-    display: inline-block;
-}
 
-.header {
-    h1 {
-        text-align: center;
-    }
-}

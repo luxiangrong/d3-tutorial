@@ -139,7 +139,7 @@ myChart.progressBar = function(selector, config) {
     //生成背景矩形块
     svg = d3.select(selector)
         .append('svg')
-        .attr('class', 'progress-bar')
+        .attr('class', 'progress-bar-svg')
         .attr('width', width)
         .attr('height', height)
         .append('g')
@@ -414,7 +414,8 @@ myChart.simpleGauge = function(selector, config) {
             .attr('class', 'label-unit')
             .attr('text-anchor', 'middle')
             .attr('x', 0)
-            .text(config.unitLabel.title);
+            .text(config.unitLabel.title)
+            .style('font-size', radius / 100 * 16);
 
         var valueLabelWidth = radius - 30,
             valueLabelHeight = valueLabelWidth / 2;
@@ -437,7 +438,8 @@ myChart.simpleGauge = function(selector, config) {
             .attr('x', valueLabelWidth)
             .attr('y', valueLabelHeight / 2)
             .attr('dy', '0.32em')
-            .text('0.00');
+            .text('0.00')
+            .style('font-size', radius / 100 * 18);
 
         if(config.unitLabel.pos === 'north') {
             unitLabel.attr('y', '-5');
@@ -459,17 +461,17 @@ myChart.simpleGauge = function(selector, config) {
 
         point.append('circle')
             .attr('class', 'c1')
-            .attr('r', 5);
+            .attr('r', radius / 100 *5);
 
         point.append('circle')
             .attr('class', 'c2')
-            .attr('r', 2)
+            .attr('r', radius / 100 *2)
             .attr('cx', -1)
             .attr('cy', -1);
 
         point.append('circle')
             .attr('class', 'c3')
-            .attr('r', 1)
+            .attr('r', radius / 100 *1)
             .attr('cx', -1)
             .attr('cy', -1);
     };
@@ -493,7 +495,7 @@ myChart.simpleGauge = function(selector, config) {
                 var interpolate = d3.interpolate(this._current , pointScale(value));
                 this._current = interpolate(1);
                 return function(t) {
-                    return 'translate(' + (radius + radius / 2 * Math.cos(interpolate(t) / 180 * Math.PI) ) + ',' + (radius + radius / 2 * Math.sin(interpolate(t) / 180 * Math.PI) ) + ')';
+                    return 'translate(' + (radius + radius / 2.5 * Math.cos(interpolate(t) / 180 * Math.PI) ) + ',' + (radius + radius / 2.5 * Math.sin(interpolate(t) / 180 * Math.PI) ) + ')';
                 };
             });
 
