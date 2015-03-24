@@ -42,18 +42,67 @@
                     <h2 class="wendu"><span>室外温度</span><strong>37°C</strong></h2>
                 </div>
                 <div class="col-xs-4 col-warning">
-                    <span class="warning">报警信息</span>
+                    <span class="warning pull-right">报警信息</span>
                 </div>
             </div>
-            <div class="row">
+            <div class="row row-main-gauge">
                 <div class="col-xs-12">
                     <div class="main-gauge">
-                        <div id="simple-gauge-1"></div>
-                        <div id="simple-gauge-2"></div>
-                        <div id="simple-gauge-3"></div>
-                        <div id="simple-gauge-4"></div>
-                        <div id="adv-gauge"></div>
+                        <div id="simple-gauge-1" class="gauge">
+                            <div class="title">系统COP</div>
+                        </div>
+                        <div id="simple-gauge-2" class="gauge">
+                            <div class="title">室内温度</div>
+                        </div>
+                        <div id="simple-gauge-3" class="gauge">
+                            <div class="title">冷水温度</div>
+                        </div>
+                        <div id="simple-gauge-4" class="gauge">
+                            <div class="title">节能率</div>
+                        </div>
+                        <div id="adv-gauge" class="gauge"></div>
                     </div>
+                </div>
+            </div>
+            <div class="row summary">
+                <div class="col-xs-4">
+                    <strong>35.6%</strong>
+                    <span>节能率</span>
+                </div>
+                <div class="col-xs-4 col-center">
+                    <strong>1878kwh</strong>
+                    <span>节能量</span>
+                </div>
+                <div class="col-xs-4">
+                    <strong>2546元</strong>
+                    <span>节约费用</span>
+                </div>
+            </div>
+            <div class="row chart-progress">
+                <div class="col-xs-4 label">日能耗定额</div>
+                <div class="col-xs-8 data">
+                    <div id="progress-bar-day"></div>
+                    <div class="col-xs-4 used">已用 121.3</div>
+                    <div class="col-xs-4 plan">计划 151.5</div>
+                    <div class="col-xs-4 deviation">偏离 35%</div>
+                </div>
+            </div>
+            <div class="row chart-progress">
+                <div class="col-xs-4 label">月能耗定额</div>
+                <div class="col-xs-8 data">
+                    <div id="progress-bar-month"></div>
+                    <div class="col-xs-4 used">已用 121.3</div>
+                    <div class="col-xs-4 plan">计划 151.5</div>
+                    <div class="col-xs-4 deviation">偏离 35%</div>
+                </div>
+            </div>
+            <div class="row chart-progress">
+                <div class="col-xs-4 label">年能耗定额</div>
+                <div class="col-xs-8 data">
+                    <div id="progress-bar-year"></div>
+                    <div class="col-xs-4 used">已用 121.3</div>
+                    <div class="col-xs-4 plan">计划 151.5</div>
+                    <div class="col-xs-4 deviation">偏离 35%</div>
                 </div>
             </div>
         </div>
@@ -78,8 +127,8 @@
             });
 
             var simpleGauge1 = myChart.simpleGauge('#simple-gauge-1', {
-                width: 120,
-                height: 120,
+                width: 110,
+                height: 110,
                 min: 0, //最小刻度
                 max: 7, //最大刻度
                 tick: {
@@ -96,8 +145,8 @@
             });
 
             var simpleGauge2 = myChart.simpleGauge('#simple-gauge-2', {
-                width: 120,
-                height: 120,
+                width: 110,
+                height: 110,
                 min: 0, //最小刻度
                 max: 35, //最大刻度
                 tick: {
@@ -114,8 +163,8 @@
             });
 
             var simpleGauge3 = myChart.simpleGauge('#simple-gauge-3', {
-                width: 120,
-                height: 120,
+                width: 110,
+                height: 110,
                 min: 0, //最小刻度
                 max: 14, //最大刻度
                 tick: {
@@ -131,8 +180,8 @@
                 }
             });
             var simpleGauge4 = myChart.simpleGauge('#simple-gauge-4', {
-                width: 120,
-                height: 120,
+                width: 110,
+                height: 110,
                 min: 0, //最小刻度
                 max: 35, //最大刻度
                 tick: {
@@ -148,6 +197,12 @@
                 }
             });
 
+            var progressBarDay = myChart.progressBar('#progress-bar-day', {width: $('#progress-bar-day').width(), height: 20, max: 151.5, itemSize: 3, direction: 'vertical', padding: {top:2,left:3, right:3, bottom: 2}})
+
+            var progressBarMonth = myChart.progressBar('#progress-bar-month', {width: $('#progress-bar-month').width(), height: 20, max: 151.5, itemSize: 3, direction: 'vertical', padding: {top:2,left:3, right:3, bottom: 2}})
+
+            var progressBarYear = myChart.progressBar('#progress-bar-year', {width: $('#progress-bar-year').width(), height: 20, max: 151.5, itemSize: 3, direction: 'vertical', padding: {top:2,left:3, right:3, bottom: 2}})
+
             var format = d3.format('.1f');
 
             function update() {
@@ -156,6 +211,9 @@
                 simpleGauge2.update(format(Math.random() * 35));
                 simpleGauge3.update(format(Math.random() * 14));
                 simpleGauge4.update(format(Math.random() * 35));
+                progressBarDay.update({progress: Math.random() * 151.5});
+                progressBarMonth.update({progress: Math.random() * 151.5});
+                progressBarYear.update({progress: Math.random() * 151.5});
                 setTimeout(function() {
                     update()
                 }, 3000);

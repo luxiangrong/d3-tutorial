@@ -370,7 +370,7 @@ myChart.simpleGauge = function(selector, config) {
 
     var buildTicks = function() {
         ticksContainer.append('circle')
-            .attr('r', radius - 30);
+            .attr('r', radius - radius / 50 * 25);
 
         ticksContainer.selectAll('line.tick-major')
             .data(majorData)
@@ -378,16 +378,16 @@ myChart.simpleGauge = function(selector, config) {
             .append('line')
             .attr('class', 'tick-major')
             .attr('x1', function(d) {
-                return degreeToPoint(tickScale(d), 22).x;
+                return degreeToPoint(tickScale(d), radius / 50 * 20).x;
             })
             .attr('y1', function(d) {
-                return degreeToPoint(tickScale(d), 22).y;
+                return degreeToPoint(tickScale(d), radius / 50 * 20).y;
             })
             .attr('x2', function(d) {
-                return degreeToPoint(tickScale(d), 30).x;
+                return degreeToPoint(tickScale(d), radius / 50 * 25).x;
             })
             .attr('y2', function(d) {
-                return degreeToPoint(tickScale(d), 30).y;
+                return degreeToPoint(tickScale(d), radius / 50 * 25).y;
             });
 
         ticksContainer.selectAll('text.lable-tick-major')
@@ -396,13 +396,14 @@ myChart.simpleGauge = function(selector, config) {
             .append('text')
             .attr('class', 'label-tick-major')
             .attr('x', function(d) {
-                return degreeToPoint(tickScale(d), 10).x;
+                return degreeToPoint(tickScale(d), radius / 50 * 10).x;
             })
             .attr('y', function(d) {
-                return degreeToPoint(tickScale(d), 10).y;
+                return degreeToPoint(tickScale(d), radius / 50 * 10).y;
             })
             .attr('dy', '0.5em')
             .attr('text-anchor', 'middle')
+            .style('font-size', radius / 50 * 12)
             .text(function(d) {
                 return labelScale(d);
             });
@@ -439,7 +440,7 @@ myChart.simpleGauge = function(selector, config) {
             .attr('y', valueLabelHeight / 2)
             .attr('dy', '0.32em')
             .text('0.00')
-            .style('font-size', radius / 100 * 18);
+            .style('font-size', radius / 100 * 24);
 
         if(config.unitLabel.pos === 'north') {
             unitLabel.attr('y', '-5');

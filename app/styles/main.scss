@@ -5,6 +5,8 @@ $font-family-monospace: Menlo, Monaco, Consolas, "Courier New", monospace !defau
 
 $grid-gutter-width:         10px !default;
 
+$font-size-base:          15px !default;
+
 // bower:scss
 @import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
@@ -104,6 +106,7 @@ $grid-gutter-width:         10px !default;
         margin: 0px;
         font-size: 16px;
         text-align: center;
+        line-height: 1.5;
         span {
             display: inline-block;
             border-bottom: 1px solid #303439;
@@ -122,6 +125,9 @@ $grid-gutter-width:         10px !default;
         border-radius: 11px;
         padding: 0 10px;
     }
+    .row-main-gauge {
+        overflow-x:visable;
+    }
     .main-gauge {
         background: url(../images/gaugebg.png) no-repeat center center;
         width: 250px;
@@ -132,29 +138,94 @@ $grid-gutter-width:         10px !default;
         text-align: center;
         position: relative;
         margin-top: 50px;
-        #adv-gauge {
-            margin: 0 auto;
-            display: inline-block;
+        margin-bottom: 60px;
+        .gauge {
+            position: relative;
+            .title {
+                border: 1px solid #1d1d1d;
+                border-radius: 3px;
+                position: absolute;
+                width: 72px;
+                text-align: center;
+                line-height: 20px;
+                left: 50%;
+                margin-left: -36px;
+            }
+            &#adv-gauge {
+                margin: 0 auto;
+                display: inline-block;
+
+            }
+            &#simple-gauge-1 {
+                position: absolute;
+                top: -28px;
+                left: -30px;
+                .title {
+                    top: -25px;
+                }
+            }
+            &#simple-gauge-2 {
+                position: absolute;
+                top: -28px;
+                right: -30px;
+                .title {
+                    top: -25px;
+                }
+            }
+            &#simple-gauge-3 {
+                position: absolute;
+                bottom: -32px;
+                left: -31px;
+                .title {
+                    bottom: -25px;
+                }
+            }
+            &#simple-gauge-4 {
+                position: absolute;
+                bottom: -32px;
+                right: -31px; 
+                .title {
+                    bottom: -25px;
+                }
+            }
         }
-        #simple-gauge-1 {
-            position: absolute;
-            top: -36px;
-            left: -39px;
+    }
+    .summary {
+        .col-xs-4 {
+            padding: 5px 0;
+            background-color: #d1d3d5;
+            text-align: center;
+            strong {
+                font-size: 24px;
+                color: #2b9bce;
+                display: block;
+            }
+            &.col-center {
+                border-left: 1px solid #ffffff;
+                border-right: 1px solid #ffffff;
+            }
         }
-        #simple-gauge-2 {
-            position: absolute;
-            top: -36px;
-            right: -39px;
+    }
+    .chart-progress {
+        padding: 5px 0;
+        .label {
+            font-size: 17px;
+            color: #535353;
+            text-align: right;
+            font-weight: normal;
         }
-        #simple-gauge-3 {
-            position: absolute;
-            bottom: -39px;
-            left: -39px;
-        }
-        #simple-gauge-4 {
-            position: absolute;
-            bottom: -39px;
-            right: -39px; 
+        .data {
+            .col-xs-4 {
+                font-size: 12px;
+                padding: 0;
+                color: #71747a;
+                &.used {
+                    color: #258cc7;
+                }
+                &.plan {
+                    color: #23ae84;
+                }
+            }
         }
     }
 }
