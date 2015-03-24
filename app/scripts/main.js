@@ -349,7 +349,7 @@ myChart.simpleGauge = function(selector, config) {
         .attr('class', 'ticks')
         .attr('transform', 'translate(' + radius + ',' + radius + ')');
 
-    labelsContainer  = svg.append('g')
+    labelsContainer = svg.append('g')
         .attr('class', 'labels')
         .attr('transform', 'translate(' + radius + ',' + radius + ')');
 
@@ -410,7 +410,7 @@ myChart.simpleGauge = function(selector, config) {
     };
     buildTicks();
 
-    var buildLabels = function(){
+    var buildLabels = function() {
         var unitLabel = labelsContainer.append('text')
             .attr('class', 'label-unit')
             .attr('text-anchor', 'middle')
@@ -431,8 +431,7 @@ myChart.simpleGauge = function(selector, config) {
             .attr('x', 0)
             .attr('y', 0)
             .attr('width', valueLabelWidth)
-            .attr('height', valueLabelHeight)
-            ;
+            .attr('height', valueLabelHeight);
 
         valueLabel = valueLabelContainer.append('text')
             .attr('text-anchor', 'end')
@@ -442,7 +441,7 @@ myChart.simpleGauge = function(selector, config) {
             .text('0.00')
             .style('font-size', radius / 100 * 24);
 
-        if(config.unitLabel.pos === 'north') {
+        if (config.unitLabel.pos === 'north') {
             unitLabel.attr('y', '-5');
             valueLabelContainer.attr('transform', 'translate(' + valueLabelWidth / -2 + ', 0)');
         } else {
@@ -462,17 +461,17 @@ myChart.simpleGauge = function(selector, config) {
 
         point.append('circle')
             .attr('class', 'c1')
-            .attr('r', radius / 100 *5);
+            .attr('r', radius / 100 * 5);
 
         point.append('circle')
             .attr('class', 'c2')
-            .attr('r', radius / 100 *2)
+            .attr('r', radius / 100 * 2)
             .attr('cx', -1)
             .attr('cy', -1);
 
         point.append('circle')
             .attr('class', 'c3')
-            .attr('r', radius / 100 *1)
+            .attr('r', radius / 100 * 1)
             .attr('cx', -1)
             .attr('cy', -1);
     };
@@ -493,10 +492,10 @@ myChart.simpleGauge = function(selector, config) {
             .duration(800)
             .attrTween('transform', function() {
                 this._current = this._current || pointScale(value);
-                var interpolate = d3.interpolate(this._current , pointScale(value));
+                var interpolate = d3.interpolate(this._current, pointScale(value));
                 this._current = interpolate(1);
                 return function(t) {
-                    return 'translate(' + (radius + radius / 2.5 * Math.cos(interpolate(t) / 180 * Math.PI) ) + ',' + (radius + radius / 2.5 * Math.sin(interpolate(t) / 180 * Math.PI) ) + ')';
+                    return 'translate(' + (radius + radius / 2.5 * Math.cos(interpolate(t) / 180 * Math.PI)) + ',' + (radius + radius / 2.5 * Math.sin(interpolate(t) / 180 * Math.PI)) + ')';
                 };
             });
 
@@ -531,15 +530,14 @@ myChart.advGauge = function(selector, config) {
     var borderWidth = 2,
         progressFactor = 0.15;
 
-    var svg, 
+    var svg,
         ticksContainer, //用于显示刻度的容器
         labelsContainer, //用于显示标签的容器
         bgContainer, //用于显示表盘背景的容器
         pointContainer, //用于显示指针的容器
         progressContainer, //用于指示当前进度的容器
-        radius, valueLabel,
-        progressWidth = radius * progressFactor;
-    var majorTickScale, 
+        radius, valueLabel;
+    var majorTickScale,
         minorTickScale,
         labelScale, pointScale;
 
@@ -564,7 +562,7 @@ myChart.advGauge = function(selector, config) {
     ticksContainer = svg.append('g')
         .attr('class', 'ticks');
 
-    labelsContainer  = svg.append('g')
+    labelsContainer = svg.append('g')
         .attr('class', 'labels');
 
     //主要刻度缩放函数
@@ -589,9 +587,9 @@ myChart.advGauge = function(selector, config) {
 
     var arcGenerator = d3.svg.arc()
         .outerRadius(radius - 3)
-        .innerRadius(radius * (1- progressFactor) );
+        .innerRadius(radius * (1 - progressFactor));
 
-    var buildBg = function(){
+    var buildBg = function() {
         bgContainer.append('circle')
             .attr('class', 'c1')
             .attr('r', radius - 1);
@@ -613,8 +611,11 @@ myChart.advGauge = function(selector, config) {
     var progress;
     var buildProgress = function() {
         progress = progressContainer.append('path')
-            .attr('d', arcGenerator({startAngle:(config.tick.startDeg + 90) / 180 * Math.PI, endAngle:(config.tick.endDeg + 90) / 180 * Math.PI}));
-    }
+            .attr('d', arcGenerator({
+                startAngle: (config.tick.startDeg + 90) / 180 * Math.PI,
+                endAngle: (config.tick.endDeg + 90) / 180 * Math.PI
+            }));
+    };
     buildProgress();
 
     var buildTicks = function() {
@@ -627,7 +628,7 @@ myChart.advGauge = function(selector, config) {
                 return degreeToPoint(majorTickScale(d), radius * progressFactor).x;
             })
             .attr('y1', function(d) {
-                return degreeToPoint(majorTickScale(d), radius * progressFactor).y; 
+                return degreeToPoint(majorTickScale(d), radius * progressFactor).y;
             })
             .attr('x2', function(d) {
                 return degreeToPoint(majorTickScale(d), radius * 0.25).x;
@@ -646,17 +647,17 @@ myChart.advGauge = function(selector, config) {
                 return degreeToPoint(minorTickScale(d), radius * progressFactor).x;
             })
             .attr('y1', function(d) {
-                return degreeToPoint(minorTickScale(d), radius * progressFactor).y; 
+                return degreeToPoint(minorTickScale(d), radius * progressFactor).y;
             })
             .attr('x2', function(d) {
-                if( d % 5 === 0) {
+                if (d % 5 === 0) {
                     return degreeToPoint(minorTickScale(d), radius * 0.22).x;
                 } else {
                     return degreeToPoint(minorTickScale(d), radius * 0.2).x;
                 }
             })
             .attr('y2', function(d) {
-                if( d % 5 === 0) {
+                if (d % 5 === 0) {
                     return degreeToPoint(minorTickScale(d), radius * 0.22).y;
                 } else {
                     return degreeToPoint(minorTickScale(d), radius * 0.2).y;
@@ -678,7 +679,7 @@ myChart.advGauge = function(selector, config) {
             .attr('text-anchor', 'end')
             .style('font-size', radius * 3 / 25)
             .text(function(d) {
-                if(d % 2 === 0) {
+                if (d % 2 === 0) {
                     return labelScale(d);
                 } else {
                     return '';
@@ -687,23 +688,7 @@ myChart.advGauge = function(selector, config) {
     };
     buildTicks();
 
-    var buildLabels = function(){
-        var unitLabel = labelsContainer.append('text')
-            .attr('class', 'label-unit')
-            .attr('text-anchor', 'middle')
-            .attr('x', radius * -0.7)
-            .attr('y', radius * 0.3)
-            .style('font-size', radius * 3 / 25)
-            .text(config.unitLabel.title);
-
-        var titleLable = labelsContainer.append('text')
-            .attr('class', 'label-title')
-            .attr('text-anchor', 'middle')
-            .attr('x', 0)
-            .attr('y', radius * 0.3)
-            .style('font-size', radius * 3 / 25)
-            .text(config.title);
-
+    var buildLabels = function() {
         var valueLabelWidth = radius * 0.5,
             valueLabelHeight = valueLabelWidth / 3;
 
@@ -717,8 +702,7 @@ myChart.advGauge = function(selector, config) {
             .attr('x', 0)
             .attr('y', 0)
             .attr('width', valueLabelWidth)
-            .attr('height', valueLabelHeight)
-            ;
+            .attr('height', valueLabelHeight);
 
         valueLabel = valueLabelContainer.append('text')
             .attr('text-anchor', 'end')
@@ -728,31 +712,35 @@ myChart.advGauge = function(selector, config) {
             .text('0.00')
             .style('font-size', valueLabelHeight);
 
-        valueLabelContainer.attr('transform', 'translate(' + valueLabelWidth / -2 + ', '+ radius * 0.4 +')');
-        
+        valueLabelContainer.attr('transform', 'translate(' + valueLabelWidth / -2 + ', ' + radius * 0.4 + ')');
+
     };
     buildLabels();
 
-    var pointContainer, point;
+    var point;
     var buildPoint = function() {
         pointContainer = svg.append('g')
             .attr('class', 'point')
             .attr('x', 0)
             .attr('y', 0);
 
-        
-
         var r = radius * 0.03;
         var s = radius * 0.7;
         var x1 = r * 2 / s;
         var y1 = Math.sqrt(r * r - x1 * x1);
 
-        var p1 = {x: s, y: 0};
-        var p2 = {x: x1, y: y1};
-        var p3 = {x: x1, y: -y1};
-        // pointContainer.append('polygon')
-        //     .attr('class', 'needle')
-        //     .attr('points', p1.x + ',' + p1.y + ' ' + p2.x + ',' + p2.y + ' ' + p3.x + ',' + p3.y);
+        var p1 = {
+            x: s,
+            y: 0
+        };
+        var p2 = {
+            x: x1,
+            y: y1
+        };
+        var p3 = {
+            x: x1,
+            y: -y1
+        };
 
         point = pointContainer.append('path')
             .attr('class', 'needle')
@@ -767,8 +755,8 @@ myChart.advGauge = function(selector, config) {
             .attr('xlink:href', 'images/pointer.png')
             .attr('width', radius * 0.12)
             .attr('height', radius * 0.12)
-            .attr('x', - radius * 0.12 / 2)
-            .attr('y', - radius * 0.12 / 2);
+            .attr('x', -radius * 0.12 / 2)
+            .attr('y', -radius * 0.12 / 2);
     };
     buildPoint();
 
@@ -787,7 +775,7 @@ myChart.advGauge = function(selector, config) {
             .duration(800)
             .attrTween('transform', function() {
                 this._current = this._current || pointScale(value);
-                var interpolate = d3.interpolate(this._current , pointScale(value));
+                var interpolate = d3.interpolate(this._current, pointScale(value));
                 this._current = interpolate(1);
                 return function(t) {
                     return 'rotate(' + interpolate(t) + ')';
@@ -798,13 +786,182 @@ myChart.advGauge = function(selector, config) {
             .duration(800)
             .attrTween('d', function() {
                 this._current = this._current || pointScale(value);
-                var interpolate = d3.interpolate(this._current , pointScale(value));
+                var interpolate = d3.interpolate(this._current, pointScale(value));
                 this._current = interpolate(1);
                 return function(t) {
-                    return arcGenerator({startAngle:(config.tick.startDeg  + 90) / 180 * Math.PI, endAngle: (interpolate(t) + 90) / 180 * Math.PI});
+                    return arcGenerator({
+                        startAngle: (config.tick.startDeg + 90) / 180 * Math.PI,
+                        endAngle: (interpolate(t) + 90) / 180 * Math.PI
+                    });
                 };
             });
 
     };
     return advGauge;
+};
+
+// 像棒棒糖一样的饼图
+myChart.lollipopPie = function(selector, config) {
+    var defaults = {
+        dialWidth: 232, //内部刻度表盘的宽度
+        dialHeight: 232,
+        pieThickness: 18,
+        pieCount: 5,
+        dataColors: {
+            '故障': '#fb9c5c',
+            '停机': '#676a6a',
+            '运行': '#00a8ff'
+        }
+    };
+
+    config = myChart.extend(defaults, config);
+
+    var lollipopPie = function() {};
+
+    var svg,
+        width = config.dialWidth + config.pieThickness * config.pieCount * 2,
+        height = config.dialWidth + config.pieThickness * config.pieCount * 2,
+        radius = d3.min([width, height]) / 2,
+        dialContainer,
+        dialRadius = d3.min([config.dialWidth, config.dialHeight]),
+        piesContainer;
+
+    svg = d3.select(selector)
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .append('g');
+
+    var pie = d3.layout.pie().sort(null).value(function(d) {
+        return d.value;
+    });;
+    var arcGenerator = d3.svg.arc()
+        .outerRadius(radius)
+        .innerRadius(radius - config.pieThickness);
+
+    function buildDial() {
+        dialContainer = svg.append('g')
+            .attr('class', 'dial');
+
+        dialContainer.append('circle')
+            .attr('class', 'bg')
+            .attr('cx', radius)
+            .attr('cy', radius)
+            .attr('r', radius);
+        dialContainer.append('image')
+            .attr('xlink:href', 'images/pie01.png')
+            .attr('x', config.pieThickness * config.pieCount + 1)
+            .attr('y', config.pieThickness * config.pieCount + 3)
+            .attr('width', config.dialWidth)
+            .attr('height', config.dialHeight);
+    };
+    buildDial();
+
+    function buildPies(data) {
+        piesContainer = svg.append('g')
+            .attr('class', 'pies')
+            .attr('transform', 'translate(' + radius + ',' + radius + ')');
+
+        var pies = piesContainer.selectAll('g.pieContainer')
+            .data(data, function(d) {
+                return d.label
+            })
+            .enter()
+            .append('g')
+            .attr('class', 'pieContainer');
+
+        pies.each(function(d1, i) {
+            d3.select(this)
+                .selectAll('path.pie')
+                .data(pie(d1.data))
+                .enter()
+                .append('path')
+                .attr('class', 'pie')
+                .attr('d', function(d3) {
+                    arcGenerator.outerRadius(radius - i * config.pieThickness);
+                    arcGenerator.innerRadius(radius - (i + 1) * config.pieThickness);
+                    return arcGenerator(d3);
+
+                })
+                .style('fill', function(d4) {
+                    return config.dataColors[d4.data.label];
+                });
+        });
+    }
+
+    lollipopPie.update = function() {
+        buildPies([{
+            label: '#1',
+            data: [{
+                label: '运行',
+                value: 1260
+            }, {
+                label: '故障',
+                value: 600
+            }, {
+                label: '停机',
+                value: 800
+            }]
+        }, {
+            label: '#2',
+            data: [{
+                label: '运行',
+                value: 1260
+            }, {
+                label: '故障',
+                value: 600
+            }, {
+                label: '停机',
+                value: 800
+            }]
+        }, {
+            label: '#3',
+            data: [{
+                label: '运行',
+                value: 1
+            }, {
+                label: '故障',
+                value: 1
+            }, {
+                label: '停机',
+                value: 1
+            }, {
+                label: '运行',
+                value: 1
+            }, {
+                label: '故障',
+                value: 1
+            }, {
+                label: '停机',
+                value: 1
+            }]
+        }, {
+            label: '#4',
+            data: [{
+                label: '运行',
+                value: 1260
+            }, {
+                label: '故障',
+                value: 600
+            }, {
+                label: '停机',
+                value: 800
+            }]
+        }, {
+            label: '#5',
+            data: [{
+                label: '运行',
+                value: 1260
+            }, {
+                label: '故障',
+                value: 600
+            }, {
+                label: '停机',
+                value: 800
+            }]
+        }, ]);
+    };
+
+    return lollipopPie;
+
 };
