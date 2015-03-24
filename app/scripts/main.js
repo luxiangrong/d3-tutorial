@@ -828,6 +828,7 @@ myChart.lollipopPie = function(selector, config) {
 
     svg = d3.select(selector)
         .append('svg')
+        .attr('class', 'lollipop-pie')
         .attr('width', width)
         .attr('height', height)
         .append('g');
@@ -894,25 +895,25 @@ myChart.lollipopPie = function(selector, config) {
             label: '#1',
             data: [{
                 label: '运行',
-                value: 1260
+                value: 3
             }, {
                 label: '故障',
-                value: 600
+                value: 2
             }, {
                 label: '停机',
-                value: 800
+                value: 1
             }]
         }, {
             label: '#2',
             data: [{
                 label: '运行',
-                value: 1260
+                value: 3
             }, {
                 label: '故障',
-                value: 600
+                value: 4
             }, {
                 label: '停机',
-                value: 800
+                value: 5
             }]
         }, {
             label: '#3',
@@ -939,25 +940,25 @@ myChart.lollipopPie = function(selector, config) {
             label: '#4',
             data: [{
                 label: '运行',
-                value: 1260
+                value: 1
             }, {
                 label: '故障',
-                value: 600
+                value: 5
             }, {
                 label: '停机',
-                value: 800
+                value: 3
             }]
         }, {
             label: '#5',
             data: [{
                 label: '运行',
-                value: 1260
+                value: 2
             }, {
                 label: '故障',
-                value: 600
+                value: 2
             }, {
                 label: '停机',
-                value: 800
+                value: 3
             }]
         }, ]);
     };
