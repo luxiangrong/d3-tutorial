@@ -446,7 +446,7 @@ myChart.simpleGauge = function(selector, config) {
             unitLabel.attr('y', '-5');
             valueLabelContainer.attr('transform', 'translate(' + valueLabelWidth / -2 + ', 0)');
         } else {
-            unitLabel.attr('y', '20');
+            unitLabel.attr('y', radius / 100 * 24);
             valueLabelContainer.attr('transform', 'translate(' + valueLabelWidth / -2 + ',' + valueLabelHeight * -1 + ')');
         }
     };

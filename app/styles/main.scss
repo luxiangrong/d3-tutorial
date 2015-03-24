@@ -138,7 +138,7 @@ $font-size-base:          15px !default;
         text-align: center;
         position: relative;
         margin-top: 50px;
-        margin-bottom: 60px;
+        margin-bottom: 65px;
         .gauge {
             position: relative;
             .title {
@@ -207,6 +207,7 @@ $font-size-base:          15px !default;
         }
     }
     .chart-progress {
+        margin-top: 5px;
         padding: 5px 0;
         .label {
             font-size: 17px;
