@@ -819,8 +819,8 @@ myChart.lollipopPie = function(selector, config) {
     var lollipopPie = function() {};
 
     var svg,
-        width = config.dialWidth + config.pieThickness * config.pieCount * 2,
-        height = config.dialWidth + config.pieThickness * config.pieCount * 2,
+        width = config.dialWidth + config.pieThickness * config.pieCount * 2 + 10,
+        height = config.dialWidth + config.pieThickness * config.pieCount * 2 + 10,
         radius = d3.min([width, height]) / 2,
         dialContainer,
         dialRadius = d3.min([config.dialWidth, config.dialHeight]),
@@ -833,12 +833,13 @@ myChart.lollipopPie = function(selector, config) {
         .attr('height', height)
         .append('g');
 
-    var pie = d3.layout.pie().sort(null).value(function(d) {
+    var pie = d3.layout.pie().sort(null).startAngle(Math.PI).endAngle(3*Math.PI).value(function(d) {
         return d.value;
     });;
     var arcGenerator = d3.svg.arc()
         .outerRadius(radius)
-        .innerRadius(radius - config.pieThickness);
+        .innerRadius(radius - config.pieThickness)
+        ;
 
     function buildDial() {
         dialContainer = svg.append('g')
@@ -851,8 +852,8 @@ myChart.lollipopPie = function(selector, config) {
             .attr('r', radius);
         dialContainer.append('image')
             .attr('xlink:href', 'images/pie01.png')
-            .attr('x', config.pieThickness * config.pieCount + 1)
-            .attr('y', config.pieThickness * config.pieCount + 3)
+            .attr('x', config.pieThickness * config.pieCount + 6)
+            .attr('y', config.pieThickness * config.pieCount + 9)
             .attr('width', config.dialWidth)
             .attr('height', config.dialHeight);
     };
@@ -879,8 +880,8 @@ myChart.lollipopPie = function(selector, config) {
                 .append('path')
                 .attr('class', 'pie')
                 .attr('d', function(d3) {
-                    arcGenerator.outerRadius(radius - i * config.pieThickness);
-                    arcGenerator.innerRadius(radius - (i + 1) * config.pieThickness);
+                    arcGenerator.outerRadius(radius - i * config.pieThickness - 5);
+                    arcGenerator.innerRadius(radius - (i + 1) * config.pieThickness - 5);
                     return arcGenerator(d3);
 
                 })
@@ -966,3 +967,92 @@ myChart.lollipopPie = function(selector, config) {
     return lollipopPie;
 
 };
+
+//四周有进度指示的按钮
+myChart.progressBtn = function(selector, config) {
+    var defaults = {
+        progressThickness: 15,
+        btnWidth: 148,
+        btnHeight: 148,
+        click: function(){},
+    };
+
+    config = myChart.extend(defaults, config);
+
+    var progressBtn = function(){};
+
+    var svg,
+        radius = d3.min([config.btnWidth, config.btnHeight]) / 2 + config.progressThickness,
+        btnContainer,
+        progress;
+
+    svg = d3.select(selector)
+        .append('svg')
+        .attr('class', 'progress-btn')
+        .attr('width', radius * 2)
+        .attr('height', radius * 2)
+        .append('g')
+        .attr('transform', 'translate(' + radius + ',' +  radius + ')');
+
+    var defs = svg.append('defs');
+
+    var grow = defs.append('filter')
+                    .attr('id', 'grow')
+                    .append('feGaussianBlur')
+                    .attr('stdDeviation', '2,2');
+
+
+    svg.append('circle')
+        .attr('class', 'bg')
+        .attr('r', radius);
+
+    btnContainer = svg.append('g')
+        .attr('class', 'btn-container');
+
+    btnContainer.append('image')
+        .attr('xlink:href', 'images/progressBtn01.png')
+        .attr('width', config.btnWidth)
+        .attr('height', config.btnHeight)
+        .attr('transform', 'translate(-' + config.btnWidth / 2 + ',-' +  config.btnHeight / 2 + ')');
+
+    btnContainer.on('mouseover', function(){
+        d3.select(this).select('image').attr('xlink:href', 'images/progressBtn02.png');
+    });
+    btnContainer.on('mouseout', function(){
+        d3.select(this).select('image').attr('xlink:href', 'images/progressBtn01.png');
+    });
+    btnContainer.on('click', function(){
+        config.click();
+    });
+
+    var arcGenerator = d3.svg.arc().outerRadius(radius-2).innerRadius(radius - config.progressThickness - 5); 
+
+
+
+    progress = svg.append('path')
+        .attr('class', 'progress')
+        .attr('d', arcGenerator({startAngle: 0, endAngle: 0}))
+        .attr('filter', 'url(#grow)'); 
+
+
+    progressBtn.update = function(value){
+        progress.transition()
+            .duration(800)
+            .attrTween('d', function() {
+                this._current = this._current || {
+                    startAngle: 0,
+                    endAngle: 0
+                };
+                var interpolate = d3.interpolateObject(this._current, {
+                    startAngle: 0,
+                    endAngle: value / 10 * Math.PI * 2
+                });
+                this._current = interpolate(0);
+                return function(t) {
+                    return arcGenerator(interpolate(t));
+                };
+            });
+    };
+
+    return progressBtn;
+}

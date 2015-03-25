@@ -430,3 +430,17 @@ svg {
         }
     }
 }
+
+.progress-btn {
+    circle.bg {
+        fill: #30dca8;
+        stroke-width: 0;
+        opacity: 0.36;
+    }
+    .btn-container {
+        cursor: pointer;
+    }
+    .progress {
+        fill: #30dca8;
+    }
+}
