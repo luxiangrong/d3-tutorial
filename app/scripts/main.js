@@ -800,6 +800,150 @@ myChart.advGauge = function(selector, config) {
     return advGauge;
 };
 
+// 像速度仪表一样的图表
+myChart.speedGauge = function(selector, config) {
+    var defaults = {
+        width: 250,
+        height: 250,
+        min: 0,
+        max: 300,
+        tick: {
+            startDeg: 195, //刻度起始角度
+            endDeg: 345, //刻度结束角度
+            direction: 1, //刻度方向，1为顺时针，-1为逆时针
+            major: 7, //主要刻度数量
+            minor: 5, //主要刻度之间的次要刻度数量
+
+        },
+    };
+    config = myChart.extend(defaults, config);
+
+    var speedGauge = function(){};
+
+    var svg,
+        defs,
+        ticksContainer,
+        pointContainer,
+        labelsContainer,
+        radius = d3.min([config.width, config.height]) / 2;
+    ;
+
+    svg = d3.select(selector)
+        .append('svg')
+        .attr('class', 'speed-gauge')
+        .attr('width', config.width)
+        .attr('height', config.height)
+        .append('g')
+        .attr('transform', 'translate('+ radius + ',' + radius + ')');
+    defs = svg.append('defs');
+
+    ticksContainer = svg.append('g')
+        .attr('class', 'ticks');
+
+    pointContainer = svg.append('g')
+        .attr('class', 'points');
+
+    var majorTickScale = d3.scale.linear()
+        .domain([0, config.tick.major - 1])
+        .range([config.tick.startDeg, config.tick.endDeg]);
+
+    var minorTickScale = d3.scale.linear()
+        .domain([0, (config.tick.major - 1) * config.tick.minor])
+        .range([config.tick.startDeg, config.tick.endDeg]);
+
+    var labelScale = d3.scale.linear()
+        .domain([0, config.tick.major - 1])
+        .rangeRound([config.min, config.max]);
+
+    var pointScale = d3.scale.linear()
+        .domain([0, config.max])
+        .range([config.tick.startDeg, config.tick.endDeg]);
+
+    var majorData = d3.range(0, config.tick.major, 1);
+    var minorData = d3.range(0, (config.tick.major - 1) * config.tick.minor);
+
+    var tickFactor = 0.1;
+
+    var buildTicks = function() {
+        ticksContainer.selectAll('line.tick-major')
+            .data(majorData)
+            .enter()
+            .append('line')
+            .attr('class', 'tick-major')
+            .attr('x1', function(d) {
+                return degreeToPoint(majorTickScale(d), 0).x;
+            })
+            .attr('y1', function(d) {
+                return degreeToPoint(majorTickScale(d), 0).y;
+            })
+            .attr('x2', function(d) {
+                return degreeToPoint(majorTickScale(d), radius * tickFactor).x;
+            })
+            .attr('y2', function(d) {
+                return degreeToPoint(majorTickScale(d), radius * tickFactor).y;
+            });
+
+        ticksContainer.selectAll('line.tick-minor')
+            .data(minorData)
+            .enter()
+            .append('line')
+            .attr('class', 'tick-minor')
+            .attr('x1', function(d) {
+                return degreeToPoint(minorTickScale(d), 0).x;
+            })
+            .attr('y1', function(d) {
+                return degreeToPoint(minorTickScale(d), 0).y;
+            })
+            .attr('x2', function(d) {
+                if (d % 5 === 0) {
+                    return degreeToPoint(minorTickScale(d), radius * tickFactor).x;
+                } else {
+                    return degreeToPoint(minorTickScale(d), radius * tickFactor).x;
+                }
+            })
+            .attr('y2', function(d) {
+                if (d % 5 === 0) {
+                    return degreeToPoint(minorTickScale(d), radius * tickFactor).y;
+                } else {
+                    return degreeToPoint(minorTickScale(d), radius * tickFactor).y;
+                }
+            });
+
+        ticksContainer.selectAll('text.lable-tick-major')
+            .data(majorData)
+            .enter()
+            .append('text')
+            .attr('class', 'label-tick-major')
+            .attr('x', function(d) {
+                return degreeToPoint(majorTickScale(d), radius * 0.2).x + String(labelScale(d)).length * radius * 0.03;
+            })
+            .attr('y', function(d) {
+                return degreeToPoint(majorTickScale(d), radius * 0.2).y;
+            })
+            .attr('dy', '0.5em')
+            .attr('text-anchor', 'end')
+            .style('font-size', radius * 3 / 25)
+            .text(function(d) {
+                    return labelScale(d);
+            });
+    };
+    buildTicks();
+
+    speedGauge.update = function(value){
+
+    };
+
+    function degreeToPoint(deg, offset) {
+        return {
+            x: (radius - offset) * Math.cos(deg / 180 * Math.PI),
+            y: (radius - offset) * Math.sin(deg / 180 * Math.PI)
+        };
+    }
+
+    return speedGauge;
+
+}
+
 // 像棒棒糖一样的饼图
 myChart.lollipopPie = function(selector, config) {
     var defaults = {
@@ -1025,7 +1169,7 @@ myChart.progressBtn = function(selector, config) {
         config.click();
     });
 
-    var arcGenerator = d3.svg.arc().outerRadius(radius-2).innerRadius(radius - config.progressThickness - 5); 
+    var arcGenerator = d3.svg.arc().outerRadius(radius).innerRadius(radius - config.progressThickness - 5); 
 
 
 

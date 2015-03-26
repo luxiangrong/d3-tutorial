@@ -444,3 +444,78 @@ svg {
         fill: #30dca8;
     }
 }
+
+.speed-gauge {
+    .bg {
+        circle {
+            &.c1 {
+                fill: transparent;
+                stroke-width: 2;
+                stroke: #d0d0d0;
+            }
+        }
+    }
+    .ticks {
+        line {
+            &.tick-major {
+                stroke-width: 1;
+                stroke: #2ea2d2;
+            }
+            &.tick-minor {
+                stroke-width: 1;
+                stroke: #2ea2d2;
+            }
+        }
+        text {
+            &.label-tick-major {
+                font-family: Arial;
+                font-weight: bold;
+                fill: #656565;
+            }
+        }
+    }
+    .labels {
+        text {
+            &.label-unit {
+                font-family: Arial;
+                font-weight: bold;
+                fill: #656565;
+            }
+            &.label-title {
+                font-family: Arial;
+                font-weight: bold;
+                fill: #656565;
+            }
+        }
+        .value {
+            rect {
+                fill: #2e2f30;
+            }
+            text {
+                font-family: 'ds-digitalbold';
+                fill: #f7f7f7;
+                font-size: 24px;
+            }
+        }
+    }
+    .point {
+        circle {
+            fill: #313137;
+        }
+        path {
+            &.needle {
+                fill: #313137;
+                stroke-width: 1;
+                stroke: transparent;
+            }
+        }
+    }
+    .progress {
+        path {
+            fill: #36b6db;
+            stroke-width: 1;
+            stroke: #36b6db;
+            opacity: 0.75;
+        }
+    }
+}
