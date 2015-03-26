@@ -1,12 +1,21 @@
-$font-family-sans-serif: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Hiragino Sans GB W3", SimHei, sans-serif !default;
-$font-family-serif: Georgia, "Times New Roman", Times, serif !default;
+$font-family-sans-serif: "Helvetica Neue",
+Helvetica,
+"Hiragino Sans GB",
+"Hiragino Sans GB W3",
+SimHei,
+sans-serif !default;
+$font-family-serif: Georgia,
+"Times New Roman",
+Times,
+serif !default;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
-$font-family-monospace: Menlo, Monaco, Consolas, "Courier New", monospace !default;
-
-$grid-gutter-width:         10px !default;
-
-$font-size-base:          15px !default;
-
+$font-family-monospace: Menlo,
+Monaco,
+Consolas,
+"Courier New",
+monospace !default;
+$grid-gutter-width: 10px !default;
+$font-size-base: 15px !default;
 // bower:scss
 @import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
@@ -17,220 +26,410 @@ $font-size-base:          15px !default;
     font-weight: normal;
     font-style: normal;
 }
-
-
 /**
  * 手机页面样式
  */
-.header {
-    background: url(../images/sp01.png) repeat-x left center;
-    background-size: 100% 41px;
-    height: 41px;
-    position: relative;
-    .logo {
-        position: absolute;
-        left: 10px;
-        top: 6px;
+
+.sp {
+    .header {
+        background: url(../images/sp01.png) repeat-x left center;
+        background-size: 100% 41px;
+        height: 41px;
+        position: relative;
+        .logo {
+            position: absolute;
+            left: 10px;
+            top: 6px;
+        }
+        h1 {
+            font-family: '黑体';
+            font-size: 18px;
+            line-height: 40px;
+            margin: 0;
+            padding-left: 30%;
+        }
     }
-    h1 {
-        font-family: '黑体';
-        font-size: 18px;
-        line-height: 40px;
-        margin: 0;
-        padding-left: 30%;
+    #gauge {
+        margin-top: 7px;
+        .container-fluid {}
+        @media (max-width: 360px) {
+            .col-sys-status {
+                width: 40% !important;
+                padding-right: 0;
+            }
+            .col-wendu {
+                width: 30% !important;
+                padding-left: 0;
+            }
+            .col-warning {
+                width: 30% !important;
+            }
+        }
+        .sys-status {
+            background-color: #dddedf;
+            line-height: 36px;
+            border-radius: 0 18px 18px 0;
+            color: #414141;
+            padding-left: 0.5em;
+            margin-left: -5px;
+            max-width: 105px;
+            font-size: 15px;
+            strong {
+                display: block;
+                float: right;
+                border: 1px solid #32dca9;
+                border-radius: 14px;
+                width: 28px;
+                height: 28px;
+                line-height: 28px;
+                text-align: center;
+                padding: 2px;
+                margin-right: 4px;
+                margin-top: 4px;
+                font-weight: normal;
+                i {
+                    font-style: normal;
+                    display: block;
+                    border-radius: 14px;
+                    line-height: 22px;
+                }
+                &.status-a {
+                    border-color: #32dca9;
+                    i {
+                        background-color: #32dca9;
+                    }
+                }
+                &.status-b {
+                    border-color: #FF3a3a;
+                    i {
+                        background-color: #FF3a3a;
+                    }
+                }
+            }
+        }
+        .wendu {
+            color: #303439;
+            margin: 0px;
+            font-size: 16px;
+            text-align: center;
+            line-height: 1.5;
+            span {
+                display: inline-block;
+                border-bottom: 1px solid #303439;
+            }
+            strong {
+                font-size: 26px;
+                display: block;
+            }
+        }
+        .warning {
+            font-size: 15px;
+            display: inline-block;
+            color: #ff0000;
+            line-height: 22px;
+            border: 1px solid #ff0000;
+            border-radius: 11px;
+            padding: 0 10px;
+        }
+        .row-main-gauge {
+            overflow-x: visable;
+        }
+        .main-gauge {
+            background: url(../images/gaugebg.png) no-repeat center center;
+            width: 250px;
+            height: 250px;
+            background-size: 100% 100%;
+            padding-top: 20px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            margin-top: 50px;
+            margin-bottom: 65px;
+            .gauge {
+                position: relative;
+                .title {
+                    border: 1px solid #1d1d1d;
+                    border-radius: 3px;
+                    position: absolute;
+                    width: 72px;
+                    text-align: center;
+                    line-height: 20px;
+                    left: 50%;
+                    margin-left: -36px;
+                }
+                &#adv-gauge {
+                    margin: 0 auto;
+                    display: inline-block;
+                }
+                &#simple-gauge-1 {
+                    position: absolute;
+                    top: -28px;
+                    left: -30px;
+                    .title {
+                        top: -25px;
+                    }
+                }
+                &#simple-gauge-2 {
+                    position: absolute;
+                    top: -28px;
+                    right: -30px;
+                    .title {
+                        top: -25px;
+                    }
+                }
+                &#simple-gauge-3 {
+                    position: absolute;
+                    bottom: -32px;
+                    left: -31px;
+                    .title {
+                        bottom: -25px;
+                    }
+                }
+                &#simple-gauge-4 {
+                    position: absolute;
+                    bottom: -32px;
+                    right: -31px;
+                    .title {
+                        bottom: -25px;
+                    }
+                }
+            }
+        }
+        .summary {
+            .col-xs-4 {
+                padding: 5px 0;
+                background-color: #d1d3d5;
+                text-align: center;
+                strong {
+                    font-size: 24px;
+                    color: #2b9bce;
+                    display: block;
+                }
+                &.col-center {
+                    border-left: 1px solid #ffffff;
+                    border-right: 1px solid #ffffff;
+                }
+            }
+        }
+        .chart-progress {
+            margin-top: 5px;
+            padding: 5px 0;
+            .label {
+                font-size: 17px;
+                color: #535353;
+                text-align: right;
+                font-weight: normal;
+            }
+            .data {
+                .col-xs-4 {
+                    font-size: 12px;
+                    padding: 0;
+                    color: #71747a;
+                    &.used {
+                        color: #258cc7;
+                    }
+                    &.plan {
+                        color: #23ae84;
+                    }
+                }
+            }
+        }
     }
 }
 
-#gauge {
-    margin-top: 7px;
-    .container-fluid {
+//pc页面样式
+.pc {
+    body {
+        background: url(../images/bg01.png) repeat center center;
     }
-    @media (max-width: 360px) {
-        .col-sys-status {
-            width: 40% !important;
-            padding-right: 0;
-        }
-        .col-wendu {
-            width: 30% !important;
-            padding-left: 0;
-        }
-        .col-warning {
-            width: 30% !important;
-        }
-    }
-
-    .sys-status {
-        background-color: #dddedf;
-        line-height: 36px;
-        border-radius: 0 18px 18px 0;
-        color: #414141;
-        padding-left: 0.5em;
-        margin-left: -5px;
-        max-width: 105px;
-        font-size: 15px;
-        strong {
-            display: block;
-            float: right;
-            border: 1px solid #32dca9;
-            border-radius: 14px;
-            width: 28px;
-            height: 28px;
-            line-height: 28px;
-            text-align: center;
-            padding: 2px;
-            margin-right: 4px;
-            margin-top: 4px; 
-            font-weight: normal;
-            i {
-                font-style: normal;
-                display: block;
-                border-radius: 14px;
-                line-height: 22px;
-            }
-            &.status-a {
-                border-color: #32dca9;
-                i {
-                    background-color: #32dca9;
-                }
-            }
-            &.status-b {
-                border-color: #FF3a3a;
-                i {
-                    background-color: #FF3a3a;
-                }
-            }
-        }
-    }
-    .wendu {
-        color: #303439;
-        margin: 0px;
-        font-size: 16px;
-        text-align: center;
-        line-height: 1.5;
-        span {
-            display: inline-block;
-            border-bottom: 1px solid #303439;
-        }
-        strong {
-            font-size: 26px;
-            display: block;
-        }
-    }
-    .warning {
-        font-size: 15px;
-        display: inline-block;
-        color: #ff0000;
-        line-height: 22px;
-        border: 1px solid #ff0000;
-        border-radius: 11px;
-        padding: 0 10px;
-    }
-    .row-main-gauge {
-        overflow-x:visable;
-    }
-    .main-gauge {
-        background: url(../images/gaugebg.png) no-repeat center center;
-        width: 250px;
-        height: 250px;
-        background-size: 100% 100%;
-        padding-top: 20px;
+    .all-wrap {
         margin: 0 auto;
-        text-align: center;
-        position: relative;
-        margin-top: 50px;
-        margin-bottom: 65px;
-        .gauge {
-            position: relative;
-            .title {
-                border: 1px solid #1d1d1d;
-                border-radius: 3px;
-                position: absolute;
-                width: 72px;
-                text-align: center;
-                line-height: 20px;
-                left: 50%;
-                margin-left: -36px;
-            }
-            &#adv-gauge {
-                margin: 0 auto;
-                display: inline-block;
-
-            }
-            &#simple-gauge-1 {
-                position: absolute;
-                top: -28px;
-                left: -30px;
-                .title {
-                    top: -25px;
-                }
-            }
-            &#simple-gauge-2 {
-                position: absolute;
-                top: -28px;
-                right: -30px;
-                .title {
-                    top: -25px;
-                }
-            }
-            &#simple-gauge-3 {
-                position: absolute;
-                bottom: -32px;
-                left: -31px;
-                .title {
-                    bottom: -25px;
-                }
-            }
-            &#simple-gauge-4 {
-                position: absolute;
-                bottom: -32px;
-                right: -31px; 
-                .title {
-                    bottom: -25px;
-                }
-            }
-        }
+        width: 1888px;
     }
-    .summary {
-        .col-xs-4 {
-            padding: 5px 0;
-            background-color: #d1d3d5;
+    header {
+        h1 {
             text-align: center;
-            strong {
-                font-size: 24px;
-                color: #2b9bce;
-                display: block;
+        }
+        .header-wrap {
+            height: 132px;
+            background: url(../images/header-bg.png) no-repeat center center;
+            position: relative;
+            margin-top: -50px;
+            .logo {
+                position: absolute;
+                left: 45px;
+                top: 13px;
             }
-            &.col-center {
-                border-left: 1px solid #ffffff;
-                border-right: 1px solid #ffffff;
+            h2 {
+                position: absolute;
+                left: 50%;
+                margin: 0;
+                bottom: 5px;
+                margin-left: -630px;
+                background: url(../images/bg02.png) no-repeat center center;
+                width: 1213px;
+                line-height: 42px;
+                text-align: center;
+                color: #ffffff;
+                font-size: 18px;
+                font-family: $font-family-sans-serif;
+                i {
+                    margin: 0 10px;
+                }
+            }
+            .tab {
+                position: absolute;
+                right: 0px;
+                bottom: 0px;
+                text-align: right;
+                a:first-child {
+                    margin-right: - 40px;
+                }
+            }
+            .status {
+                background: url(../images/bg03.png) no-repeat center center;
+                width: 146px;
+                line-height: 39px;
+                color: #04c7ff;
+                font-size: 16px;
+                text-align: center;
+                position: absolute;
+                right: 300px;
+                top: 20px;
+            }
+            .date {
+                position: absolute;
+                right: 20px;
+                top: 20px;
+                .year, .month, .day {
+                    background-color: #090909;
+                    display: inline-block;
+                    padding: 3px 5px 4px;
+                    border-radius: 3px;
+                    span {
+                        width: 23px;
+                        line-height: 32px;
+                        background: url(../images/bg04.png) no-repeat center center;
+                        color: #efefef;
+                        display: inline-block;
+                        text-align: center;
+                        font-size: 26px;
+                    }
+                }
             }
         }
     }
-    .chart-progress {
-        margin-top: 5px;
-        padding: 5px 0;
-        .label {
-            font-size: 17px;
-            color: #535353;
-            text-align: right;
-            font-weight: normal;
+    .blue-box {
+        border: 2px solid #04c7ff;
+        border-radius: 8px;
+    }
+    .gray-box {
+        border: 2px solid #9a9b9b;
+        border-radius: 8px;
+    }
+    .col-left {
+        width: 170px;
+        margin-top: 8px;
+        float: left;
+        .blue-box {
+            padding: 30px 20px;
         }
-        .data {
-            .col-xs-4 {
-                font-size: 12px;
-                padding: 0;
-                color: #71747a;
-                &.used {
-                    color: #258cc7;
+        .progress-bar-wrap {
+            font-size: 18px;
+            #progress-bar-year,
+            #progress-bar-month {
+                float: left;
+                margin-right: 10px;
+            }
+            &:first-child {
+                margin-bottom: 40px;
+            }
+            label {
+                color: #ffffff;
+                display: block;
+                clear: both;
+                font-weight: normal;
+                width: 60px;
+                text-align: center;
+            }
+            p {
+                margin-bottom: 40px;
+                span {
+                    display: block;
                 }
                 &.plan {
-                    color: #23ae84;
+                    color: #30dca8;
+                }
+                &.used {
+                    color: #00a8ff;
+                }
+                &.deviation {
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+    .col-center {
+        width: 947px;
+        float: left;
+        margin-top: 8px;
+        padding-left: 9px;
+        .gray-box {
+            margin-top: 40px;
+            text-align: center;
+            h1 {
+                background: url(../images/bg01.png) repeat center center;
+                margin: 0;
+                padding: 0;
+                font-size: 30px;
+                color: #9a9b9b;
+                text-align: center;
+                display: inline-block;
+                margin-left: auto;
+                margin-right: auto;
+                padding-left: 10px;
+                padding-right: 10px;
+                position: relative;
+                top: -16px;
+            }
+            .row {
+                margin: 0px;
+            }
+            &.nenghao {
+                font-size: 18px;
+                color: #b8b8b8;
+                .col-256 {
+                    float: left;
+                    width: 256px;
+                    #nenghao {
+                    }
+                }
+                .col-422 {
+                    float: left;
+                    width: 422px;
+                }
+                p {
+                    text-align: left;
+                    margin-left: 55px;
+                    span {
+                        &.current-nenghao {
+                            color: #30dca8;
+                        }
+                        &.current-wendu {
+                            color: #00a8ff;
+                        }
+                    }
+                }
+                .speed-gauge-wrap {
+                    width: 386px;
+                    height: 272px;
+                    margin: 0 auto;
+                    background-color: #272828;
                 }
             }
         }
     }
 }
-
 
 //svg图表相关样式
 svg {
@@ -459,18 +658,18 @@ svg {
         line {
             &.tick-major {
                 stroke-width: 1;
-                stroke: #2ea2d2;
+                stroke: #0ca2cc;
             }
             &.tick-minor {
                 stroke-width: 1;
-                stroke: #2ea2d2;
+                stroke: #0ca2cc;
             }
         }
         text {
             &.label-tick-major {
                 font-family: Arial;
                 font-weight: bold;
-                fill: #656565;
+                fill: #0ca2cc;
             }
         }
     }
@@ -500,13 +699,12 @@ svg {
     }
     .point {
         circle {
-            fill: #313137;
+            fill: #1b1b1b;
         }
-        path {
+        line {
             &.needle {
-                fill: #313137;
-                stroke-width: 1;
-                stroke: transparent;
+                stroke-width: 3;
+                stroke: #050505;
             }
         }
     }

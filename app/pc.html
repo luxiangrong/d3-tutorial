@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-CN" class="pc">
+
+<head>
+    <meta charset="utf-8">
+    <title>d3 tutorial</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div class="all-wrap">
+        <header class="header">
+            <div>
+                <h1><img src="images/title01.png" height="29" width="312" alt=""></h1>
+                <div class="header-wrap">
+                    <img class="logo" src="images/logo02.png" height="109" width="247" alt="">
+                    <h2>系统状态：运行中<i>/</i>室外温度：4C<i>/</i>室内温度：27C<i>/</i>冷冻水温度：7C<i>/</i>冷却水温度18C<i>/</i>系统功率：345kW</h2>
+                    <div class="tab">
+                        <a class="data" href="#"><img src="images/pic01.png" alt=""></a>
+                        <a class="" href="#"><img src="images/pic02.png" alt=""></a>
+                    </div>
+                    <div class="status">
+                        轻度污染
+                    </div>
+                    <div class="date">
+                        <div class="year"><span>2</span>
+                            <span>0</span>
+                            <span>1</span>
+                            <span>5</span></div>
+                        <div class="month"><span>0</span><span>3</span></div>
+                        <div class="day"><span>2</span><span>6</span></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="col-left">
+            <div class="blue-box">
+            	<div class="progress-bar-wrap">
+            		<div id="progress-bar-year"></div>
+            		<p class="plan">计划<span>151.5</span></p>
+            		<p class="used">已用<span>121.3</span></p>
+            		<p class="deviation">偏离<span>35%</span></p>
+            		<label>年定额消耗</label>
+            	</div>
+                <div class="progress-bar-wrap">
+                	<div id="progress-bar-month"></div>
+                	<p class="plan">计划<span>151.5</span></p>
+            		<p class="used">已用<span>121.3</span></p>
+            		<p class="deviation">偏离<span>35%</span></p>
+            		<label>月定额消耗</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-center">
+        	<div class="gray-box nenghao">
+        		<h1>能耗定额调节</h1>
+        		<div class="row">
+	        		<div class="col-256">
+	        			<div id="nenghao" class="progress-knoba-1"></div>
+	        			<p>能耗限定：1345 Kwh</p>
+	        			<p>今日能耗：<span class="current-nenghao">45 Kwh</span></p>
+	        		</div>
+	        		<div class="col-256">
+	        			<div id="wendu" class="progress-knoba-2"></div>
+	        			<p>室温最高：28 C</p>
+	        			<p>实时室温：<span class="current-wendu">27 C</span></p>
+	        		</div>
+	        		<div class="col-422">
+	        			<div class="speed-gauge-wrap">
+	        				<div id="speed-gauge"></div>
+	        			</div>
+	        		</div>
+        		</div>
+        	</div>
+        </div>
+    </div>
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+    <script type="text/javascript">
+    (function($) {
+        $(document).ready(function() {
+            var winWidth = $(window).width();
+           
+
+            var progressBarMonth = myChart.progressBar('#progress-bar-month', {
+                width: 60,
+                height: 331,
+                max: 151.5,
+                itemSize: 8,
+                direction: 'horizontal',
+                padding: {
+                    top: 10,
+                    left: 10,
+                    right: 10,
+                    bottom: 10
+                }
+            })
+
+            var progressBarYear = myChart.progressBar('#progress-bar-year', {
+                width: 60,
+                height: 331,
+                max: 151.5,
+                itemSize: 8,
+                direction: 'horizontal',
+                padding: {
+                    top: 10,
+                    left: 10,
+                    right: 10,
+                    bottom: 10
+                }
+            })
+
+            var progressKnoba1 = myChart.progressKnob('#nenghao', {max: 1345});
+        	var progressKnoba2 = myChart.progressKnob('#wendu', {max: 28});
+
+        	var speedGauge1 = myChart.speedGauge('#speed-gauge', {});
+
+            var format = d3.format('.1f');
+
+            function update() {
+                progressKnoba1.update(Math.floor(Math.random() * 1345));
+            	progressKnoba2.update(Math.floor(Math.random() * 28));
+                progressBarMonth.update({
+                    progress: Math.random() * 151.5
+                });
+                progressBarYear.update({
+                    progress: Math.random() * 151.5
+                });
+                speedGauge1.update(format(Math.random() * 300)); 
+                setTimeout(function() {
+                    update()
+                }, 3000);
+            }
+            update();
+        });
+    })(jQuery);
+    </script>
+</body>
+
+</html>

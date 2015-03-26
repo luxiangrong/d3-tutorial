@@ -929,8 +929,44 @@ myChart.speedGauge = function(selector, config) {
     };
     buildTicks();
 
-    speedGauge.update = function(value){
+    var point;
+    var buildPoint = function() {
+        pointContainer = svg.append('g')
+            .attr('class', 'point')
+            .attr('x', 0)
+            .attr('y', 0);
 
+        point = pointContainer.append('line')
+            .attr('class', 'needle')
+            .attr('x1', 0)
+            .attr('y1', 0)
+            .attr('x2', degreeToPoint(minorTickScale(0), radius * tickFactor + 10).x)
+            .attr('y2', degreeToPoint(minorTickScale(0), radius * tickFactor + 10).y)
+
+        pointContainer.append('circle')
+            .attr('class', 'c1')
+            .attr('r', radius * 0.08);
+
+        pointContainer.append('image')
+            .attr('xlink:href', 'images/pointer.png')
+            .attr('width', radius * 0.12)
+            .attr('height', radius * 0.12)
+            .attr('x', -radius * 0.12 / 2)
+            .attr('y', -radius * 0.12 / 2);
+    };
+    buildPoint();
+
+    speedGauge.update = function(value){
+        point.transition()
+            .duration(800)
+            .attrTween('transform', function() {
+                this._current = this._current || pointScale(0);
+                var interpolate = d3.interpolate(this._current, pointScale(value));
+                this._current = interpolate(1);
+                return function(t) {
+                    return 'rotate(' + (interpolate(t) - config.tick.startDeg) + ')';
+                };
+            });
     };
 
     function degreeToPoint(deg, offset) {

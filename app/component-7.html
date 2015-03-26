@@ -41,7 +41,7 @@
     var speedGauge1 = myChart.speedGauge('#component1', {});
 
     function update() {
-        speedGauge1.update(format(Math.random() * 1200));
+        speedGauge1.update(format(Math.random() * 300)); 
         setTimeout(function() {
             update()
         }, 2000);
@@ -50,6 +50,7 @@
     // 
     // 
     window.setTimeout(function(){
+        speedGauge1.update(0); 
     }, 1000);
 
 
