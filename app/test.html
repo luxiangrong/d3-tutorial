@@ -49,9 +49,6 @@
                         <div class="month"><span>0</span><span>3</span></div>
                         <div class="day"><span>2</span><span>6</span></div>
                     </div>
-                    <div class="mode-slider-wrap">
-                        <input type="text" id="mode-slider" />
-                    </div>
                 </div>
             </div>
         </header>
@@ -111,122 +108,13 @@
                 <div class="row row-slider">
                     <input type="text" id="nenghao-slider" />
                 </div>
-                <div class="btngroup">
-                    <div>
-                        <button class="btn btn-link btn-a">确定</button>
-                    </div>
-                    <div>
-                        <button class="btn btn-link btn-b">取消</button>
-                    </div>
-                </div>
             </div>
             <div class="gray-box jiankong">
                 <h1>冷站系统实时监控</h1>
-                <div class="body row">
-                    <div class="col-left">
-                        <div class="chart-status">
-                            <img src="images/pic03.png" alt="">
-                        </div>
-                        <div class="system-status">系统状态：<span>运行中</span></div>
-                        <div class="shuiwei-status clearfix">
-                            <ul>
-                                <li>冷冻水供水温度：7 C</li>
-                                <li>冷冻水回水温度：12 C</li>
-                                <li>冷却水供水温度：26 C</li>
-                                <li>冷却水回水温度：26 C</li>
-                            </ul>
-                        </div>
-                        <div class="btngroup">
-                            <button class="btn btn-link btn-a">
-                                自由编组
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-right">
-                        <div class="log-info">
-                            <div class="head">
-                                <h2>实时信息</h2>
-                            </div>
-                            <div class="body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 25%">时间</th>
-                                            <th>事件</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>08:00</th>
-                                            <td>1号冷机启动</td>
-                                        </tr>
-                                        <tr>
-                                            <th>08:00</th>
-                                            <td>1号冷机启动</td>
-                                        </tr>
-                                        <tr>
-                                            <th>08:00</th>
-                                            <td>1号冷机启动</td>
-                                        </tr>
-                                        <tr>
-                                            <th>08:00</th>
-                                            <td>1号冷机启动</td>
-                                        </tr>
-                                        <tr>
-                                            <th>08:00</th>
-                                            <td>1号冷机启动</td>
-                                        </tr>
-                                        <tr>
-                                            <th>08:00</th>
-                                            <td>1号冷机启动</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-right">
-            <div class="row">
-                <div class="gray-box tongji">
-                    <h1>能耗统计</h1>
-                    <h2>节能效益：耗电量25.6万度，<span class="grade-a">节省18.2元</span></h2>
-                    <div class="bar-wrap">
-                        <img src="images/pic04.png" alt="">
-                    </div>
-                </div>
-                <div class="youhua-wrap">
-                    <div class="youhua">
-                        <div id="progress-youhua"></div>
-                    </div>
-                    <p>系统评级：<span class="grade-a">优</span></p>
-                    <p>系统COP：<span class="grade-a">6.7</span></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="blue-box kongzhi">
-                    <h1>设备控制预览</h1>
-                    <div class="body">
-                        <div class="shebeikongzhi-wrap">
-                            <div id="shebeikongzhi"></div>
-                        </div>
-                        <div class="info">
-                            <h5>1#编组运行<small>344kwh 26C</small></h5>
-                            <div id="progressBall"></div>
-                            <h4>25C<small>125kw</small></h4>
-                        </div>
-                        <ul class="description">
-                            <li><i class="cube cube-a"></i>故障</li>
-                            <li><i class="cube cube-b"></i>停机</li>
-                            <li><i class="cube cube-c"></i>运行</li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
+    
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -246,23 +134,7 @@
         $(document).ready(function() {
             $("#nenghao-slider").slider({
                 min: 0,
-                max: 100,
-                ticks: [0, 50, 100],
-                ticks_labels: [0, 50, 100]
-            });
-
-            $("#mode-slider").slider({
-                min: 1,
-                max: 3,
-                ticks: [1,2,3],
-                ticks_labels: ['自动','半自动','手动'] ,
-                tooltip: 'hide'
-            });
-
-            var progressBtn = myChart.progressBtn('#progress-youhua', {
-                click: function() {
-                    progressBtn.update(format(Math.random() * 10));
-                }
+                max: 100
             });
 
             var winWidth = $(window).width();
@@ -308,10 +180,6 @@
                 height: 230,
             });
 
-            var lollipopPie = myChart.lollipopPie('#shebeikongzhi', {});
-
-            var progressBall = myChart.progressBall('#progressBall', {});
-
             var format = d3.format('.1f');
 
             function update() {
@@ -324,8 +192,6 @@
                     progress: Math.random() * 151.5
                 });
                 speedGauge1.update(format(Math.random() * 300));
-                lollipopPie.update(format(Math.random() * 1200));
-                progressBall.update(format(Math.random())); 
                 setTimeout(function() {
                     update()
                 }, 3000);

@@ -199,6 +199,71 @@ myChart.progressBar = function(selector, config) {
     return progressBar;
 };
 
+//球状显示的精度条
+myChart.progressBall = function(selector, config) {
+    var defaults = {
+        radius: 40
+    };
+
+    config = myChart.extend(defaults, config);
+
+    var svg, clippath, svgContainer, defs;
+
+    svg = d3.select(selector)
+        .append('svg')
+        .attr('width', config.radius * 2)
+        .attr('height', config.radius * 2)
+        .attr('class', 'progress-ball');
+
+    defs = svg.append('defs');
+
+    svgContainer = svg.append('g')
+        .attr('transform', 'translate(' + config.radius + ',' + config.radius + ')');
+
+    
+
+    svgContainer.append('circle')
+        .attr('class', 'bg')
+        .attr('r', config.radius);
+
+    svgContainer.append('circle')
+        .attr('class', 'fg')
+        .attr('r', config.radius)
+        .attr('clip-path', 'url(#clippath0)');
+
+    clippath = defs.append('clipPath')
+        .attr('id', 'clippath0')
+        .append('rect')
+        .attr('width', config.radius * 2)
+        .attr('height', config.radius * 2)
+        .attr('x', 0)
+        .attr('y', 10)
+        .attr('transform', 'translate(-' + config.radius + ',-' + config.radius + ')')
+        ;
+
+    svgContainer.append('image')
+        .attr('xlink:href', 'images/pic05.png')
+        .attr('x', config.padding)
+        .attr('y', config.padding)
+        .style('opacity', 0.5)
+        .attr('width', (config.radius) * 2)
+        .attr('height', (config.radius) * 2)
+        .attr('transform', 'translate(-' + config.radius + ',-' + config.radius + ')');    
+
+    var progressBall = function(){};
+
+    progressBall.update = function(value) {
+        clippath.transition()
+            .duration(500)
+            .attr('y', function() {
+                return value * config.radius * 2;
+            });
+    }
+
+    return progressBall;
+}
+
+//带有旋钮指示的精度条
 myChart.progressKnob = function(selector, config) {
     var defaults = {
         ringWidth: 14, //外层圆环的宽度
@@ -929,12 +994,20 @@ myChart.speedGauge = function(selector, config) {
     };
     buildTicks();
 
-    var point;
+    var point, valueLabelHeight, valueLabel;
     var buildPoint = function() {
         pointContainer = svg.append('g')
             .attr('class', 'point')
             .attr('x', 0)
             .attr('y', 0);
+
+        valueLabel = svg.append('text')
+            .attr('class', 'value-label')
+            .attr('x', 165)
+            .attr('y', 125)
+            .attr('dy', '0.5em')
+            .attr('transform', 'translate(-'+ radius + ',-' + radius + ')')
+            .text('0 kw');
 
         point = pointContainer.append('line')
             .attr('class', 'needle')
@@ -957,6 +1030,9 @@ myChart.speedGauge = function(selector, config) {
     buildPoint();
 
     speedGauge.update = function(value){
+
+        valueLabel.text(value + 'kw');
+
         point.transition()
             .duration(800)
             .attrTween('transform', function() {
@@ -1151,7 +1227,7 @@ myChart.lollipopPie = function(selector, config) {
 //四周有进度指示的按钮
 myChart.progressBtn = function(selector, config) {
     var defaults = {
-        progressThickness: 15,
+        progressThickness: 12,
         btnWidth: 148,
         btnHeight: 148,
         click: function(){},

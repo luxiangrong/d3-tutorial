@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>速度仪表</title>
+    <title>球状进度条</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
@@ -45,10 +45,10 @@
     <script type="text/javascript">
 	var format = d3.format('.1f');
 
-    var speedGauge1 = myChart.speedGauge('#component1', {});
+    var progressBall = myChart.progressBall('#component1', {});
 
     function update() {
-        speedGauge1.update(format(Math.random() * 300)); 
+        progressBall.update(format(Math.random())); 
         setTimeout(function() {
             update()
         }, 2000);
@@ -57,7 +57,7 @@
     // 
     // 
     window.setTimeout(function(){
-        speedGauge1.update(0); 
+        progressBall.update(0); 
     }, 1000);
 
 

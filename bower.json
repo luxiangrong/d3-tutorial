@@ -4,6 +4,8 @@
   "dependencies": {
   	"bootstrap-sass": "~3.3.2",
     "modernizr": "~2.8.2",
-    "d3": "~3.5.5"
+    "d3": "~3.5.5",
+    "seiyria-bootstrap-slider": "~4.5.7",
+    "bootstrap-switch": "~3.3.2"
   }
 }
