@@ -58,7 +58,8 @@ myChart.progressBar = function(selector, config) {
         direction: 'horizontal',
         startColor: '#00a8ff',
         endColor: '#00ff80',
-        duration: 500 //动画持续时间，调用update的间隔需要大于2倍duration
+        duration: 500, //动画持续时间，调用update的间隔需要大于2倍duration
+        update: null //数据更新后的回调函数
     };
 
     config = myChart.extend(defaults, config);
@@ -117,22 +118,6 @@ myChart.progressBar = function(selector, config) {
 
         return selection;
     };
-
-    /**
-     * 生成进度条的过渡效果
-     * @param  {transition} transition d3的transition对象
-     * @return {transition}            返回d3的transition对象
-     */
-    // var transitionGenerator = function(transition) {
-    //     transition.delay(function(d, i) {
-    //             return i * 50;
-    //         })
-    //         .style('fill', function(d) {
-    //             return colorScale(d);
-    //         });
-
-    //     return transition;
-    // };
 
     var bgData = d3.range(0, itemCount, 1);
 
@@ -194,6 +179,10 @@ myChart.progressBar = function(selector, config) {
             })
             .style('fill-opacity', 0)
             .remove();
+
+        if(config.update != null) {
+            config.update.call(progressBar, data);
+        }
     };
 
     return progressBar;
