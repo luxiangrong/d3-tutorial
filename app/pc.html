@@ -52,6 +52,9 @@
                     <div class="mode-slider-wrap">
                         <input type="text" id="mode-slider" />
                     </div>
+                    <div class="switch switch-large switch-global">
+                        <input id="switch" type="checkbox" checked />
+                    </div>
                 </div>
             </div>
         </header>
@@ -59,16 +62,16 @@
             <div class="blue-box">
                 <div class="progress-bar-wrap">
                     <div id="progress-bar-year"></div>
-                    <p class="plan">计划<span>151.5</span></p>
-                    <p class="used">已用<span>121.3</span></p>
-                    <p class="deviation">偏离<span>35%</span></p>
+                    <p class="plan">计划<span id="progress-bar-year-plan">151.5</span></p>
+                    <p class="used">已用<span id="progress-bar-year-used">121.3</span></p>
+                    <p class="deviation">偏离<span id="progress-bar-year-deviation">35%</span></p>
                     <label>年定额消耗</label>
                 </div>
                 <div class="progress-bar-wrap">
                     <div id="progress-bar-month"></div>
-                    <p class="plan">计划<span>151.5</span></p>
-                    <p class="used">已用<span>121.3</span></p>
-                    <p class="deviation">偏离<span>35%</span></p>
+                    <p class="plan">计划<span id="progress-bar-month-plan">151.5</span></p>
+                    <p class="used">已用<span id="progress-bar-month-used">121.3</span></p>
+                    <p class="deviation">偏离<span id="progress-bar-month-deviation">35%</span></p>
                     <label>月定额消耗</label>
                 </div>
             </div>
@@ -79,13 +82,15 @@
                 <div class="row">
                     <div class="col-256">
                         <div id="nenghao" class="progress-knoba-1"></div>
-                        <p>能耗限定：1345 Kwh</p>
-                        <p>今日能耗：<span class="current-nenghao">45 Kwh</span></p>
+                        <p>能耗限定：<span id="nenghao-max">1345</span> Kwh</p>
+                        <p>今日能耗：<span class="current-nenghao"><span id="nenbhao-current">45</span> Kwh</span>
+                        </p>
                     </div>
                     <div class="col-256">
                         <div id="wendu" class="progress-knoba-2"></div>
-                        <p>室温最高：28 C</p>
-                        <p>实时室温：<span class="current-wendu">27 C</span></p>
+                        <p>室温最高：<span id="wendu-max">28</span> C</p>
+                        <p>实时室温：<span class="current-wendu"><span id="wendu-current">27</span> C</span>
+                        </p>
                     </div>
                     <div class="col-422">
                         <div class="speed-gauge-wrap">
@@ -114,9 +119,6 @@
                 <div class="btngroup">
                     <div>
                         <button class="btn btn-link btn-a">确定</button>
-                    </div>
-                    <div>
-                        <button class="btn btn-link btn-b">取消</button>
                     </div>
                 </div>
             </div>
@@ -244,18 +246,26 @@
     <script type="text/javascript">
     (function($) {
         $(document).ready(function() {
+            $('#switch').bootstrapSwitch();
+
+            var format = d3.format('.1f');
+            var format2 = d3.format('.f');
+
             $("#nenghao-slider").slider({
                 min: 0,
                 max: 100,
+                value: 0,
                 ticks: [0, 50, 100],
                 ticks_labels: [0, 50, 100]
             });
 
             $("#mode-slider").slider({
-                min: 1,
-                max: 3,
-                ticks: [1,2,3],
-                ticks_labels: ['自动','半自动','手动'] ,
+                min: 0,
+                max: 200,
+                value: 0,
+                ticks: [0, 100, 200],
+                ticks_labels: ['自动', '半自动', '手动'],
+                ticks_snap_bounds: 20,
                 tooltip: 'hide'
             });
 
@@ -279,6 +289,11 @@
                     left: 10,
                     right: 10,
                     bottom: 10
+                },
+                update: function(data) {
+                    $("#progress-bar-month-plan").text(data.max);
+                    $("#progress-bar-month-used").text(data.progress);
+                    $("#progress-bar-month-deviation").text(d3.round((data.max - data.progress) / data.max * 100, 0) + "%");
                 }
             })
 
@@ -293,14 +308,27 @@
                     left: 10,
                     right: 10,
                     bottom: 10
+                },
+                update: function(data) {
+                    $("#progress-bar-year-plan").text(data.max);
+                    $("#progress-bar-year-used").text(data.progress);
+                    $("#progress-bar-year-deviation").text(d3.round((data.max - data.progress) / data.max * 100, 0) + "%");
                 }
             })
 
             var progressKnoba1 = myChart.progressKnob('#nenghao', {
-                max: 1345
+                max: 1345,
+                update: function(data) {
+                    $("#nenghao-max").text(data.max);
+                    $("#nenbhao-current").text(data.progress);
+                }
             });
             var progressKnoba2 = myChart.progressKnob('#wendu', {
-                max: 28
+                max: 28,
+                update: function(data) {
+                    $("#wendu-max").text(data.max);
+                    $("#wendu-current").text(data.progress);
+                }
             });
 
             var speedGauge1 = myChart.speedGauge('#speed-gauge', {
@@ -312,20 +340,18 @@
 
             var progressBall = myChart.progressBall('#progressBall', {});
 
-            var format = d3.format('.1f');
+
 
             function update() {
                 progressKnoba1.update(Math.floor(Math.random() * 1345));
                 progressKnoba2.update(Math.floor(Math.random() * 28));
-                progressBarMonth.update({
-                    progress: Math.random() * 151.5
-                });
-                progressBarYear.update({
-                    progress: Math.random() * 151.5
-                });
+
+                progressBarMonth.update(format(Math.random() * 151.5));
+                progressBarYear.update(format(Math.random() * 151.5));
+
                 speedGauge1.update(format(Math.random() * 300));
                 lollipopPie.update(format(Math.random() * 1200));
-                progressBall.update(format(Math.random())); 
+                progressBall.update(format(Math.random()));
                 setTimeout(function() {
                     update()
                 }, 3000);

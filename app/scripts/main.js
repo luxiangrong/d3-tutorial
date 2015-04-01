@@ -140,8 +140,9 @@ myChart.progressBar = function(selector, config) {
     var progressBar = function() {};
 
     //更新进度条的状态
-    progressBar.update = function(data) {
-        var progressData = d3.range(0, Math.floor(itemCount * data.progress / config.max), 1);
+    progressBar.update = function(progress) {
+
+        var progressData = d3.range(0, Math.floor(itemCount * progress / config.max), 1);
 
         var progressItemBar = svg.selectAll('rect.progress')
             .data(progressData, function(d) {
@@ -181,6 +182,10 @@ myChart.progressBar = function(selector, config) {
             .remove();
 
         if(config.update != null) {
+            var data = {
+                max: config.max,
+                progress: progress
+            };
             config.update.call(progressBar, data);
         }
     };
@@ -258,6 +263,8 @@ myChart.progressKnob = function(selector, config) {
         ringWidth: 14, //外层圆环的宽度
         intervalNum: 60, //外层圆环切分成的个数
         radius: 100,
+        max: 100,
+        update: null
     };
 
     config = myChart.extend(defaults, config);
@@ -360,6 +367,14 @@ myChart.progressKnob = function(selector, config) {
             });
 
         lastProgress = progress;
+
+        if(config.update != null) {
+            var data = {
+                max: config.max,
+                progress: progress
+            };
+            config.update.call(progressKnob, data);
+        }
     };
 
     return progressKnob;

@@ -587,7 +587,7 @@ $font-size-base: 15px !default;
                 .btngroup {
                     position: absolute;
                     right: 20px;
-                    bottom: 10px;
+                    bottom: 40px;
                 }
             }
             &.jiankong {
@@ -656,7 +656,7 @@ $font-size-base: 15px !default;
                                 height: 360px;
                                 overflow-y: auto;
                                 .table {
-                                    margin-top: 20px;
+                                    margin-top: 30px;
                                     color: #c8c8c8;
                                     > thead, > tbody {
                                         > tr {
@@ -1112,5 +1112,36 @@ svg {
     }
     .fg {
         fill: #00a8ff;
+    }
+}
+
+.switch-global {
+    position: absolute;
+    left: 50%;
+    margin-left: 200px;
+}
+
+.bootstrap-switch {
+    background: url(../images/switch_bg.png) no-repeat center center;
+    border: none;
+    border-radius: 0px;
+    width: 109px !important;
+    height: 37px !important;
+    padding-top: 2px;
+    padding-left: 1px;
+    .bootstrap-switch-handle-on {
+        &.bootstrap-switch-primary {
+            background: url(../images/switch_on.png) no-repeat center center;
+            color: #00cafc;
+        }
+    }
+    .bootstrap-switch-label {
+        background: url(../images/switch_label.png) no-repeat center center;
+    }
+    .bootstrap-switch-handle-off {
+        &.bootstrap-switch-default {
+            background: url(../images/switch_off.png) no-repeat center center;
+            color: #0d0d0d;
+        }
     }
 }
