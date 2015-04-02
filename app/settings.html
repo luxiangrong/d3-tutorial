@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="zh-CN" class="settings">
+
+<head>
+    <meta charset="utf-8">
+    <title>d3 tutorial</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8 device-list">
+                <div class="pane">
+                    <div class="title">
+                        <h1>1号编组</h1></div>
+                    <div class="clearfix body">
+                        <div class="col-lg-5 device">
+                            <h2>包含设备</h2>
+                            <ul>
+                                <li>1号冷机</li>
+                                <li>1号冷冻泵</li>
+                                <li>1号冷却泵</li>
+                                <li>1号冷塔</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-7 time">
+                            <h2>起停时间</h2>
+                            <ul>
+                                <li>
+                                    <p>08:00 - 11:00</p>
+                                    <button class="btn btn-default btn-settings">设置</button>
+                                </li>
+                                <li>
+                                    <p>08:00 - 11:00</p>
+                                    <button class="btn btn-default btn-settings">设置</button>
+                                </li>
+                                <li>
+                                    <p>08:00 - 11:00</p>
+                                    <button class="btn btn-default btn-settings">设置</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="pane">
+                    <div class="title">
+                        <h1>1号编组</h1></div>
+                    <div class="clearfix body">
+                        <div class="col-lg-5 device">
+                            <h2>包含设备</h2>
+                            <ul>
+                                <li>1号冷机</li>
+                                <li>1号冷冻泵</li>
+                                <li>1号冷却泵</li>
+                                <li>1号冷塔</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-7 time">
+                            <h2>起停时间</h2>
+                            <ul>
+                                <li>
+                                    <p>08:00 - 11:00</p>
+                                    <button class="btn btn-default btn-settings">设置</button>
+                                </li>
+                                <li>
+                                    <p>08:00 - 11:00</p>
+                                    <button class="btn btn-default btn-settings">设置</button>
+                                </li>
+                                <li>
+                                    <p>08:00 - 11:00</p>
+                                    <button class="btn btn-default btn-settings">设置</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="pane">
+                    <div class="title">
+                        <h1>1号编组</h1></div>
+                    <div class="clearfix body">
+                        <div class="col-lg-5 device">
+                            <h2>包含设备</h2>
+                            <ul>
+                                <li>1号冷机</li>
+                                <li>1号冷冻泵</li>
+                                <li>1号冷却泵</li>
+                                <li>1号冷塔</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-7 time">
+                            <h2>起停时间</h2>
+                            <ul>
+                                <li>
+                                    <p>08:00 - 11:00</p>
+                                    <button class="btn btn-default btn-settings">设置</button>
+                                </li>
+                                <li>
+                                    <p>08:00 - 11:00</p>
+                                    <button class="btn btn-default btn-settings">设置</button>
+                                </li>
+                                <li>
+                                    <p>08:00 - 11:00</p>
+                                    <button class="btn btn-default btn-settings">设置</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="pane">
+                    <div class="title">
+                        <h1>1号编组</h1></div>
+                    <div class="clearfix body">
+                        <div class="col-lg-5 device">
+                            <h2>包含设备</h2>
+                            <ul>
+                                <li>1号冷机</li>
+                                <li>1号冷冻泵</li>
+                                <li>1号冷却泵</li>
+                                <li>1号冷塔</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-7 time">
+                            <h2>起停时间</h2>
+                            <ul>
+                                <li>
+                                    <p>08:00 - 11:00</p>
+                                    <button class="btn btn-default btn-settings">设置</button>
+                                </li>
+                                <li>
+                                    <p>08:00 - 11:00</p>
+                                    <button class="btn btn-default btn-settings">设置</button>
+                                </li>
+                                <li>
+                                    <p>08:00 - 11:00</p>
+                                    <button class="btn btn-default btn-settings">设置</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="dialog-settings">
+                    <div class="col-lg-6 start-time">
+                        <div class="title">
+                            <h1>启动时间</h1>
+                        </div>
+                        <div class="body">
+                            <dl>
+                                <dt>小时：</dt>
+                                <dd>
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="00"> 00
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="01"> 01
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="02"> 02
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="03"> 03
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="04"> 04
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="05"> 05
+                                        </label>
+                                        <br />
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="06"> 06
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="07"> 07
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="08"> 08
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="09"> 09
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="10"> 10
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="11"> 11
+                                        </label>
+                                        <br />
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="12"> 12
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="13"> 13
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="14"> 14
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="15"> 15
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="16"> 16
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="17"> 17
+                                        </label>
+                                        <br />
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="18"> 18
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="19"> 19
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="20"> 20
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="21"> 21
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="22"> 22
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="23"> 23
+                                        </label>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>分钟：</dt>
+                                <dd>
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="00"> 00
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="05"> 05
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="10"> 10
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="15"> 15
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="20"> 20
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="25"> 25
+                                        </label>
+                                        <br/>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="30"> 30
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="35"> 35
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="40"> 40
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="45"> 45
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="50"> 50
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="55"> 55
+                                        </label>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 stop-time">
+                        <div class="title">
+                            <h1>停止时间<button type="button" class="close" aria-label="Close"><span aria-hidden="true">X</span></button></h1>
+                        </div>
+                        <div class="body">
+                            <dl>
+                                <dt>小时：</dt>
+                                <dd>
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="00"> 00
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="01"> 01
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="02"> 02
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="03"> 03
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="04"> 04
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="05"> 05
+                                        </label>
+                                        <br />
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="06"> 06
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="07"> 07
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="08"> 08
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="09"> 09
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="10"> 10
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="11"> 11
+                                        </label>
+                                        <br />
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="12"> 12
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="13"> 13
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="14"> 14
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="15"> 15
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="16"> 16
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="17"> 17
+                                        </label>
+                                        <br />
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="18"> 18
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="19"> 19
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="20"> 20
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="21"> 21
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="22"> 22
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="hour" autocomplete="off" value="23"> 23
+                                        </label>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>分钟：</dt>
+                                <dd>
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="00"> 00
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="05"> 05
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="10"> 10
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="15"> 15
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="20"> 20
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="25"> 25
+                                        </label>
+                                        <br/>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="30"> 30
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="35"> 35
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="40"> 40
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="45"> 45
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="50"> 50
+                                        </label>
+                                        <label class="btn btn-d">
+                                            <input type="radio" name="minute" autocomplete="off" value="55"> 55
+                                        </label>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 btn-wrap">
+                    	<button class="btn btn-c">确&nbsp;&nbsp;定</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="info">
+                    <dl>
+                        <dt>冷冻水温度最大值</dt>
+                        <dd></dd>
+                    </dl>
+                    <dl>
+                        <dt>冷冻水温度最大值</dt>
+                        <dd></dd>
+                    </dl>
+                    <dl>
+                        <dt>冷冻水温度最大值</dt>
+                        <dd></dd>
+                    </dl>
+                    <dl>
+                        <dt>冷冻水温度最大值</dt>
+                        <dd></dd>
+                    </dl>
+                    <dl>
+                        <dt>冷冻水温度最大值</dt>
+                        <dd></dd>
+                    </dl>
+                    <dl>
+                        <dt>冷冻水温度最大值</dt>
+                        <dd></dd>
+                    </dl>
+                    <div class="event-log">
+                        <p><i class="icon"></i>本次重设系统成功</p>
+                        <p><i class="icon"></i>本次重设系统成功</p>
+                        <p><i class="icon"></i>本次重设系统成功</p>
+                        <p><i class="icon"></i>本次重设系统成功</p>
+                    </div>
+                </div>
+                <div class="row btns">
+                    <div class="col-xs-6 col-left">
+                        <button class="btn btn-lg btn-block btn-c">保存设置</button>
+                    </div>
+                    <div class="col-xs-6 col-right">
+                        <a href="#" class="btn btn-lg btn-block btn-c">超链接</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/jquery-bridget/jquery.bridget.js"></script>
+    <script src="bower_components/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
+    <script src="bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+    <script type="text/javascript">
+    	(function($){
+    		$(document).ready(function(){
+    			$('.btn-settings').on('click', function(){
+    				$('.dialog-settings').show();
+    			});
+    			$('.dialog-settings .close').on('click', function(){
+    				$(this).closest('.dialog-settings').hide();
+    			});
+    		});
+    	})(jQuery);
+    </script>
+</body>
+
+</html>

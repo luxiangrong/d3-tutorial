@@ -57,6 +57,17 @@ $font-size-base: 15px !default;
     padding: 0;
 }
 
+.btn-c {
+    @include button-variant(#ffffff, #2ba481, #2ba481);
+    box-shadow: 2px 2px 2px 1px rgba(24,50,37,1)
+}
+
+.btn-d {
+    @include button-variant(#ffffff, #2ba481, #9d9d9d);
+    background-color: #ffffff;
+    color: #989898;
+}
+
 .status {
     display: inline-block;
     width: 10px;
@@ -335,7 +346,7 @@ $font-size-base: 15px !default;
                     margin-right: - 40px;
                 }
             }
-            .status {
+            .all-status {
                 background: url(../images/bg03.png) no-repeat center center;
                 width: 146px;
                 line-height: 39px;
@@ -867,6 +878,205 @@ $font-size-base: 15px !default;
             }
         }
     }
+}
+
+//时间设置页面样式
+.settings {
+    body {
+        background-color: #454746;
+        padding: 20px;
+    }
+    .device-list {
+        position: relative;
+        .dialog-settings {
+            position: absolute;
+            top: 50%;
+            left: 5px;
+            width: calc(100% - 10px);
+        }
+    }
+    .pane {
+        background-color: #cfcfd1;
+        border-bottom: 4px solid #29ab85;
+        margin-bottom: 10px;
+        .title {
+            padding: 0 30px;
+            border-bottom: 2px solid #696b6a;
+            color: #010101;
+            h1 {
+                margin: 0;
+                padding: 0;
+                font-size: 28px;
+                line-height: 55px;
+            }
+        }
+        .body {
+            font-size: 16px;
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+            h2 {
+                margin: 0;
+                padding: 0;
+                font-size: 24px;
+                line-height: 32px;
+                border-bottom: 1px solid #6f7072;
+            }
+            .device {
+                padding-top: 10px;
+                padding-right: 20px;
+                padding-left: 30px;
+                padding-bottom: 10px;
+                ul {
+                    li {
+                        display: inline-block;
+                        width: 49%;
+                        line-height: 2;
+                    }
+                }
+            }
+            .time {
+                padding-top: 10px;
+                padding-right: 20px;
+                padding-left: 30px;
+                padding-bottom: 10px;
+                background-color: #b6b6b6;
+                ul {
+                    li {
+                        display: inline-block;
+                        width: 30%;
+                        line-height: 2;
+                        text-align: center;
+                        p {
+                            margin: 0;
+                        }
+                        .btn-settings {
+                            background-color: #ffffff;
+                            color: #2ca582;
+                            padding-left: 30px;
+                            padding-right: 30px;
+                            box-shadow: 2px 2px 2px 1px rgba(100,100,100,1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .dialog-settings {
+        border-bottom: 4px solid #29ab85;
+        background-color: #ffffff;
+        display: none;
+        .col-lg-6{
+            &.start-time {
+                padding: 0;
+                border-right: 1px solid #b6b6b6;
+            }
+            &.stop-time {
+                padding: 0;
+                border-left: 1px solid #b6b6b6;
+            }
+        }
+        .title {
+            padding: 0 30px;
+            color: #ffffff;
+            background-color: #2ba481;
+            h1 {
+                margin: 0;
+                padding: 0;
+                font-size: 32px;
+                line-height: 95px;
+                position: relative;
+                .close {
+                    position: absolute;
+                    top: 30px;
+                    right: 10px;
+                    font-size: 36px;
+                }
+            }
+        }
+        .body {
+            padding-left: 30px;
+            padding-top: 20px;
+            background-color: #ffffff;
+            dl {
+                @include clearfix();
+                margin-bottom: 10px;
+                dt {
+                    font-size: 24px;
+                    color: #2ba481;
+                    float: left;
+                    width: 20%;
+                    font-weight: normal;
+                }
+                dd {
+                    width: 80%;
+                    float: left;
+                    .btn-group .btn {
+                        margin: 5px;
+                        border-radius: 0px;
+                        font-size: 20px;
+                    }
+                    .btn-group .btn + .btn {
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+        .btn-wrap {
+            background-color: #ffffff;
+            text-align: center;
+            padding: 20px 0 ;
+            .btn {
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+        }
+    }
+    .info {
+        border: 2px solid #2ca582;
+        padding: 20px;
+        dl {
+            background-color: #b6b6b6;
+            padding: 2px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            @include clearfix();
+            dt {
+                background-color: #2ba481;
+                color: #fff;
+                line-height: 58px;
+                float: left;
+                width: 50%;
+                font-weight: normal;
+                padding-left: 10px;
+            }
+        }
+        .event-log {
+            color: #e7e8ea;
+            font-size: 18px;
+            .icon {
+                width: 25px;
+                height: 25px;
+                display: inline-block;
+                background-color: #e7e8ea;
+                vertical-align: baseline;
+                margin-right: 20px;
+            }
+        }
+    }
+    .btns {
+        text-align: center;
+        margin-top: 20px; 
+        .col-left {
+            padding-right: 30px;
+        }
+        .col-right {
+            padding-left: 30px;
+        }
+    }
+
 }
 
 //svg图表相关样式
