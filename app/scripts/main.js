@@ -758,6 +758,22 @@ myChart.advGauge = function(selector, config) {
     buildTicks();
 
     var buildLabels = function() {
+        labelsContainer.append('text')
+            .attr('class', 'label-unit')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', radius * 0.75)
+            .text(config.unitLabel.title)
+            .style('font-size', radius / 100 * 12);
+
+        labelsContainer.append('text')
+            .attr('class', 'label-unit')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .attr('y', radius * 0.3)
+            .text(config.title)
+            .style('font-size', radius / 100 * 12);
+
         var valueLabelWidth = radius * 0.5,
             valueLabelHeight = valueLabelWidth / 3;
 
@@ -1118,6 +1134,7 @@ myChart.lollipopPie = function(selector, config) {
             .attr('height', config.dialHeight);
     };
     buildDial();
+
 
     function buildPies(data) {
         piesContainer = svg.append('g')

@@ -57,6 +57,24 @@ $font-size-base: 15px !default;
     padding: 0;
 }
 
+.status {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    &.status-running {
+        background-color: #05D60F;
+    }
+    &.status-stopping {
+        background-color: #C1C5C2;
+    }
+    &.status-warning {
+        background-color: #FA0707;
+    }
+}
+
+
+
 /**
  * 手机页面样式
  */
@@ -601,12 +619,47 @@ $font-size-base: 15px !default;
                         position: relative;
                         .chart-status {
                             padding: 20px;
+                            .status {
+                                position: absolute;
+                                &.status-1 {
+                                    top: 230px;
+                                    left: 180px;
+                                }
+                                &.status-2 {
+                                    top: 156px;
+                                    left: 250px;
+                                }
+                                &.status-3 { 
+                                    top: 270px;
+                                    left: 275px;
+                                }
+                                &.status-4 { 
+                                    top: 180px;
+                                    left: 350px;
+                                }
+                                &.status-5 { 
+                                    top: 360px;
+                                    left: 445px;
+                                }
+                                &.status-6 { 
+                                    top: 260px;
+                                    left: 500px;
+                                }
+                                &.status-7 { 
+                                    top: 55px;
+                                    left: 465px;
+                                }
+                                &.status-8 { 
+                                    top: 100px;
+                                    left: 595px;
+                                }
+                            }
                         }
                         .system-status {
                             position: absolute;
                             right: 10px;
                             top: 10px;
-                            font-size: 18px;
+                            font-size: 14px;
                             span {
                                 color: #3dcea3;
                             }
