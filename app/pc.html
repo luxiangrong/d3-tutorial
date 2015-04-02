@@ -95,14 +95,17 @@
                     <div class="col-422">
                         <div class="speed-gauge-wrap">
                             <div class="row small-gauge">
-                                <div class="col-xs-4"><img src="images/gauge01.png" />
-                                    <p>冷机COP 4.5</p>
+                                <div class="col-xs-4">
+                                    <div id="simple-gauge-1" class="gauge"></div>
+                                    <p>冷机COP <span id="lengjicop">4.5</span></p>
                                 </div>
-                                <div class="col-xs-4"><img src="images/gauge01.png" alt="">
-                                    <p>节能率 34.5%</p>
+                                <div class="col-xs-4">
+                                    <div id="simple-gauge-2" class="gauge"></div>
+                                    <p>节能率 <span id="jienenglv">34.5</span>%</p>
                                 </div>
-                                <div class="col-xs-4"><img src="images/gauge01.png" alt="">
-                                    <p>节能量 5.7kw</p>
+                                <div class="col-xs-4">
+                                    <div id="simple-gauge-3" class="gauge"></div>
+                                    <p>节能量 <span id="jienengliang">5.7</span>kw</p>
                                 </div>
                             </div>
                             <div id="speed-gauge">
@@ -229,7 +232,6 @@
                             <div id="shebeikongzhi"></div>
                         </div>
                         <div class="info">
-                            <h5>1#编组运行<small>344kwh 26C</small></h5>
                             <div id="progressBall"></div>
                             <h4>25C<small>125kw</small></h4>
                         </div>
@@ -354,6 +356,69 @@
 
             var progressBall = myChart.progressBall('#progressBall', {});
 
+            var smallGauge1 = myChart.smallGauge('#simple-gauge-1', {
+                width: 78,
+                height: 78,
+                min: 0, //最小刻度
+                max: 7, //最大刻度
+                tick: {
+                    startDeg: 150, //刻度起始角度
+                    endDeg: 390, //刻度结束角度
+                    direction: 1, //刻度方向，1为顺时针，-1为逆时针
+                    major: 6, //主要刻度数量
+                    minor: 10, //主要刻度之间的次要刻度数量
+                },
+                unitLabel: { //计量单位标签
+                    title: 'W/W', // 标题
+                    pos: 'north' // 位置 north:上半部分， south:下半部分
+                },
+                update: function(data) {
+                    $("#lengjicop").text(data.value);
+                }
+            });
+
+            var smallGauge2 = myChart.smallGauge('#simple-gauge-2', {
+                width: 78,
+                height: 78,
+                min: 0, //最小刻度
+                max: 35, //最大刻度
+                tick: {
+                    startDeg: 150, //刻度起始角度
+                    endDeg: 390, //刻度结束角度
+                    direction: 1, //刻度方向，1为顺时针，-1为逆时针
+                    major: 6, //主要刻度数量
+                    minor: 10, //主要刻度之间的次要刻度数量
+                },
+                unitLabel: { //计量单位标签
+                    title: 'W/W', // 标题
+                    pos: 'north' // 位置 north:上半部分， south:下半部分
+                },
+                update: function(data) {
+                    $("#jienenglv").text(data.value);
+                }
+            });
+
+            var smallGauge3 = myChart.smallGauge('#simple-gauge-3', {
+                width: 78,
+                height: 78,
+                min: 0, //最小刻度
+                max: 35, //最大刻度
+                tick: {
+                    startDeg: 150, //刻度起始角度
+                    endDeg: 390, //刻度结束角度
+                    direction: 1, //刻度方向，1为顺时针，-1为逆时针
+                    major: 6, //主要刻度数量
+                    minor: 10, //主要刻度之间的次要刻度数量
+                },
+                unitLabel: { //计量单位标签
+                    title: 'W/W', // 标题
+                    pos: 'north' // 位置 north:上半部分， south:下半部分
+                },
+                update: function(data) {
+                    $("#jienengliang").text(data.value);
+                }
+            });
+
 
 
             function update() {
@@ -366,6 +431,10 @@
                 speedGauge1.update(format(Math.random() * 300));
                 lollipopPie.update(format(Math.random() * 1200));
                 progressBall.update(format(Math.random()));
+
+                smallGauge1.update(format(Math.random() * 7));
+                smallGauge2.update(format(Math.random() * 35));
+                smallGauge3.update(format(Math.random() * 35));
                 setTimeout(function() {
                     update()
                 }, 3000);

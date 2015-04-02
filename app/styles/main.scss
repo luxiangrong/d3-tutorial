@@ -553,7 +553,7 @@ $font-size-base: 15px !default;
                 .speed-gauge-wrap {
                     position: relative;
                     width: 386px;
-                    height: 282px;
+                    height: 292px;
                     margin: 0 auto;
                     background-color: #272828;
                     padding-top: 20px;
@@ -1057,11 +1057,11 @@ $font-size-base: 15px !default;
             color: #e7e8ea;
             font-size: 18px;
             .icon {
-                width: 25px;
-                height: 25px;
+                width: 22px;
+                height: 22px;
                 display: inline-block;
                 background-color: #e7e8ea;
-                vertical-align: baseline;
+                vertical-align: middle;
                 margin-right: 20px;
             }
         }
@@ -1189,6 +1189,59 @@ svg {
             &.c3 {
                 fill: #e1e1e1;
             }
+        }
+    }
+}
+
+.small-gauge {
+    .ticks {
+        circle {
+            fill: transparent;
+            stroke: #aaaaaa;
+            stroke-width: 1;
+        }
+        line {
+            &.tick-major {
+                stroke: #ffffff;
+                stroke-width: 1;
+            }
+            &.tick-minor {
+                stroke-width: 1;
+                stroke: #aaaaaa;
+            }
+        }
+        text {
+            &.label-tick-major {
+                fill: #aaaaaa;
+                stroke-width: 0;
+                font-size: 10px;
+                font-family: Arial;
+                zoom: 0.5;
+                -webkit-text-size-adjust: none;
+            }
+        }
+    }
+    .labels {
+        .label-unit {
+            font-family: Arial;
+            fill: #060606;
+            font-size: 16px;
+        }
+        .value {
+            rect {
+                fill: #2f3131;
+            }
+            text {
+                font-family: 'ds-digitalbold';
+                fill: #35bbfa;
+                font-size: 24px;
+            }
+        }
+    }
+    .pointers {
+        .needle {
+            stroke-width: 1;
+            stroke: #ffffff;
         }
     }
 }
@@ -1408,3 +1461,4 @@ svg {
         }
     }
 }
+

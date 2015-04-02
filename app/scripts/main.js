@@ -1333,3 +1333,219 @@ myChart.progressBtn = function(selector, config) {
 
     return progressBtn;
 }
+
+// 简单仪表
+myChart.smallGauge = function(selector, config) {
+    var defaults = {
+        width: 200,
+        height: 200,
+        min: 0, //最小刻度
+        max: 7, //最大刻度
+        tick: {
+            startDeg: 150, //刻度起始角度
+            endDeg: 390, //刻度结束角度
+            direction: 1, //刻度方向，1为顺时针，-1为逆时针
+            major: 8, //主要刻度数量
+            minor: 0, //主要刻度之间的次要刻度数量
+        },
+        unitLabel: { //计量单位标签
+            title: 'W/W', // 标题
+            pos: 'north' // 位置 north:上半部分， south:下半部分
+        }
+    };
+    config = myChart.extend(defaults, config);
+    var smallGauge = function() {};
+
+    var svg, ticksContainer, labelsContainer, pointContainer, radius, valueLabel;
+    var tickScale, labelScale, pointScale, minorTickScale;
+
+    radius = d3.min([config.width, config.height]) / 2;
+    svg = d3
+        .select(selector)
+        .append('svg')
+        .attr('class', 'small-gauge')
+        .attr('width', config.width)
+        .attr('height', config.height)
+        .append('g');
+
+    ticksContainer = svg.append('g')
+        .attr('class', 'ticks')
+        .attr('transform', 'translate(' + radius + ',' + radius + ')');
+
+    labelsContainer = svg.append('g')
+        .attr('class', 'labels')
+        .attr('transform', 'translate(' + radius + ',' + radius + ')');
+
+    pointContainer = svg.append('g')
+        .attr('class', 'pointers')
+        .attr('transform', 'translate(' + radius + ',' + radius + ')');
+
+    //刻度缩放函数
+    tickScale = d3.scale.linear()
+        .domain([1, config.tick.major])
+        .range([config.tick.startDeg, config.tick.endDeg]);
+    minorTickScale = d3.scale.linear()
+        .domain([0, (config.tick.major - 1) * config.tick.minor])
+        .range([config.tick.startDeg, config.tick.endDeg]);
+
+    labelScale = d3.scale.linear()
+        .domain([1, config.tick.major])
+        .rangeRound([config.min, config.max]);
+
+    pointScale = d3.scale.linear()
+        .domain([0, config.max])
+        .range([config.tick.startDeg, config.tick.endDeg]);
+
+    var majorData = d3.range(1, config.tick.major + 1, 1);
+    var minorData = d3.range(0, (config.tick.major - 1) * config.tick.minor);
+
+    var buildTicks = function() {
+        ticksContainer.append('circle')
+            .attr('r', radius - 1);
+
+        ticksContainer.selectAll('line.tick-major')
+            .data(majorData)
+            .enter()
+            .append('line')
+            .attr('class', 'tick-major')
+            .attr('x1', function(d) {
+                return degreeToPoint(tickScale(d), 1).x;
+            })
+            .attr('y1', function(d) {
+                return degreeToPoint(tickScale(d), 1).y;
+            })
+            .attr('x2', function(d) {
+                return degreeToPoint(tickScale(d), 10).x;
+            })
+            .attr('y2', function(d) {
+                return degreeToPoint(tickScale(d), 10).y;
+            });
+
+        ticksContainer.selectAll('text.lable-tick-major')
+            .data(majorData)
+            .enter()
+            .append('text')
+            .attr('class', 'label-tick-major')
+            .attr('x', function(d) {
+                return degreeToPoint(tickScale(d), radius / 50 * 20).x;
+            })
+            .attr('y', function(d) {
+                return degreeToPoint(tickScale(d), radius / 50 * 20).y;
+            })
+            .attr('dy', '0.5em')
+            .attr('text-anchor', 'middle')
+            .style('font-size', radius / 200 * 12)
+            .style('-webkit-text-size-adjust', 'none')
+            .text(function(d, index) {
+                return labelScale(d);
+            });
+
+        ticksContainer.selectAll('line.tick-minor')
+            .data(minorData)
+            .enter()
+            .append('line')
+            .attr('class', 'tick-minor')
+            .attr('x1', function(d) {
+                return degreeToPoint(minorTickScale(d), 1).x;
+            })
+            .attr('y1', function(d) {
+                return degreeToPoint(minorTickScale(d), 1).y;
+            })
+            .attr('x2', function(d) {
+                if (d % 5 === 0) {
+                    return degreeToPoint(minorTickScale(d), 5).x;
+                } else {
+                    return degreeToPoint(minorTickScale(d), 5).x;
+                }
+            })
+            .attr('y2', function(d) {
+                if (d % 5 === 0) {
+                    return degreeToPoint(minorTickScale(d), 5).y;
+                } else {
+                    return degreeToPoint(minorTickScale(d), 5).y;
+                }
+            });
+    };
+    buildTicks();
+
+    var buildLabels = function() {
+        var unitLabel = labelsContainer.append('text')
+            .attr('class', 'label-unit')
+            .attr('text-anchor', 'middle')
+            .attr('x', 0)
+            .text(config.unitLabel.title)
+            .style('font-size', radius / 100 * 16);
+
+        var valueLabelWidth = radius - 30,
+            valueLabelHeight = valueLabelWidth / 2;
+
+        var valueLabelContainer = labelsContainer.append('g')
+            .attr('class', 'value');
+
+        valueLabelContainer.append('rect')
+            .attr('class', 'label-value')
+            .attr('rx', 3)
+            .attr('ry', 3)
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('width', valueLabelWidth)
+            .attr('height', valueLabelHeight);
+
+        valueLabel = valueLabelContainer.append('text')
+            .attr('text-anchor', 'end')
+            .attr('x', valueLabelWidth)
+            .attr('y', valueLabelHeight / 2)
+            .attr('dy', '0.32em')
+            .text('0.00')
+            .style('font-size', radius / 100 * 24);
+
+        if (config.unitLabel.pos === 'north') {
+            unitLabel.attr('y', '-5');
+            valueLabelContainer.attr('transform', 'translate(' + valueLabelWidth / -2 + ', 0)');
+        } else {
+            unitLabel.attr('y', radius / 100 * 24);
+            valueLabelContainer.attr('transform', 'translate(' + valueLabelWidth / -2 + ',' + valueLabelHeight * -1 + ')');
+        }
+    };
+    // buildLabels();
+
+    var point;
+    var buildPoint = function() {
+        point = pointContainer
+            .append('line')
+            .attr('class', 'needle')
+            .attr('x1', 0)
+            .attr('y1', 0)
+            .attr('x2', degreeToPoint(tickScale(1), 11).x)
+            .attr('y2', degreeToPoint(tickScale(1), 11).y);
+    };
+    buildPoint();
+
+    function degreeToPoint(deg, offset) {
+        return {
+            x: (radius - offset) * Math.cos(deg / 180 * Math.PI),
+            y: (radius - offset) * Math.sin(deg / 180 * Math.PI)
+        };
+    }
+
+    smallGauge.update = function(value) {
+        point.transition()
+            .duration(800)
+            .attrTween('transform', function() {
+                this._current = this._current || pointScale(value);
+                var interpolate = d3.interpolate(this._current, pointScale(value));
+                this._current = interpolate(1);
+                return function(t) {
+                    return 'rotate(' + (interpolate(t) - config.tick.startDeg) + ')';
+                };
+            });
+
+        if(config.update != null) {
+            var data = {
+                value : value
+            };
+            config.update.call(smallGauge, data);
+        }
+    };
+    return smallGauge;
+};
