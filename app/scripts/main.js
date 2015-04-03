@@ -181,7 +181,7 @@ myChart.progressBar = function(selector, config) {
             .style('fill-opacity', 0)
             .remove();
 
-        if(config.update != null) {
+        if (config.update != null) {
             var data = {
                 max: config.max,
                 progress: progress
@@ -214,7 +214,7 @@ myChart.progressBall = function(selector, config) {
     svgContainer = svg.append('g')
         .attr('transform', 'translate(' + config.radius + ',' + config.radius + ')');
 
-    
+
 
     svgContainer.append('circle')
         .attr('class', 'bg')
@@ -232,8 +232,7 @@ myChart.progressBall = function(selector, config) {
         .attr('height', config.radius * 2)
         .attr('x', 0)
         .attr('y', 10)
-        .attr('transform', 'translate(-' + config.radius + ',-' + config.radius + ')')
-        ;
+        .attr('transform', 'translate(-' + config.radius + ',-' + config.radius + ')');
 
     svgContainer.append('image')
         .attr('xlink:href', 'images/pic05.png')
@@ -242,9 +241,9 @@ myChart.progressBall = function(selector, config) {
         .style('opacity', 0.5)
         .attr('width', (config.radius) * 2)
         .attr('height', (config.radius) * 2)
-        .attr('transform', 'translate(-' + config.radius + ',-' + config.radius + ')');    
+        .attr('transform', 'translate(-' + config.radius + ',-' + config.radius + ')');
 
-    var progressBall = function(){};
+    var progressBall = function() {};
 
     progressBall.update = function(value) {
         clippath.transition()
@@ -368,7 +367,7 @@ myChart.progressKnob = function(selector, config) {
 
         lastProgress = progress;
 
-        if(config.update != null) {
+        if (config.update != null) {
             var data = {
                 max: config.max,
                 progress: progress
@@ -903,15 +902,14 @@ myChart.speedGauge = function(selector, config) {
     };
     config = myChart.extend(defaults, config);
 
-    var speedGauge = function(){};
+    var speedGauge = function() {};
 
     var svg,
         defs,
         ticksContainer,
         pointContainer,
         labelsContainer,
-        radius = d3.min([config.width, config.height]) / 2;
-    ;
+        radius = d3.min([config.width, config.height]) / 2;;
 
     svg = d3.select(selector)
         .append('svg')
@@ -919,7 +917,7 @@ myChart.speedGauge = function(selector, config) {
         .attr('width', config.width)
         .attr('height', config.height)
         .append('g')
-        .attr('transform', 'translate('+ radius + ',' + radius + ')');
+        .attr('transform', 'translate(' + radius + ',' + radius + ')');
     defs = svg.append('defs');
 
     ticksContainer = svg.append('g')
@@ -1009,7 +1007,7 @@ myChart.speedGauge = function(selector, config) {
             .attr('text-anchor', 'end')
             .style('font-size', radius * 3 / 25)
             .text(function(d) {
-                    return labelScale(d);
+                return labelScale(d);
             });
     };
     buildTicks();
@@ -1026,7 +1024,7 @@ myChart.speedGauge = function(selector, config) {
             .attr('x', 165)
             .attr('y', 125)
             .attr('dy', '0.5em')
-            .attr('transform', 'translate(-'+ radius + ',-' + radius + ')')
+            .attr('transform', 'translate(-' + radius + ',-' + radius + ')')
             .text('0 kw');
 
         point = pointContainer.append('line')
@@ -1049,7 +1047,7 @@ myChart.speedGauge = function(selector, config) {
     };
     buildPoint();
 
-    speedGauge.update = function(value){
+    speedGauge.update = function(value) {
 
         valueLabel.text(value + 'kw');
 
@@ -1109,13 +1107,12 @@ myChart.lollipopPie = function(selector, config) {
         .attr('height', height)
         .append('g');
 
-    var pie = d3.layout.pie().sort(null).startAngle(Math.PI).endAngle(3*Math.PI).value(function(d) {
+    var pie = d3.layout.pie().sort(null).startAngle(Math.PI).endAngle(3 * Math.PI).value(function(d) {
         return d.value;
     });;
     var arcGenerator = d3.svg.arc()
         .outerRadius(radius)
-        .innerRadius(radius - config.pieThickness)
-        ;
+        .innerRadius(radius - config.pieThickness);
 
     function buildDial() {
         dialContainer = svg.append('g')
@@ -1251,12 +1248,12 @@ myChart.progressBtn = function(selector, config) {
         progressThickness: 12,
         btnWidth: 148,
         btnHeight: 148,
-        click: function(){},
+        click: function() {},
     };
 
     config = myChart.extend(defaults, config);
 
-    var progressBtn = function(){};
+    var progressBtn = function() {};
 
     var svg,
         radius = d3.min([config.btnWidth, config.btnHeight]) / 2 + config.progressThickness,
@@ -1269,14 +1266,14 @@ myChart.progressBtn = function(selector, config) {
         .attr('width', radius * 2)
         .attr('height', radius * 2)
         .append('g')
-        .attr('transform', 'translate(' + radius + ',' +  radius + ')');
+        .attr('transform', 'translate(' + radius + ',' + radius + ')');
 
     var defs = svg.append('defs');
 
     var grow = defs.append('filter')
-                    .attr('id', 'grow')
-                    .append('feGaussianBlur')
-                    .attr('stdDeviation', '2,2');
+        .attr('id', 'grow')
+        .append('feGaussianBlur')
+        .attr('stdDeviation', '2,2');
 
 
     svg.append('circle')
@@ -1290,29 +1287,32 @@ myChart.progressBtn = function(selector, config) {
         .attr('xlink:href', 'images/progressBtn01.png')
         .attr('width', config.btnWidth)
         .attr('height', config.btnHeight)
-        .attr('transform', 'translate(-' + config.btnWidth / 2 + ',-' +  config.btnHeight / 2 + ')');
+        .attr('transform', 'translate(-' + config.btnWidth / 2 + ',-' + config.btnHeight / 2 + ')');
 
-    btnContainer.on('mouseover', function(){
+    btnContainer.on('mouseover', function() {
         d3.select(this).select('image').attr('xlink:href', 'images/progressBtn02.png');
     });
-    btnContainer.on('mouseout', function(){
+    btnContainer.on('mouseout', function() {
         d3.select(this).select('image').attr('xlink:href', 'images/progressBtn01.png');
     });
-    btnContainer.on('click', function(){
+    btnContainer.on('click', function() {
         config.click();
     });
 
-    var arcGenerator = d3.svg.arc().outerRadius(radius).innerRadius(radius - config.progressThickness - 5); 
+    var arcGenerator = d3.svg.arc().outerRadius(radius).innerRadius(radius - config.progressThickness - 5);
 
 
 
     progress = svg.append('path')
         .attr('class', 'progress')
-        .attr('d', arcGenerator({startAngle: 0, endAngle: 0}))
-        .attr('filter', 'url(#grow)'); 
+        .attr('d', arcGenerator({
+            startAngle: 0,
+            endAngle: 0
+        }))
+        .attr('filter', 'url(#grow)');
 
 
-    progressBtn.update = function(value){
+    progressBtn.update = function(value) {
         progress.transition()
             .duration(800)
             .attrTween('d', function() {
@@ -1360,12 +1360,13 @@ myChart.smallGauge = function(selector, config) {
     var tickScale, labelScale, pointScale, minorTickScale;
 
     radius = d3.min([config.width, config.height]) / 2;
+
     svg = d3
         .select(selector)
         .append('svg')
         .attr('class', 'small-gauge')
         .attr('width', config.width)
-        .attr('height', config.height)
+        .attr('height', config.height - radius * Math.sin(config.tick.startDeg / 180 * Math.PI))
         .append('g');
 
     ticksContainer = svg.append('g')
@@ -1400,8 +1401,16 @@ myChart.smallGauge = function(selector, config) {
     var minorData = d3.range(0, (config.tick.major - 1) * config.tick.minor);
 
     var buildTicks = function() {
-        ticksContainer.append('circle')
-            .attr('r', radius - 1);
+        // ticksContainer.append('circle')
+        //     .attr('r', radius - 1);
+
+        var startP = degreeToPoint(config.tick.startDeg, 1);
+        var endP = degreeToPoint(config.tick.endDeg, 1);
+        ticksContainer.append('path')
+            .attr('d', 'M ' + startP.x + ' ' + startP.y + ' A ' + (radius-1) + ' ' + (radius-1) + ', 0, 1, 1, ' + endP.x + ' ' + endP.y)
+            .style('stroke-width', 1)
+            .style('stroke', '#ffffff')
+            .style('fill', 'transparent');
 
         ticksContainer.selectAll('line.tick-major')
             .data(majorData)
@@ -1518,6 +1527,17 @@ myChart.smallGauge = function(selector, config) {
             .attr('y1', 0)
             .attr('x2', degreeToPoint(tickScale(1), 11).x)
             .attr('y2', degreeToPoint(tickScale(1), 11).y);
+
+        pointContainer.append('circle')
+            .attr('class', 'c1')
+            .attr('r', radius * 0.08);
+
+        pointContainer.append('image')
+            .attr('xlink:href', 'images/pointer.png')
+            .attr('width', radius * 0.22)
+            .attr('height', radius * 0.22)
+            .attr('x', -radius * 0.22 / 2)
+            .attr('y', -radius * 0.22 / 2);
     };
     buildPoint();
 
@@ -1540,12 +1560,185 @@ myChart.smallGauge = function(selector, config) {
                 };
             });
 
-        if(config.update != null) {
+        if (config.update != null) {
             var data = {
-                value : value
+                value: value
             };
             config.update.call(smallGauge, data);
         }
     };
     return smallGauge;
 };
+
+myChart.histogram = function(selector, config) {
+    var defaults = {
+        width: 160,
+        height: 200,
+        padding: {
+            top: 10,
+            right: 10,
+            bottom: 10,
+            left: 10
+        },
+        margin: {
+            top: 10,
+            right: 10,
+            bottom: 30,
+            left: 10
+        },
+        legend0: {
+            color: '#00a8ff',
+            label: '定额总量'
+        },
+        legend1: {
+            color: '#30dca8',
+            label: '预计总量'
+        }
+    };
+
+    config = myChart.extend(defaults, config);
+
+    var x = d3.scale.ordinal()
+        .rangeRoundBands([0, config.width], .1);
+
+    var y = d3.scale.linear()
+        .range([config.height, 0]);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left");
+
+    var svg;
+
+    svg = d3
+        .select(selector)
+        .append('svg')
+        .attr('class', 'histogram')
+        .attr('width', config.width + config.margin.left + config.margin.right)
+        .attr('height', config.height + config.margin.top + config.margin.bottom)
+        .append('g')
+        .attr("transform", "translate(" + config.margin.left + "," + config.margin.top + ")");
+
+    var histogram = function() {};
+
+    histogram.update = function(data) {
+
+        var max = d3.max(data, function(d) {
+            return d3.sum(d.values)
+        })
+
+
+        x.domain(data.map(function(d) {
+            return d.label;
+        }));
+        y.domain([0, max]);
+
+        svg.selectAll(".bar-1")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", "bar-0")
+            .attr("x", function(d) {
+                return x(d.label);
+            })
+            .attr("y", function(d) {
+                return y(d.values[0]);
+            })
+            .attr("height", function(d) {
+                return config.height - y(d.values[0]);
+            })
+            .attr("width", x.rangeBand());
+
+        svg.selectAll(".label-value-1")
+            .data(data)
+            .enter()
+            .append('text')
+            .attr('class', 'label-value-1')
+            .attr('text-anchor', 'middle')
+            .attr("x", function(d) {
+                return x(d.label);
+            })
+            .attr("y", function(d) {
+                return y(d.values[0]);
+            })
+            .attr('dx', x.rangeBand() / 2)
+            .attr('dy', '1.5em')
+            .text(function(d) {
+                return d.values[0];
+            });
+        svg.selectAll(".bar-2")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", "bar-1")
+            .attr("x", function(d) {
+                return x(d.label);
+            })
+            .attr("y", function(d) {
+                return y(d.values[1] + d.values[0]);
+            })
+            .attr("height", function(d) {
+                return config.height - y(d.values[1]);
+            })
+            .attr("width", x.rangeBand());
+        svg.selectAll(".label-value-2")
+            .data(data)
+            .enter()
+            .append('text')
+            .attr('class', 'label-value-2')
+            .attr('text-anchor', 'middle')
+            .attr("x", function(d) {
+                return x(d.label);
+            })
+            .attr("y", function(d) {
+                return y(d.values[1] + d.values[0]);
+            })
+            .attr('dx', x.rangeBand() / 2)
+            .attr('dy', '1.5em')
+            .text(function(d) {
+                return d.values[1];
+            });
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + config.height + ")")
+            .call(xAxis);
+
+
+        var legendContainer = svg.append('g').attr('class', 'legend-container');
+
+        legendContainer
+            .append('rect')
+            .attr('class', 'legent-0')
+            .style('fill', config.legend0.color)
+            .attr('width', 10)
+            .attr('height', 10)
+            .attr('y', 0);
+
+        legendContainer.append('text')
+            .attr('y', 0)
+             .attr('x', 15)
+             .attr('dy', '0.75em')
+            .text(config.legend0.label);
+
+        legendContainer
+            .append('rect')
+            .attr('class', 'legent-1')
+            .style('fill', config.legend1.color)
+            .attr('width', 10)
+            .attr('height', 10)
+            .attr('y', 20);
+
+
+        legendContainer.append('text')
+            .attr('y', 20)
+             .attr('x', 15)
+             .attr('dy', '0.75em')
+            .text(config.legend1.label);
+
+    }
+
+    return histogram;
+}

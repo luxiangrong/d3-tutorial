@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>d3 tutorial</title>
+    <title>直方图</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
@@ -21,33 +21,13 @@
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
-
 </head>
 
 <body>
     <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="list-group">
-                    <a href="pc.html" class="list-group-item" target="_blank">
-                        <h4 class="list-group-item-heading">PC</h4>
-                    </a>
-                    <a href="sp.html" class="list-group-item" target="_blank">
-                        <h4 class="list-group-item-heading">手机</h4>
-                    </a>
-                    <a href="settings.html" class="list-group-item" target="_blank">
-                        <h4 class="list-group-item-heading">设置页面</h4>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-
+    <div id="component1"></div>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -59,12 +39,47 @@
     <script src="bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-
     <!-- build:js({app,.tmp}) scripts/main.js -->
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
+    <script type="text/javascript">
+	var format = d3.format('.1f');
 
-   
+    var histogram = myChart.histogram('#component1', {});
+
+    function update() {
+        histogram.update({
+        	day: {
+        		label: '万度/日',
+        		value: [1.5, 3.2]
+        	}
+        }); 
+        setTimeout(function() {
+            update()
+        }, 2000);
+    }
+    // update();
+    // 
+    // 
+    window.setTimeout(function(){
+        histogram.update([
+        	{
+        		label: '万度/日',
+        		values: [1.5, 3.2]
+        	},
+        	{
+        		label: '万度/月',
+        		values: [2.5, 5.2]
+        	},
+        	{
+        		label: '万度/年',
+        		values: [3.5, 6.2]
+        	}
+        ]); 
+    }, 10);
+
+
+    </script>
 </body>
 
 </html>

@@ -774,6 +774,9 @@ $font-size-base: 15px !default;
             .bar-wrap {
                 text-align: center;
             }
+            .histogram-wrap {
+                float: left;
+            }
         }
         .youhua-wrap {
             float: left;
@@ -1428,6 +1431,33 @@ svg {
     }
     .fg {
         fill: #00a8ff;
+    }
+}
+
+.histogram {
+    .bar-0 {
+        fill: #00a8ff;
+    }
+    .bar-1 {
+        fill: #30dca8;
+    }
+    .axis {
+        &.x {
+            .domain {
+                display: none;
+            }
+            .tick {
+                text {
+                    fill: #ffffff;
+                }
+            }
+        }
+    }
+    .legend-container {
+        text {
+            font-size: 12px;
+            fill: #ffffff;
+        }
     }
 }
 

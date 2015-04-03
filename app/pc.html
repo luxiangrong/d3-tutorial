@@ -143,10 +143,8 @@
                         <div class="system-status">
                             <i class="status status-warning"></i>
                             <i class="status status-running"></i>
-                            <i class="status status-stopping"></i>
-                            报警/运行/停止
+                            <i class="status status-stopping"></i> 报警/运行/停止
                         </div>
-                        
                         <div class="shuiwei-status clearfix">
                             <ul>
                                 <li>冷冻水供水温度：7 C</li>
@@ -213,7 +211,9 @@
                     <h1>能耗统计</h1>
                     <h2>节能效益：耗电量25.6万度，<span class="grade-a">节省18.2元</span></h2>
                     <div class="bar-wrap">
-                        <img src="images/pic04.png" alt="">
+                        <div class="histogram-wrap" id="histogram1"></div>
+                        <div class="histogram-wrap" id="histogram2"></div>
+                        <div class="histogram-wrap" id="histogram3"></div>
                     </div>
                 </div>
                 <div class="youhua-wrap">
@@ -440,6 +440,76 @@
                 }, 3000);
             }
             update();
+
+
+            var histogram1 = myChart.histogram('#histogram1', {
+                legend0: {
+                    color: '#00a8ff',
+                    label: '定额总量'
+                },
+                legend1: {
+                    color: '#30dca8',
+                    label: '预计总量'
+                }
+            });
+            histogram1.update([
+                {
+                    label: '万度/日',
+                    values: [1.5, 3.2]
+                }, {
+                    label: '万度/月',
+                    values: [2.5, 5.2]
+                }, {
+                    label: '万度/年',
+                    values: [3.5, 6.2]
+                }
+            ]);
+
+            var histogram2 = myChart.histogram('#histogram2', {
+                legend0: {
+                    color: '#00a8ff',
+                    label: '预计电量'
+                },
+                legend1: {
+                    color: '#30dca8',
+                    label: '实际电量'
+                }
+            });
+            histogram2.update([
+                {
+                    label: '万度/日',
+                    values: [2.5, 3.2]
+                }, {
+                    label: '万度/月',
+                    values: [3.5, 5.2]
+                }, {
+                    label: '万度/年',
+                    values: [4.5, 6.2]
+                }
+            ]);
+
+            var histogram3 = myChart.histogram('#histogram3', {
+                legend0: {
+                    color: '#00a8ff',
+                    label: '节电费'
+                },
+                legend1: {
+                    color: '#30dca8',
+                    label: '耗电费'
+                }
+            });
+            histogram3.update([
+                {
+                    label: '万元/日',
+                    values: [4.5, 6.2]
+                }, {
+                    label: '万元/月',
+                    values: [12.5, 13.2]
+                }, {
+                    label: '万元/年',
+                    values: [14.5, 16.2]
+                }
+            ]);
         });
     })(jQuery);
     </script>
