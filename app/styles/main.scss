@@ -73,6 +73,7 @@ $font-size-base: 15px !default;
     width: 10px;
     height: 10px;
     border-radius: 5px;
+    transition: all 1s;
     &.status-running {
         background-color: #05D60F;
     }
@@ -1330,6 +1331,16 @@ svg {
                 stroke-width: 1;
                 stroke: #4f5252;
             }
+        }
+    }
+    .point {
+        .minute {
+            stroke-width: 2;
+            stroke: #000000;
+        }
+        .hour {
+            stroke-width: 4;
+            stroke: #000000;
         }
     }
 }

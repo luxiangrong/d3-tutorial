@@ -1098,7 +1098,15 @@ myChart.lollipopPie = function(selector, config) {
         radius = d3.min([width, height]) / 2,
         dialContainer,
         dialRadius = d3.min([config.dialWidth, config.dialHeight]),
-        piesContainer;
+        piesContainer, pies, pointContainer;
+
+    var hourScale = d3.scale.linear()
+        .domain([0, 24])
+        .rangeRound([90, 450]);
+
+    var minuteScale = d3.scale.linear()
+        .domain([0,60])
+        .rangeRound([-90, 270]);
 
     svg = d3.select(selector)
         .append('svg')
@@ -1132,13 +1140,73 @@ myChart.lollipopPie = function(selector, config) {
     };
     buildDial();
 
+    var buildPoint = function() {
+        pointContainer = svg.append('g')
+            .attr('class', 'point')
+            .attr('transform', 'translate(' + radius + ',' + radius + ')');
+
+        var r = radius * 0.03;
+        var s = radius * 0.7;
+        var x1 = r * 2 / s;
+        var y1 = Math.sqrt(r * r - x1 * x1);
+
+        var p1 = {
+            x: s,
+            y: 0
+        };
+        var p2 = {
+            x: x1,
+            y: y1
+        };
+        var p3 = {
+            x: x1,
+            y: -y1
+        };
+
+        var current = new Date();
+        var pointMinuteWith = config.dialWidth / 2 - 30;
+        var pointHourWidth = config.dialWidth / 2 - 50
+
+        var minutes = current.getMinutes() + current.getSeconds() / 60;
+        var hours = current.getHours() + current.getMinutes() / 60;
+
+        console.log(hourScale(current.getHours()));
+        console.log(Math.cos(hourScale(current.getHours()) / 180 * Math.PI));
+
+        pointContainer.append('line')
+            .attr('class', 'minute')
+            .attr('x1', 0)
+            .attr('y1', 0)
+            .attr('x2', pointMinuteWith * Math.cos(minuteScale(minutes) / 180 * Math.PI))
+            .attr('y2', (pointMinuteWith * Math.sin(minuteScale(minutes) / 180 * Math.PI)));
+
+        pointContainer.append('line')
+            .attr('class', 'hour')
+            .attr('x1', 0)
+            .attr('y1', 0)
+            .attr('x2', pointHourWidth * Math.cos(hourScale(hours) / 180 * Math.PI))
+            .attr('y2', pointHourWidth * Math.sin(hourScale(hours) / 180 * Math.PI));
+
+        pointContainer.append('circle')
+            .attr('class', 'c1')
+            .attr('r', radius * 0.05);
+
+        pointContainer.append('image')
+            .attr('xlink:href', 'images/pointer.png')
+            .attr('width', radius * 0.08)
+            .attr('height', radius * 0.08)
+            .attr('x', - radius * 0.08 / 2)
+            .attr('y', - radius * 0.08 / 2);    
+    };
+    buildPoint();
+
 
     function buildPies(data) {
         piesContainer = svg.append('g')
             .attr('class', 'pies')
             .attr('transform', 'translate(' + radius + ',' + radius + ')');
 
-        var pies = piesContainer.selectAll('g.pieContainer')
+        pies = piesContainer.selectAll('g.pieContainer')
             .data(data, function(d) {
                 return d.label
             })
@@ -1149,93 +1217,111 @@ myChart.lollipopPie = function(selector, config) {
         pies.each(function(d1, i) {
             d3.select(this)
                 .selectAll('path.pie')
-                .data(pie(d1.data))
+                .data(pie(d1.data), function(d2, i2) {
+                    return d1.label + i2 + d2.data.label;
+                })
                 .enter()
                 .append('path')
-                .attr('class', 'pie')
+                .attr('class', 'pie');
+        });
+    }
+
+    buildPies([{
+        label: '#1',
+        data: [{
+            label: '运行',
+            value: Math.random() * 24
+        }, {
+            label: '故障',
+            value: Math.random() * 24
+        }, {
+            label: '停机',
+            value: Math.random() * 24
+        }]
+    }, {
+        label: '#2',
+        data: [{
+            label: '运行',
+            value: Math.random() * 24
+        }, {
+            label: '故障',
+            value: Math.random() * 24
+        }, {
+            label: '停机',
+            value: Math.random() * 24
+        }]
+    }, {
+        label: '#3',
+        data: [{
+            label: '运行',
+            value: Math.random() * 24
+        }, {
+            label: '故障',
+            value: Math.random() * 24
+        }, {
+            label: '停机',
+            value: Math.random() * 24
+        }, {
+            label: '运行',
+            value: Math.random() * 24
+        }, {
+            label: '故障',
+            value: Math.random() * 24
+        }, {
+            label: '停机',
+            value: Math.random() * 24
+        }]
+    }, {
+        label: '#4',
+        data: [{
+            label: '运行',
+            value: Math.random() * 24
+        }, {
+            label: '故障',
+            value: Math.random() * 24
+        }, {
+            label: '停机',
+            value: Math.random() * 24
+        }]
+    }, {
+        label: '#5',
+        data: [{
+            label: '运行',
+            value: Math.random() * 24
+        }, {
+            label: '故障',
+            value: Math.random() * 24
+        }, {
+            label: '停机',
+            value: Math.random() * 24
+        }]
+    }]);
+
+    lollipopPie.update = function(data) {
+
+        pies.each(function(d1, i) {
+            var pathes = d3.select(this)
+                .selectAll('path.pie')
+                .data(pie(d1.data), function(d2, i2) {
+                    return d1.label + i2 + d2.data.label;
+                });
+            var enter = pathes.enter();
+            var exit = pathes.exit();
+
+            d3.select(this)
+                .selectAll('path.pie')
+                .data(pie(d1.data), function(d2, i2) {
+                    return d1.label + i2 + d2.data.label;
+                })
                 .attr('d', function(d3) {
                     arcGenerator.outerRadius(radius - i * config.pieThickness - 5);
                     arcGenerator.innerRadius(radius - (i + 1) * config.pieThickness - 5);
                     return arcGenerator(d3);
-
                 })
                 .style('fill', function(d4) {
                     return config.dataColors[d4.data.label];
                 });
         });
-    }
-
-    lollipopPie.update = function() {
-        buildPies([{
-            label: '#1',
-            data: [{
-                label: '运行',
-                value: 3
-            }, {
-                label: '故障',
-                value: 2
-            }, {
-                label: '停机',
-                value: 1
-            }]
-        }, {
-            label: '#2',
-            data: [{
-                label: '运行',
-                value: 3
-            }, {
-                label: '故障',
-                value: 4
-            }, {
-                label: '停机',
-                value: 5
-            }]
-        }, {
-            label: '#3',
-            data: [{
-                label: '运行',
-                value: 1
-            }, {
-                label: '故障',
-                value: 1
-            }, {
-                label: '停机',
-                value: 1
-            }, {
-                label: '运行',
-                value: 1
-            }, {
-                label: '故障',
-                value: 1
-            }, {
-                label: '停机',
-                value: 1
-            }]
-        }, {
-            label: '#4',
-            data: [{
-                label: '运行',
-                value: 1
-            }, {
-                label: '故障',
-                value: 5
-            }, {
-                label: '停机',
-                value: 3
-            }]
-        }, {
-            label: '#5',
-            data: [{
-                label: '运行',
-                value: 2
-            }, {
-                label: '故障',
-                value: 2
-            }, {
-                label: '停机',
-                value: 3
-            }]
-        }, ]);
     };
 
     return lollipopPie;
@@ -1407,7 +1493,7 @@ myChart.smallGauge = function(selector, config) {
         var startP = degreeToPoint(config.tick.startDeg, 1);
         var endP = degreeToPoint(config.tick.endDeg, 1);
         ticksContainer.append('path')
-            .attr('d', 'M ' + startP.x + ' ' + startP.y + ' A ' + (radius-1) + ' ' + (radius-1) + ', 0, 1, 1, ' + endP.x + ' ' + endP.y)
+            .attr('d', 'M ' + startP.x + ' ' + startP.y + ' A ' + (radius - 1) + ' ' + (radius - 1) + ', 0, 1, 1, ' + endP.x + ' ' + endP.y)
             .style('stroke-width', 1)
             .style('stroke', '#ffffff')
             .style('fill', 'transparent');
@@ -1575,13 +1661,13 @@ myChart.histogram = function(selector, config) {
         width: 160,
         height: 200,
         padding: {
-            top: 10,
+            top: 30,
             right: 10,
             bottom: 10,
             left: 10
         },
         margin: {
-            top: 10,
+            top: 40,
             right: 10,
             bottom: 30,
             left: 10
@@ -1602,7 +1688,7 @@ myChart.histogram = function(selector, config) {
         .rangeRoundBands([0, config.width], .1);
 
     var y = d3.scale.linear()
-        .range([config.height, 0]);
+        .range([config.height, config.margin.top]);
 
     var xAxis = d3.svg.axis()
         .scale(x)
@@ -1611,6 +1697,8 @@ myChart.histogram = function(selector, config) {
     var yAxis = d3.svg.axis()
         .scale(y)
         .orient("left");
+
+    var format = d3.format('.1f');
 
     var svg;
 
@@ -1625,7 +1713,7 @@ myChart.histogram = function(selector, config) {
 
     var histogram = function() {};
 
-    histogram.update = function(data) {
+    histogram.init = function(data) {
 
         var max = d3.max(data, function(d) {
             return d3.sum(d.values)
@@ -1637,8 +1725,10 @@ myChart.histogram = function(selector, config) {
         }));
         y.domain([0, max]);
 
-        svg.selectAll(".bar-1")
-            .data(data)
+        svg.selectAll(".bar-0")
+            .data(data, function(d) {
+                return d.label;
+            })
             .enter().append("rect")
             .attr("class", "bar-0")
             .attr("x", function(d) {
@@ -1652,25 +1742,11 @@ myChart.histogram = function(selector, config) {
             })
             .attr("width", x.rangeBand());
 
-        svg.selectAll(".label-value-1")
-            .data(data)
-            .enter()
-            .append('text')
-            .attr('class', 'label-value-1')
-            .attr('text-anchor', 'middle')
-            .attr("x", function(d) {
-                return x(d.label);
+
+        svg.selectAll(".bar-1")
+            .data(data, function(d) {
+                return d.label;
             })
-            .attr("y", function(d) {
-                return y(d.values[0]);
-            })
-            .attr('dx', x.rangeBand() / 2)
-            .attr('dy', '1.5em')
-            .text(function(d) {
-                return d.values[0];
-            });
-        svg.selectAll(".bar-2")
-            .data(data)
             .enter().append("rect")
             .attr("class", "bar-1")
             .attr("x", function(d) {
@@ -1683,11 +1759,33 @@ myChart.histogram = function(selector, config) {
                 return config.height - y(d.values[1]);
             })
             .attr("width", x.rangeBand());
-        svg.selectAll(".label-value-2")
-            .data(data)
+        svg.selectAll(".label-value-0")
+            .data(data, function(d) {
+                return d.label;
+            })
             .enter()
             .append('text')
-            .attr('class', 'label-value-2')
+            .attr('class', 'label-value-0')
+            .attr('text-anchor', 'middle')
+            .attr("x", function(d) {
+                return x(d.label);
+            })
+            .attr("y", function(d) {
+                return y(d.values[0]);
+            })
+            .attr('dx', x.rangeBand() / 2)
+            .attr('dy', '1.5em')
+            .text(function(d) {
+                return format(d.values[0]);
+            });
+
+        svg.selectAll(".label-value-1")
+            .data(data, function(d) {
+                return d.label;
+            })
+            .enter()
+            .append('text')
+            .attr('class', 'label-value-1')
             .attr('text-anchor', 'middle')
             .attr("x", function(d) {
                 return x(d.label);
@@ -1698,7 +1796,7 @@ myChart.histogram = function(selector, config) {
             .attr('dx', x.rangeBand() / 2)
             .attr('dy', '1.5em')
             .text(function(d) {
-                return d.values[1];
+                return format(d.values[1]);
             });
 
         svg.append("g")
@@ -1711,7 +1809,7 @@ myChart.histogram = function(selector, config) {
 
         legendContainer
             .append('rect')
-            .attr('class', 'legent-0')
+            .attr('class', 'legend-0')
             .style('fill', config.legend0.color)
             .attr('width', 10)
             .attr('height', 10)
@@ -1719,13 +1817,13 @@ myChart.histogram = function(selector, config) {
 
         legendContainer.append('text')
             .attr('y', 0)
-             .attr('x', 15)
-             .attr('dy', '0.75em')
+            .attr('x', 15)
+            .attr('dy', '0.75em')
             .text(config.legend0.label);
 
         legendContainer
             .append('rect')
-            .attr('class', 'legent-1')
+            .attr('class', 'legend-1')
             .style('fill', config.legend1.color)
             .attr('width', 10)
             .attr('height', 10)
@@ -1734,9 +1832,74 @@ myChart.histogram = function(selector, config) {
 
         legendContainer.append('text')
             .attr('y', 20)
-             .attr('x', 15)
-             .attr('dy', '0.75em')
+            .attr('x', 15)
+            .attr('dy', '0.75em')
             .text(config.legend1.label);
+
+    }
+
+    histogram.update = function(data) {
+        var max = d3.max(data, function(d) {
+            return d3.sum(d.values)
+        })
+
+        x.domain(data.map(function(d) {
+            return d.label;
+        }));
+        y.domain([0, max]);
+
+        svg.selectAll(".bar-0")
+            .data(data, function(d) {
+                return d.label;
+            })
+            .transition()
+            .duration(500)
+            .attr("y", function(d) {
+                return y(d.values[0]);
+            })
+            .attr("height", function(d) {
+                return config.height - y(d.values[0]);
+            });
+
+        svg.selectAll(".bar-1")
+            .data(data, function(d) {
+                return d.label;
+            })
+            .transition()
+            .duration(500)
+            .attr("y", function(d) {
+                return y(d.values[1] + d.values[0]);
+            })
+            .attr("height", function(d) {
+                return config.height - y(d.values[1]);
+            });
+
+        svg.selectAll(".label-value-0")
+            .data(data, function(d) {
+                return d.label;
+            })
+            .transition()
+            .duration(500)
+            .attr("y", function(d) {
+                return d3.min([y(d.values[0]), config.height - config.margin.bottom - 0]);
+            })
+            .text(function(d) {
+                return format(d.values[0]);
+            });
+
+        svg.selectAll(".label-value-1")
+            .data(data, function(d) {
+                return d.label;
+            })
+            .transition()
+            .duration(500)
+            .attr("y", function(d) {
+
+                return d3.min([y(d.values[1] + d.values[0]), config.height - config.margin.bottom - 20]);
+            })
+            .text(function(d) {
+                return format(d.values[1]);
+            });
 
     }
 

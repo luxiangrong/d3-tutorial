@@ -33,7 +33,7 @@
                 <h1><img src="images/title01.png" height="29" width="312" alt=""></h1>
                 <div class="header-wrap">
                     <img class="logo" src="images/logo02.png" height="109" width="247" alt="">
-                    <h2>系统状态：运行中<i>/</i>室外温度：4C<i>/</i>室内温度：27C<i>/</i>冷冻水温度：7C<i>/</i>冷却水温度18C<i>/</i>系统功率：345kW</h2>
+                    <h2>系统状态：运行中<i>/</i>室外温度：4 ℃<i>/</i>室内温度：27 ℃<i>/</i>冷冻水温度：7 ℃<i>/</i>冷却水温度18 ℃<i>/</i>系统功率：345 kW</h2>
                     <div class="tab">
                         <a class="data" href="#"><img src="images/pic01.png" alt=""></a>
                         <a class="" href="#"><img src="images/pic02.png" alt=""></a>
@@ -88,8 +88,8 @@
                     </div>
                     <div class="col-256">
                         <div id="wendu" class="progress-knoba-2"></div>
-                        <p>室温最高：<span id="wendu-max">28</span> C</p>
-                        <p>实时室温：<span class="current-wendu"><span id="wendu-current">27</span> C</span>
+                        <p>室温最高：<span id="wendu-max">28</span> ℃</p>
+                        <p>实时室温：<span class="current-wendu"><span id="wendu-current">27</span> ℃</span>
                         </p>
                     </div>
                     <div class="col-422">
@@ -147,10 +147,10 @@
                         </div>
                         <div class="shuiwei-status clearfix">
                             <ul>
-                                <li>冷冻水供水温度：7 C</li>
-                                <li>冷冻水回水温度：12 C</li>
-                                <li>冷却水供水温度：26 C</li>
-                                <li>冷却水回水温度：26 C</li>
+                                <li>冷冻水供水温度：7 ℃</li>
+                                <li>冷冻水回水温度：12 ℃</li>
+                                <li>冷却水供水温度：26 ℃</li>
+                                <li>冷却水回水温度：26 ℃</li>
                             </ul>
                         </div>
                         <div class="btngroup">
@@ -233,7 +233,7 @@
                         </div>
                         <div class="info">
                             <div id="progressBall"></div>
-                            <h4>25C<small>125kw</small></h4>
+                            <h4>25 ℃<small>125kw</small></h4>
                         </div>
                         <ul class="description">
                             <li><i class="cube cube-a"></i>故障</li>
@@ -263,6 +263,16 @@
     (function($) {
         $(document).ready(function() {
             $('#switch').bootstrapSwitch();
+
+            var currentTime = new Date();
+            var year = currentTime.getFullYear();
+            var month = currentTime.getMonth() + 1;
+            month = month > 10 ? month : '0' + month;
+            var day = currentTime.getDate();
+            day = day > 10 ? day : '0' + day;
+            $('.date .year').html('<span>' + currentTime.getFullYear().toString().split('').join('</span><span>') + '</span>');
+            $('.date .month').html('<span>' + month.toString().split('').join('</span><span>') + '</span>');
+            $('.date .day').html('<span>' + day.toString().split('').join('</span><span>') + '</span>');
 
             var format = d3.format('.1f');
             var format2 = d3.format('.f');
@@ -419,29 +429,6 @@
                 }
             });
 
-
-
-            function update() {
-                progressKnoba1.update(Math.floor(Math.random() * 1345));
-                progressKnoba2.update(Math.floor(Math.random() * 28));
-
-                progressBarMonth.update(format(Math.random() * 151.5));
-                progressBarYear.update(format(Math.random() * 151.5));
-
-                speedGauge1.update(format(Math.random() * 300));
-                lollipopPie.update(format(Math.random() * 1200));
-                progressBall.update(format(Math.random()));
-
-                smallGauge1.update(format(Math.random() * 7));
-                smallGauge2.update(format(Math.random() * 35));
-                smallGauge3.update(format(Math.random() * 35));
-                setTimeout(function() {
-                    update()
-                }, 3000);
-            }
-            update();
-
-
             var histogram1 = myChart.histogram('#histogram1', {
                 legend0: {
                     color: '#00a8ff',
@@ -452,18 +439,17 @@
                     label: '预计总量'
                 }
             });
-            histogram1.update([
-                {
-                    label: '万度/日',
-                    values: [1.5, 3.2]
-                }, {
-                    label: '万度/月',
-                    values: [2.5, 5.2]
-                }, {
-                    label: '万度/年',
-                    values: [3.5, 6.2]
-                }
-            ]);
+
+            histogram1.init([{
+                label: '万度/日',
+                values: [(Math.random() * 1.5), (Math.random() * 1.5) + (Math.random() * 1.5)]
+            }, {
+                label: '万度/月',
+                values: [(Math.random() * 2.5), (Math.random() * 2.5) + (Math.random() * 2.5)]
+            }, {
+                label: '万度/年',
+                values: [(Math.random() * 3.5), (Math.random() * 3.5) + (Math.random() * 3.5)]
+            }]);
 
             var histogram2 = myChart.histogram('#histogram2', {
                 legend0: {
@@ -475,18 +461,16 @@
                     label: '实际电量'
                 }
             });
-            histogram2.update([
-                {
-                    label: '万度/日',
-                    values: [2.5, 3.2]
-                }, {
-                    label: '万度/月',
-                    values: [3.5, 5.2]
-                }, {
-                    label: '万度/年',
-                    values: [4.5, 6.2]
-                }
-            ]);
+            histogram2.init([{
+                label: '万度/日',
+                values: [2.5, 3.2]
+            }, {
+                label: '万度/月',
+                values: [3.5, 5.2]
+            }, {
+                label: '万度/年',
+                values: [4.5, 6.2]
+            }]);
 
             var histogram3 = myChart.histogram('#histogram3', {
                 legend0: {
@@ -498,18 +482,156 @@
                     label: '耗电费'
                 }
             });
-            histogram3.update([
-                {
+            histogram3.init([{
+                label: '万元/日',
+                values: [4.5, 6.2]
+            }, {
+                label: '万元/月',
+                values: [12.5, 13.2]
+            }, {
+                label: '万元/年',
+                values: [14.5, 16.2]
+            }]);
+
+
+            function update() {
+                //模拟今日能耗
+                progressKnoba1.update(Math.floor(Math.random() * 1345));
+                //模拟当前温度
+                progressKnoba2.update(Math.floor(Math.random() * 28));
+
+                //模拟年定额消耗
+                progressBarMonth.update(format(Math.random() * 151.5));
+                //模拟月定额消耗
+                progressBarYear.update(format(Math.random() * 151.5));
+
+                speedGauge1.update(format(Math.random() * 300));
+                lollipopPie.update([{
+                    label: '#1',
+                    data: [{
+                        label: '运行',
+                        value: Math.random() * 24
+                    }, {
+                        label: '故障',
+                        value: Math.random() * 24
+                    }, {
+                        label: '停机',
+                        value: Math.random() * 24
+                    }]
+                }, {
+                    label: '#2',
+                    data: [{
+                        label: '运行',
+                        value: Math.random() * 24
+                    }, {
+                        label: '故障',
+                        value: Math.random() * 24
+                    }, {
+                        label: '停机',
+                        value: Math.random() * 24
+                    }]
+                }, {
+                    label: '#3',
+                    data: [{
+                        label: '运行',
+                        value: Math.random() * 24
+                    }, {
+                        label: '故障',
+                        value: Math.random() * 24
+                    }, {
+                        label: '停机',
+                        value: Math.random() * 24
+                    }, {
+                        label: '运行',
+                        value: Math.random() * 24
+                    }, {
+                        label: '故障',
+                        value: Math.random() * 24
+                    }, {
+                        label: '停机',
+                        value: Math.random() * 24
+                    }]
+                }, {
+                    label: '#4',
+                    data: [{
+                        label: '运行',
+                        value: Math.random() * 24
+                    }, {
+                        label: '故障',
+                        value: Math.random() * 24
+                    }, {
+                        label: '停机',
+                        value: Math.random() * 24
+                    }]
+                }, {
+                    label: '#5',
+                    data: [{
+                        label: '运行',
+                        value: Math.random() * 24
+                    }, {
+                        label: '故障',
+                        value: Math.random() * 24
+                    }, {
+                        label: '停机',
+                        value: Math.random() * 24
+                    }]
+                }]);
+                progressBall.update(format(Math.random()));
+
+                smallGauge1.update(format(Math.random() * 7));
+                smallGauge2.update(format(Math.random() * 35));
+                smallGauge3.update(format(Math.random() * 35));
+
+                //模拟状态变化
+                $('.chart-status i.status').toggleClass('status-warning status-stopping status-running');
+
+
+                histogram1.update([{
+                    label: '万度/日',
+                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
+                }, {
+                    label: '万度/月',
+                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
+                }, {
+                    label: '万度/年',
+                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
+                }]);
+
+                histogram2.update([{
+                    label: '万度/日',
+                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
+                }, {
+                    label: '万度/月',
+                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
+                }, {
+                    label: '万度/年',
+                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
+                }]);
+
+                histogram3.update([{
                     label: '万元/日',
-                    values: [4.5, 6.2]
+                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
                 }, {
                     label: '万元/月',
-                    values: [12.5, 13.2]
+                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
                 }, {
                     label: '万元/年',
-                    values: [14.5, 16.2]
-                }
-            ]);
+                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
+                }]);
+
+                setTimeout(function() {
+                    update()
+                }, 3000);
+
+
+            }
+            update();
+
+
+
+
+
+
         });
     })(jQuery);
     </script>
