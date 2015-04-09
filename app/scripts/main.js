@@ -502,8 +502,8 @@ myChart.simpleGauge = function(selector, config) {
             .attr('height', valueLabelHeight);
 
         valueLabel = valueLabelContainer.append('text')
-            .attr('text-anchor', 'end')
-            .attr('x', valueLabelWidth)
+            .attr('text-anchor', 'middle')
+            .attr('x', valueLabelWidth/2)
             .attr('y', valueLabelHeight / 2)
             .attr('dy', '0.32em')
             .text('0.00')

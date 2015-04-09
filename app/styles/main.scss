@@ -68,6 +68,13 @@ $font-size-base: 15px !default;
     color: #989898;
 }
 
+.btn-e {
+    color: #eeeeee;
+    &:hover {
+        color: darken(#eeeeee, 6.5%) ;
+    }
+}
+
 .status {
     display: inline-block;
     width: 10px;
@@ -273,13 +280,17 @@ $font-size-base: 15px !default;
             }
         }
         .chart-progress {
-            margin-top: 5px;
             padding: 5px 0;
             .label {
                 font-size: 17px;
                 color: #535353;
                 text-align: right;
                 font-weight: normal;
+                .unit {
+                    font-size: 12px;
+                    margin-top: 7px;
+                    display: inline-block;
+                }
             }
             .data {
                 .col-xs-4 {
@@ -890,13 +901,23 @@ $font-size-base: 15px !default;
         background-color: #454746;
         padding: 20px;
     }
+    .container {
+        width: 1280px;
+    }
+    .title {
+        color: #eeeeee;
+        text-align: center;
+    }
     .device-list {
         position: relative;
         .dialog-settings {
-            position: absolute;
+            position: fixed;
             top: 50%;
-            left: 5px;
-            width: calc(100% - 10px);
+            left: 50%;
+            margin-top: -200px;
+            margin-left: -500px;
+            width: 1000px;
+            z-index: 100;
         }
     }
     .pane {
@@ -910,12 +931,12 @@ $font-size-base: 15px !default;
             h1 {
                 margin: 0;
                 padding: 0;
-                font-size: 28px;
+                font-size: 24px;
                 line-height: 55px;
             }
         }
         .body {
-            font-size: 16px;
+            font-size: 14px;
             ul {
                 margin: 0;
                 padding: 0;
@@ -924,7 +945,7 @@ $font-size-base: 15px !default;
             h2 {
                 margin: 0;
                 padding: 0;
-                font-size: 24px;
+                font-size: 18px;
                 line-height: 32px;
                 border-bottom: 1px solid #6f7072;
             }
@@ -989,14 +1010,14 @@ $font-size-base: 15px !default;
             h1 {
                 margin: 0;
                 padding: 0;
-                font-size: 32px;
+                font-size: 24px;
                 line-height: 95px;
                 position: relative;
                 .close {
                     position: absolute;
                     top: 30px;
                     right: 10px;
-                    font-size: 36px;
+                    font-size: 28px;
                 }
             }
         }
@@ -1008,7 +1029,7 @@ $font-size-base: 15px !default;
                 @include clearfix();
                 margin-bottom: 10px;
                 dt {
-                    font-size: 24px;
+                    font-size: 18px;
                     color: #2ba481;
                     float: left;
                     width: 20%;
@@ -1020,7 +1041,7 @@ $font-size-base: 15px !default;
                     .btn-group .btn {
                         margin: 5px;
                         border-radius: 0px;
-                        font-size: 20px;
+                        font-size: 16px;
                     }
                     .btn-group .btn + .btn {
                         margin-left: 5px;
@@ -1039,35 +1060,31 @@ $font-size-base: 15px !default;
         }
     }
     .info {
-        border: 2px solid #2ca582;
+        border: 2px solid #2ba481;
         padding: 20px;
-        dl {
-            background-color: #b6b6b6;
-            padding: 2px;
-            font-size: 18px;
-            margin-bottom: 20px;
-            @include clearfix();
-            dt {
-                background-color: #2ba481;
+        color: #e7e8ea;
+        font-size: 14px;
+        .form-group-input {
+            border: 2px solid #b6b6b6;
+            background-color: #2ba481;
+            label {
                 color: #fff;
-                line-height: 58px;
-                float: left;
-                width: 50%;
                 font-weight: normal;
                 padding-left: 10px;
+                text-align:left;
+            }
+            .form-control-wrap {
+                background-color: #b6b6b6;
+            }
+            input {
+                border: none;
+                background-color: transparent;
+                color: 666666;
+                box-shadow: none;
             }
         }
-        .event-log {
-            color: #e7e8ea;
-            font-size: 18px;
-            .icon {
-                width: 22px;
-                height: 22px;
-                display: inline-block;
-                background-color: #e7e8ea;
-                vertical-align: middle;
-                margin-right: 20px;
-            }
+        .form-group-checkbox {
+            margin-bottom: 0;
         }
     }
     .btns {

@@ -285,15 +285,26 @@
                 ticks_labels: [0, 50, 100]
             });
 
-            $("#mode-slider").slider({
+            function setSlideValue() {
+                var value = slideSwitch.getValue();
+                if(value < 60) {
+                    slideSwitch.setValue(0);
+                }
+                if( value >= 60 && value < 140) {
+                   slideSwitch.setValue(100);
+                }
+                if(value >= 140) {
+                    slideSwitch.setValue(200);
+                }
+            }
+            var slideSwitch = $("#mode-slider").slider({
                 min: 0,
                 max: 200,
                 value: 0,
                 ticks: [0, 100, 200],
                 ticks_labels: ['自动', '半自动', '手动'],
-                ticks_snap_bounds: 20,
                 tooltip: 'hide'
-            });
+            }).on('slideStop', setSlideValue).data('slider');
 
             var progressBtn = myChart.progressBtn('#progress-youhua', {
                 click: function() {

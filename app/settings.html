@@ -27,9 +27,42 @@
     <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div class="container-fluid">
+    <div class="container">
+        <h1 class="title">设备控制预览</h1>
         <div class="row">
             <div class="col-lg-8 device-list">
+                <div class="pane">
+                    <div class="title">
+                        <h1>1号编组</h1></div>
+                    <div class="clearfix body">
+                        <div class="col-lg-5 device">
+                            <h2>包含设备</h2>
+                            <ul>
+                                <li>1号冷机</li>
+                                <li>1号冷冻泵</li>
+                                <li>1号冷却泵</li>
+                                <li>1号冷塔</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-7 time">
+                            <h2>起停时间</h2>
+                            <ul>
+                                <li>
+                                    <p>08:00 - 11:00</p>
+                                    <button class="btn btn-default btn-settings">设置</button>
+                                </li>
+                                <li>
+                                    <p>08:00 - 11:00</p>
+                                    <button class="btn btn-default btn-settings">设置</button>
+                                </li>
+                                <li>
+                                    <p>08:00 - 11:00</p>
+                                    <button class="btn btn-default btn-settings">设置</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 <div class="pane">
                     <div class="title">
                         <h1>1号编组</h1></div>
@@ -426,49 +459,85 @@
                         </div>
                     </div>
                     <div class="col-lg-12 btn-wrap">
-                    	<button class="btn btn-c">确&nbsp;&nbsp;定</button>
+                        <button class="btn btn-c">确&nbsp;&nbsp;定</button>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="info">
-                    <dl>
-                        <dt>冷冻水温度最大值</dt>
-                        <dd></dd>
-                    </dl>
-                    <dl>
-                        <dt>冷冻水温度最大值</dt>
-                        <dd></dd>
-                    </dl>
-                    <dl>
-                        <dt>冷冻水温度最大值</dt>
-                        <dd></dd>
-                    </dl>
-                    <dl>
-                        <dt>冷冻水温度最大值</dt>
-                        <dd></dd>
-                    </dl>
-                    <dl>
-                        <dt>冷冻水温度最大值</dt>
-                        <dd></dd>
-                    </dl>
-                    <dl>
-                        <dt>冷冻水温度最大值</dt>
-                        <dd></dd>
-                    </dl>
-                    <div class="event-log">
-                        <p><i class="icon"></i>本次重设系统成功</p>
-                        <p><i class="icon"></i>本次重设系统成功</p>
-                        <p><i class="icon"></i>本次重设系统成功</p>
-                        <p><i class="icon"></i>本次重设系统成功</p>
-                    </div>
+                    <form class="form-horizontal">
+                        <div class="form-group form-group-lg form-group-input">
+                            <label class="col-sm-6 control-label" for="input1">冷冻水温度最大值</label>
+                            <div class="col-sm-6 form-control-wrap">
+                                <input class="form-control" type="text" id="input1" placeholder="" value="12 ℃">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-lg form-group-input">
+                            <label class="col-sm-6 control-label" for="input2">冷冻水温度最大值</label>
+                            <div class="col-sm-6 form-control-wrap">
+                                <input class="form-control" type="text" id="input2" placeholder="" value="13 ℃">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-lg form-group-input">
+                            <label class="col-sm-6 control-label" for="input3">冷冻水温度最大值</label>
+                            <div class="col-sm-6 form-control-wrap">
+                                <input class="form-control" type="text" id="input3" placeholder="" value="14 ℃">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-lg form-group-input">
+                            <label class="col-sm-6 control-label" for="input4">冷冻水温度最大值</label>
+                            <div class="col-sm-6 form-control-wrap">
+                                <input class="form-control" type="text" id="input4" placeholder="" value="15 ℃">
+                            </div>
+                        </div>
+                         <div class="form-group form-group-lg form-group-input">
+                            <label class="col-sm-6 control-label" for="input5">冷冻水温度最大值</label>
+                            <div class="col-sm-6 form-control-wrap">
+                                <input class="form-control" type="text" id="input5" placeholder="" value="15 ℃">
+                            </div>
+                        </div>
+                         <div class="form-group form-group-lg form-group-input">
+                            <label class="col-sm-6 control-label" for="input6">冷冻水温度最大值</label>
+                            <div class="col-sm-6 form-control-wrap">
+                                <input class="form-control" type="text" id="input6" placeholder="" value="15 ℃">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-checkbox">
+                            <div class="checkbox input-lg">
+                                <label>
+                                    <input type="checkbox"> 冷冻水温度重设使能
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-checkbox">
+                            <div class="checkbox input-lg">
+                                <label>
+                                    <input type="checkbox"> 冷冻泵调频使能
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-checkbox">
+                            <div class="checkbox input-lg">
+                                <label>
+                                    <input type="checkbox"> 冷却泵调频使能
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-checkbox">
+                            <div class="checkbox input-lg">
+                                <label>
+                                    <input type="checkbox"> 冷塔风机数量调整使能
+                                </label>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="row btns">
                     <div class="col-xs-6 col-left">
                         <button class="btn btn-lg btn-block btn-c">保存设置</button>
                     </div>
                     <div class="col-xs-6 col-right">
-                        <a href="#" class="btn btn-lg btn-block btn-c">超链接</a>
+                        <a href="#" class="btn btn-link btn-lg btn-block btn-e">超链接</a>
                     </div>
                 </div>
             </div>
@@ -489,16 +558,16 @@
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
     <script type="text/javascript">
-    	(function($){
-    		$(document).ready(function(){
-    			$('.btn-settings').on('click', function(){
-    				$('.dialog-settings').show();
-    			});
-    			$('.dialog-settings .close').on('click', function(){
-    				$(this).closest('.dialog-settings').hide();
-    			});
-    		});
-    	})(jQuery);
+    (function($) {
+        $(document).ready(function() {
+            $('.btn-settings').on('click', function() {
+                $('.dialog-settings').show();
+            });
+            $('.dialog-settings .close').on('click', function() {
+                $(this).closest('.dialog-settings').hide();
+            });
+        });
+    })(jQuery);
     </script>
 </body>
 
