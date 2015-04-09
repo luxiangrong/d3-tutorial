@@ -311,15 +311,15 @@ myChart.progressKnob = function(selector, config) {
 
     buttons.append('image')
         .attr('xlink:href', 'images/knob01.png')
-        .attr('width', 189)
-        .attr('height', 189)
+        .attr('width', (radius) * 2  - config.ringWidth)
+        .attr('height', (radius) * 2  - config.ringWidth)
         .attr('x', 0)
         .attr('y', 0);
 
     var progressDot = svg.append('image')
         .attr('xlink:href', 'images/knob02.png')
-        .attr('width', 12)
-        .attr('height', 12);
+        .attr('width', 8)
+        .attr('height', 8);
 
     var progressKnob = function() {};
     var lastProgress = 0;
@@ -1021,10 +1021,11 @@ myChart.speedGauge = function(selector, config) {
 
         valueLabel = svg.append('text')
             .attr('class', 'value-label')
-            .attr('x', 165)
-            .attr('y', 125)
+            .attr('x', 135)
+            .attr('y', 106)
             .attr('dy', '0.5em')
             .attr('transform', 'translate(-' + radius + ',-' + radius + ')')
+            .style('font-size', 12)
             .text('0 kw');
 
         point = pointContainer.append('line')
@@ -1077,9 +1078,9 @@ myChart.speedGauge = function(selector, config) {
 // 像棒棒糖一样的饼图
 myChart.lollipopPie = function(selector, config) {
     var defaults = {
-        dialWidth: 232, //内部刻度表盘的宽度
-        dialHeight: 232,
-        pieThickness: 18,
+        dialWidth: 252, //内部刻度表盘的宽度
+        dialHeight: 252,
+        pieThickness: 12,
         pieCount: 5,
         dataColors: {
             '故障': '#fb9c5c',
@@ -1331,9 +1332,9 @@ myChart.lollipopPie = function(selector, config) {
 //四周有进度指示的按钮
 myChart.progressBtn = function(selector, config) {
     var defaults = {
-        progressThickness: 12,
-        btnWidth: 148,
-        btnHeight: 148,
+        progressThickness: 6,
+        btnWidth: 100,
+        btnHeight: 100,
         click: function() {},
     };
 
@@ -1658,19 +1659,19 @@ myChart.smallGauge = function(selector, config) {
 
 myChart.histogram = function(selector, config) {
     var defaults = {
-        width: 160,
-        height: 200,
+        width: 115,
+        height: 150,
         padding: {
-            top: 30,
-            right: 10,
+            top: 20,
+            right: 0,
             bottom: 10,
-            left: 10
+            left: 0
         },
         margin: {
             top: 40,
-            right: 10,
+            right: 0,
             bottom: 30,
-            left: 10
+            left: 0
         },
         legend0: {
             color: '#00a8ff',
@@ -1707,9 +1708,9 @@ myChart.histogram = function(selector, config) {
         .append('svg')
         .attr('class', 'histogram')
         .attr('width', config.width + config.margin.left + config.margin.right)
-        .attr('height', config.height + config.margin.top + config.margin.bottom)
+        .attr('height', config.height +  config.margin.bottom)
         .append('g')
-        .attr("transform", "translate(" + config.margin.left + "," + config.margin.top + ")");
+        .attr("transform", "translate(" + config.margin.left + "," + 0 + ")");
 
     var histogram = function() {};
 
