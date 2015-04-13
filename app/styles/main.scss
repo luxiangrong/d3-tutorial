@@ -412,6 +412,10 @@ $font-size-base: 12px !default;
                             box-shadow: none;
                             -webkit-box-shadow: none;
                             margin-left: -16px;
+                            transition: all 0.3s;
+                            &.disable-animate {
+                                transition: none;
+                            }
                         }
                         .slider-tick {
                             background: none;
@@ -1527,7 +1531,7 @@ svg {
     .bootstrap-switch-handle-off {
         &.bootstrap-switch-default {
             background: url(../images/switch_off.png) no-repeat center center;
-            color: #0d0d0d;
+            color: #aaaaaa;
         }
     }
 }

@@ -32,7 +32,7 @@
             <div>
                 <h1><img src="images/title01.png" alt=""></h1>
                 <div class="header-wrap">
-                    <img class="logo" src="images/logo02.png"  alt="">
+                    <img class="logo" src="images/logo02.png" alt="">
                     <h2>系统状态：运行中<i>/</i>室外温度：4 ℃<i>/</i>室内温度：27 ℃<i>/</i>冷冻水温度：7 ℃<i>/</i>冷却水温度18 ℃<i>/</i>系统功率：345 kW</h2>
                     <div class="tab">
                         <a class="data" href="#"><img src="images/pic01.png" alt=""></a>
@@ -49,7 +49,7 @@
                         <div class="month"><span>0</span><span>3</span></div>
                         <div class="day"><span>2</span><span>6</span></div>
                     </div>
-                    <div class="mode-slider-wrap">
+                    <div class="mode-slider-wrap" id="mode-slider-wrap">
                         <input type="text" id="mode-slider" />
                     </div>
                     <div class="switch switch-global" data-size="mini">
@@ -259,7 +259,10 @@
     <script type="text/javascript">
     (function($) {
         $(document).ready(function() {
-            $('#switch').bootstrapSwitch({size: 'mini'});
+            $('#switch').bootstrapSwitch({
+                size: 'mini',
+                inverse: true
+            });
 
             var currentTime = new Date();
             var year = currentTime.getFullYear();
@@ -283,14 +286,15 @@
             });
 
             function setSlideValue() {
+                $('#mode-slider-wrap').find('.slider-handle').removeClass('disable-animate');
                 var value = slideSwitch.getValue();
-                if(value < 60) {
+                if (value < 60) {
                     slideSwitch.setValue(0);
                 }
-                if( value >= 60 && value < 140) {
-                   slideSwitch.setValue(100);
+                if (value >= 60 && value < 140) {
+                    slideSwitch.setValue(100);
                 }
-                if(value >= 140) {
+                if (value >= 140) {
                     slideSwitch.setValue(200);
                 }
             }
@@ -301,7 +305,13 @@
                 ticks: [0, 100, 200],
                 ticks_labels: ['自动', '半自动', '手动'],
                 tooltip: 'hide'
-            }).on('slideStop', setSlideValue).data('slider');
+            }).on('slideStop', setSlideValue).data('slider')
+            .on('slide', function(){
+                $('#mode-slider-wrap').find('.slider-handle').addClass('disable-animate');
+            })
+            .on('slideStart', function(){
+                $('#mode-slider-wrap').find('.slider-handle').removeClass('disable-animate');
+            });
 
             var progressBtn = myChart.progressBtn('#progress-youhua', {
                 click: function() {
