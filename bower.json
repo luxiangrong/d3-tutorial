@@ -2,6 +2,7 @@
   "name": "d3-tutorial",
   "private": true,
   "dependencies": {
+  	"jquery": "= 1.11.2",
   	"bootstrap-sass": "~3.3.2",
     "modernizr": "~2.8.2",
     "d3": "~3.5.5",

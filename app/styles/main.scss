@@ -26,7 +26,6 @@ $font-size-base: 12px !default;
 }
 
 .btn-a {
-    @include button-variant(#00ccff, #2ba481, #2ba481);
     width: 77px;
     line-height: 26px;
     color: #00ccff;
@@ -34,6 +33,7 @@ $font-size-base: 12px !default;
     background: url(../images/btnbg01.png) no-repeat center center;
     border: none;
     text-decoration: none;
+    box-shadow: none;
     &:hover, &:focus, &:active {
         color: #00ccff;
         border: none;
@@ -431,15 +431,14 @@ $font-size-base: 12px !default;
             }
         }
     }
-    .blue-box {
+    .blue-box { 
         border: 2px solid #04c7ff;
         border-radius: 8px;
-
         h1 {
             background: url(../images/bg01.png) repeat center center;
             margin: 0;
             padding: 0;
-            font-size: 30px;
+            font-size: 20px;
             color: #04c7ff; 
             text-align: center;
             display: inline-block;
@@ -448,7 +447,7 @@ $font-size-base: 12px !default;
             padding-left: 10px;
             padding-right: 10px;
             position: relative;
-            top: -16px;
+            top: -13px;
         }
     }
     .gray-box {
@@ -459,7 +458,7 @@ $font-size-base: 12px !default;
             background: url(../images/bg01.png) repeat center center;
             margin: 0;
             padding: 0;
-            font-size: 30px;
+            font-size: 20px;
             color: #9a9b9b;
             text-align: center;
             display: inline-block;
@@ -468,7 +467,7 @@ $font-size-base: 12px !default;
             padding-left: 10px;
             padding-right: 10px;
             position: relative;
-            top: -16px;
+            top: -13px;
         }
         .body {
             text-align: left;
@@ -476,7 +475,7 @@ $font-size-base: 12px !default;
     }
     .col-left {
         width: 110px;
-        margin-top: 8px;
+        margin-top: 9px;
         float: left;
         .blue-box {
             padding: 20px 12px;
@@ -519,7 +518,7 @@ $font-size-base: 12px !default;
     .col-center {
         width: 630px;
         float: left;
-        margin-top: 8px;
+        margin-top: -8px;
         padding-left: 5px;
 
         .gray-box {
@@ -529,7 +528,7 @@ $font-size-base: 12px !default;
                 background: url(../images/bg01.png) repeat center center;
                 margin: 0;
                 padding: 0;
-                font-size: 30px;
+                font-size: 20px;
                 color: #9a9b9b;
                 text-align: center;
                 display: inline-block;
@@ -538,7 +537,7 @@ $font-size-base: 12px !default;
                 padding-left: 10px;
                 padding-right: 10px;
                 position: relative;
-                top: -16px;
+                top: -13px;
             }
             .row {
                 margin: 0px;
@@ -578,7 +577,7 @@ $font-size-base: 12px !default;
                     background-color: #272828;
                     padding-top: 5px;
                     .small-gauge {
-                        font-size: 12px;
+                        font-size: 8px;
                         white-space: nowrap;
                         p {
                             margin: 10px 0;
@@ -657,36 +656,36 @@ $font-size-base: 12px !default;
                             .status {
                                 position: absolute;
                                 &.status-1 {
-                                    top: 145px;
-                                    left: 113px;
+                                    top: 151px;
+                                    left: 117px;
                                 }
                                 &.status-2 {
-                                    top: 98px;
-                                    left: 158px;
+                                    top: 99px;
+                                    left: 164px;
                                 }
                                 &.status-3 { 
-                                    top: 170px;
-                                    left: 175px;
+                                    top: 181px;
+                                    left: 185px;
                                 }
                                 &.status-4 { 
-                                    top: 114px;
-                                    left: 221px;
+                                    top: 115px;
+                                    left: 227px;
                                 }
                                 &.status-5 { 
-                                    top: 227px;
-                                    left: 281px;
+                                    top: 235px;
+                                    left: 284px;
                                 }
                                 &.status-6 { 
-                                    top: 164px;
-                                    left: 316px;
+                                    top: 169px;
+                                    left: 323px;
                                 }
                                 &.status-7 { 
-                                    top: 35px;
-                                    left: 294px;
+                                    top: 37px;
+                                    left: 296px;
                                 }
                                 &.status-8 { 
-                                    top: 63px;
-                                    left: 376px;
+                                    top: 69px;
+                                    left: 381px;
                                 }
                             }
                         }
@@ -733,7 +732,7 @@ $font-size-base: 12px !default;
                                 padding: 2px;
                                 h2 {
                                     margin: 0;
-                                    font-size: 18px;
+                                    font-size: 16px;
                                     color: #313131;
                                     text-align: center;
                                     border: 1px solid #313131;
@@ -779,7 +778,7 @@ $font-size-base: 12px !default;
     .col-right {
         float: left;
         width: 500px;
-        margin-top: 30px;
+        margin-top: 12px;
         padding-left: 10px; 
         .tongji {
             float: left;
@@ -832,7 +831,7 @@ $font-size-base: 12px !default;
         .kongzhi {
             margin-top: 30px;
             position: relative;
-            padding-bottom: 40px;
+            padding-bottom: 24px;
             padding-top: 5px;
             &.blue-box {
                 text-align: center;
@@ -885,12 +884,14 @@ $font-size-base: 12px !default;
                 margin: 0;
                 list-style:none;
                 color: #ffffff;
-                font-size: 18px;
+                font-size: 12px;
                 li {
+                    line-height: 20px;
+                    height: 20px;
                     .cube {
                         display: inline-block;
-                        width: 14px;
-                        height: 14px;
+                        width: 10px;
+                        height: 10px;
                         margin-right: 5px;
                         &.cube-a {
                             background-color: #fb9c5c;

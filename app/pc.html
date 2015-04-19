@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <!--[if lt IE 10]>
+    <!--[if lt IE 9]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div class="all-wrap">
@@ -140,7 +140,7 @@
                         <div class="system-status">
                             <i class="status status-warning"></i>
                             <i class="status status-running"></i>
-                            <i class="status status-stopping"></i> 报警/运行/停止
+                            <i class="status status-stopping"></i> 异常/运行/停止
                         </div>
                         <div class="shuiwei-status clearfix">
                             <ul>
@@ -324,9 +324,9 @@
 
             var progressBarMonth = myChart.progressBar('#progress-bar-month', {
                 width: 40,
-                height: 331,
+                height: 302,
                 max: 151.5,
-                itemSize: 8,
+                itemSize: 6,
                 direction: 'horizontal',
                 padding: {
                     top: 5,
@@ -343,9 +343,9 @@
 
             var progressBarYear = myChart.progressBar('#progress-bar-year', {
                 width: 40,
-                height: 331,
+                height: 302,
                 max: 151.5,
-                itemSize: 8,
+                itemSize: 6,
                 direction: 'horizontal',
                 padding: {
                     top: 5,
@@ -452,64 +452,64 @@
             var histogram1 = myChart.histogram('#histogram1', {
                 legend0: {
                     color: '#00a8ff',
-                    label: '定额总量'
+                    label: '定额总量(万度)'
                 },
                 legend1: {
                     color: '#30dca8',
-                    label: '预计总量'
+                    label: '预计总量(万度)'
                 }
             });
 
             histogram1.init([{
-                label: '万度/日',
+                label: '日',
                 values: [(Math.random() * 1.5), (Math.random() * 1.5) + (Math.random() * 1.5)]
             }, {
-                label: '万度/月',
+                label: '月',
                 values: [(Math.random() * 2.5), (Math.random() * 2.5) + (Math.random() * 2.5)]
             }, {
-                label: '万度/年',
+                label: '年',
                 values: [(Math.random() * 3.5), (Math.random() * 3.5) + (Math.random() * 3.5)]
             }]);
 
             var histogram2 = myChart.histogram('#histogram2', {
                 legend0: {
                     color: '#00a8ff',
-                    label: '预计电量'
+                    label: '预计电量(万度)'
                 },
                 legend1: {
                     color: '#30dca8',
-                    label: '实际电量'
+                    label: '实际电量(万度)'
                 }
             });
             histogram2.init([{
-                label: '万度/日',
+                label: '日',
                 values: [2.5, 3.2]
             }, {
-                label: '万度/月',
+                label: '月',
                 values: [3.5, 5.2]
             }, {
-                label: '万度/年',
+                label: '年',
                 values: [4.5, 6.2]
             }]);
 
             var histogram3 = myChart.histogram('#histogram3', {
                 legend0: {
                     color: '#00a8ff',
-                    label: '节电费'
+                    label: '节电费(万元)'
                 },
                 legend1: {
                     color: '#30dca8',
-                    label: '耗电费'
+                    label: '耗电费(万元)'
                 }
             });
             histogram3.init([{
-                label: '万元/日',
+                label: '日',
                 values: [4.5, 6.2]
             }, {
-                label: '万元/月',
+                label: '月',
                 values: [12.5, 13.2]
             }, {
-                label: '万元/年',
+                label: '年',
                 values: [14.5, 16.2]
             }]);
 
@@ -607,35 +607,35 @@
 
 
                 histogram1.update([{
-                    label: '万度/日',
+                    label: '日',
                     values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
                 }, {
-                    label: '万度/月',
+                    label: '月',
                     values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
                 }, {
-                    label: '万度/年',
+                    label: '年',
                     values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
                 }]);
 
                 histogram2.update([{
-                    label: '万度/日',
+                    label: '日',
                     values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
                 }, {
-                    label: '万度/月',
+                    label: '月',
                     values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
                 }, {
-                    label: '万度/年',
+                    label: '年',
                     values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
                 }]);
 
                 histogram3.update([{
-                    label: '万元/日',
+                    label: '日',
                     values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
                 }, {
-                    label: '万元/月',
+                    label: '月',
                     values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
                 }, {
-                    label: '万元/年',
+                    label: '年',
                     values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
                 }]);
 
