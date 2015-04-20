@@ -471,7 +471,7 @@ myChart.simpleGauge = function(selector, config) {
             })
             .attr('dy', '0.5em')
             .attr('text-anchor', 'middle')
-            .style('font-size', radius / 50 * 12)
+            .style('font-size', radius / 50 * 12 + 'px')
             .text(function(d) {
                 return labelScale(d);
             });
@@ -484,7 +484,7 @@ myChart.simpleGauge = function(selector, config) {
             .attr('text-anchor', 'middle')
             .attr('x', 0)
             .text(config.unitLabel.title)
-            .style('font-size', radius / 100 * 16);
+            .style('font-size', radius / 100 * 16 + 'px');
 
         var valueLabelWidth = radius - 30,
             valueLabelHeight = valueLabelWidth / 2;
@@ -507,7 +507,7 @@ myChart.simpleGauge = function(selector, config) {
             .attr('y', valueLabelHeight / 2)
             .attr('dy', '0.32em')
             .text('0.00')
-            .style('font-size', radius / 100 * 24);
+            .style('font-size', radius / 100 * 24 + 'px');
 
         if (config.unitLabel.pos === 'north') {
             unitLabel.attr('y', '-5');
@@ -745,7 +745,7 @@ myChart.advGauge = function(selector, config) {
             })
             .attr('dy', '0.5em')
             .attr('text-anchor', 'end')
-            .style('font-size', radius * 3 / 25)
+            .style('font-size', radius * 3 / 25 + 'px')
             .text(function(d) {
                 if (d % 2 === 0) {
                     return labelScale(d);
@@ -763,7 +763,7 @@ myChart.advGauge = function(selector, config) {
             .attr('x', 0)
             .attr('y', radius * 0.75)
             .text(config.unitLabel.title)
-            .style('font-size', radius / 100 * 12);
+            .style('font-size', radius / 100 * 12 + 'px');
 
         labelsContainer.append('text')
             .attr('class', 'label-unit')
@@ -771,7 +771,7 @@ myChart.advGauge = function(selector, config) {
             .attr('x', 0)
             .attr('y', radius * 0.3)
             .text(config.title)
-            .style('font-size', radius / 100 * 12);
+            .style('font-size', radius / 100 * 12 + 'px');
 
         var valueLabelWidth = radius * 0.5,
             valueLabelHeight = valueLabelWidth / 3;
@@ -794,7 +794,7 @@ myChart.advGauge = function(selector, config) {
             .attr('y', 0)
             .attr('dy', valueLabelHeight * 0.85)
             .text('0.00')
-            .style('font-size', valueLabelHeight);
+            .style('font-size', valueLabelHeight + 'px');
 
         valueLabelContainer.attr('transform', 'translate(' + valueLabelWidth / -2 + ', ' + radius * 0.4 + ')');
 
@@ -1004,7 +1004,7 @@ myChart.speedGauge = function(selector, config) {
             })
             .attr('dy', '0.5em')
             .attr('text-anchor', 'end')
-            .style('font-size', radius * 3 / 25)
+            .style('font-size', radius * 3 / 25 + 'px')
             .text(function(d) {
                 return labelScale(d);
             });
@@ -1024,7 +1024,7 @@ myChart.speedGauge = function(selector, config) {
             .attr('y', 106)
             .attr('dy', '0.5em')
             .attr('transform', 'translate(-' + radius + ',-' + radius + ')')
-            .style('font-size', 12)
+            .style('font-size', 12 + 'px')
             .text('0 kw');
 
         point = pointContainer.append('line')
@@ -1470,7 +1470,7 @@ myChart.smallGauge = function(selector, config) {
             })
             .attr('dy', '0.5em')
             .attr('text-anchor', 'middle')
-            .style('font-size', radius / 200 * 12)
+            .style('font-size', radius / 200 * 12 + 'px')
             .style('-webkit-text-size-adjust', 'none')
             .text(function(d) {
                 return labelScale(d);
