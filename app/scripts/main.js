@@ -1335,14 +1335,14 @@ myChart.progressBtn = function(selector, config) {
         .attr('d', arcGenerator({
             startAngle: 0,
             endAngle: 0
-        }))
-        .attr('filter', 'url(#grow)');
+        }));
 
 
     progressBtn.update = function(value) {
         progress.transition()
             .duration(800)
             .attrTween('d', function() {
+                console.log(value);
                 this._current = this._current || {
                     startAngle: 0,
                     endAngle: 0
@@ -1470,7 +1470,7 @@ myChart.smallGauge = function(selector, config) {
             })
             .attr('dy', '0.5em')
             .attr('text-anchor', 'middle')
-            .style('font-size', radius / 200 * 12 + 'px')
+            .style('font-size', 10 + 'px')
             .style('-webkit-text-size-adjust', 'none')
             .text(function(d) {
                 return labelScale(d);

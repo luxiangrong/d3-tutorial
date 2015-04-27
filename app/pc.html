@@ -65,14 +65,14 @@
                     <p class="plan">计划<span id="progress-bar-year-plan">151.5</span></p>
                     <p class="used">已用<span id="progress-bar-year-used">121.3</span></p>
                     <p class="deviation">偏离<span id="progress-bar-year-deviation">35%</span></p>
-                    <label>年定额消耗</label>
+                    <label>年定额消耗<br/>(万度)</label>
                 </div>
                 <div class="progress-bar-wrap">
                     <div id="progress-bar-month"></div>
                     <p class="plan">计划<span id="progress-bar-month-plan">151.5</span></p>
                     <p class="used">已用<span id="progress-bar-month-used">121.3</span></p>
                     <p class="deviation">偏离<span id="progress-bar-month-deviation">35%</span></p>
-                    <label>月定额消耗</label>
+                    <label>月定额消耗<br/>(万度)</label>
                 </div>
             </div>
         </div>
@@ -206,7 +206,7 @@
             <div class="row">
                 <div class="gray-box tongji">
                     <h1>能耗统计</h1>
-                    <h2>节能效益：耗电量25.6万度，<span class="grade-a">节省18.2元</span></h2>
+                    <h2>节能效益：耗电量25.6万度，<span class="grade-a">节省18.2万元</span></h2>
                     <div class="bar-wrap">
                         <div class="histogram-wrap" id="histogram1"></div>
                         <div class="histogram-wrap" id="histogram2"></div>
@@ -217,8 +217,8 @@
                     <div class="youhua">
                         <div id="progress-youhua"></div>
                     </div>
-                    <p>系统评级：<span class="grade-a">优</span></p>
-                    <p>系统COP：<span class="grade-a">6.7</span></p>
+                    <p><a href="#">系统评级</a>：<span class="grade-a">优</span></p>
+                    <p><a href="#">系统COP</a>：<span class="grade-a">6.7</span></p>
                 </div>
             </div>
             <div class="row">
@@ -324,7 +324,7 @@
 
             var progressBarMonth = myChart.progressBar('#progress-bar-month', {
                 width: 40,
-                height: 302,
+                height: 286,
                 max: 151.5,
                 itemSize: 6,
                 direction: 'horizontal',
@@ -343,7 +343,7 @@
 
             var progressBarYear = myChart.progressBar('#progress-bar-year', {
                 width: 40,
-                height: 302,
+                height: 286,
                 max: 151.5,
                 itemSize: 6,
                 direction: 'horizontal',
