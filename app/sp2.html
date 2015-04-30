@@ -108,6 +108,15 @@
                     <div class="col-xs-4 deviation">偏离 <span id="progress-bar-year-deviation">35%</span></div>
                 </div>
             </div>
+            <div class="row chart-progress">
+                <div class="col-xs-4 label">1号冷机COP</div>
+                <div class="col-xs-8 data">
+                    <div id="progress-bar-cop1"></div>
+                    <div class="col-xs-4 used">实测 <span id="progress-bar-cop1-plan">121.3</span></div>
+                    <div class="col-xs-4 plan">标况 <span id="progress-bar-cop1-used">151.5</span></div>
+                    <div class="col-xs-4 deviation">衰减率 <span id="progress-bar-cop1-deviation">35%</span></div>
+                </div>
+            </div>
         </div>
     </section>
     <!-- build:js(.) scripts/vendor.js -->
@@ -261,6 +270,25 @@
                 }
             })
 
+            var progressBarCop1 = myChart.progressBar('#progress-bar-cop1', {
+                width: $('#progress-bar-cop1').width(),
+                height: 20,
+                max: 3.5,
+                itemSize: 3,
+                direction: 'vertical',
+                padding: {
+                    top: 2,
+                    left: 3,
+                    right: 3,
+                    bottom: 2
+                },
+                update : function(data) {
+                    $("#progress-bar-cop1-used").text(data.max);
+                    $("#progress-bar-cop1-plan").text(data.progress);
+                    $("#progress-bar-cop1-deviation").text(d3.round((data.max - data.progress) / data.max * 100, 0) + "%");
+                }
+            })
+
             var format = d3.format('.1f');
 
             function update() {
@@ -272,6 +300,7 @@
                 progressBarDay.update(format(Math.random() * 151.5));
                 progressBarMonth.update(format(Math.random() * 151.5));
                 progressBarYear.update(format(Math.random() * 151.5));
+                progressBarCop1.update(format(Math.random() * 3.5));
                 setTimeout(function() {
                     update()
                 }, 3000);
