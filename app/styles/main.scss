@@ -59,16 +59,19 @@ $font-size-base: 12px !default;
 }
 
 .btn-c {
-    @include button-variant(#ffffff, #00a8ff, #00a8ff);
+    @include button-variant(#ffffff, #10a8d4, #10a8d4);
     box-shadow: 2px 2px 2px 1px rgba(24,50,37,1)
 }
 
 .btn-d {
-    @include button-variant(#ffffff, #00a8ff, #9d9d9d);
+    @include button-variant(#ffffff, #10a8d4, #9d9d9d);
     background-color: #ffffff;
     color: #989898;
     &.disabled {
         background-color: #dddddd;
+    }
+    &.active {
+        background-color: #10a8d4;
     }
 }
 
@@ -948,7 +951,7 @@ $font-size-base: 12px !default;
     .pane {
         font-weight: 600;
         background-color: #cfcfd1;
-        border-bottom: 4px solid #00a8ff;
+        border-bottom: 4px solid #10a8d4;
         margin-bottom: 10px;
         .title {
             padding: 0 30px;
@@ -1006,7 +1009,7 @@ $font-size-base: 12px !default;
                         }
                         .btn-settings {
                             background-color: #ffffff;
-                            color: #00a8ff;
+                            color: #10a8d4;
                             padding-left: 30px;
                             padding-right: 30px;
                             font-size: 14px;
@@ -1034,7 +1037,7 @@ $font-size-base: 12px !default;
         .title {
             padding: 0 30px;
             color: #ffffff;
-            background-color: #00a8ff;
+            background-color: #10a8d4;
             h1 {
                 margin: 0;
                 padding: 0;
@@ -1058,7 +1061,7 @@ $font-size-base: 12px !default;
                 margin-bottom: 10px;
                 dt {
                     font-size: 16px;
-                    color: #00a8ff;
+                    color: #10a8d4;
                     float: left;
                     width: 50px;
                     padding-top: 5px;
@@ -1094,7 +1097,7 @@ $font-size-base: 12px !default;
         font-size: 14px;
         .form-group-input {
             border: 2px solid #b6b6b6;
-            background-color: #00a8ff;
+            background-color: #10a8d4;
             margin-bottom: 10px;
             label {
                 color: #fff;
