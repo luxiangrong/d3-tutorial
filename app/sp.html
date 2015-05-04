@@ -38,11 +38,11 @@
             <div class="row">
                 <div class="col-xs-4 col-sys-status">
                     <div class="sys-status">
-                        系统状态<strong class="status-a"><i>优</i></strong>
+                        系统状态<strong class="status-a"><i id="system_state">优</i></strong>
                     </div>
                 </div>
                 <div class="col-xs-4 col-wendu">
-                    <h2 class="wendu"><span>室外温度</span><strong>37°C</strong></h2>
+                    <h2 class="wendu"><span>室外温度</span><strong id="out_temp">37 °C</strong></h2>
                 </div>
                 <div class="col-xs-4 col-warning">
                     <span class="warning pull-right">报警信息</span>
@@ -69,15 +69,15 @@
             </div>
             <div class="row summary">
                 <div class="col-xs-4">
-                    <strong>35.6%</strong>
+                    <strong id="system_esaving">35.6%</strong>
                     <span>节能率</span>
                 </div>
                 <div class="col-xs-4 col-center">
-                    <strong>1878kwh</strong>
+                    <strong id="saving_energy_day">1878kwh</strong>
                     <span>节能量</span>
                 </div>
                 <div class="col-xs-4">
-                    <strong>2546元</strong>
+                    <strong id="saving_fee_day">2546元</strong>
                     <span>节约费用</span>
                 </div>
             </div>
@@ -85,8 +85,8 @@
                 <div class="col-xs-4 label">日能耗定额<br/><span class="unit">kWh</span></div>
                 <div class="col-xs-8 data">
                     <div id="progress-bar-day"></div>
-                    <div class="col-xs-4 used">已用 <span id="progress-bar-day-plan">121.3</span></div>
-                    <div class="col-xs-4 plan">计划 <span id="progress-bar-day-used">151.5</span></div>
+                    <div class="col-xs-4 used">已用 <span id="progress-bar-day-used">121.3</span></div>
+                    <div class="col-xs-4 plan">计划 <span id="progress-bar-day-plan">151.5</span></div>
                     <div class="col-xs-4 deviation">偏离 <span id="progress-bar-day-deviation">35%</span></div>
                 </div>
             </div>
@@ -94,8 +94,8 @@
                 <div class="col-xs-4 label">月能耗定额<br/><span class="unit">kWh</span></div>
                 <div class="col-xs-8 data">
                     <div id="progress-bar-month"></div>
-                    <div class="col-xs-4 used">已用 <span id="progress-bar-month-plan">121.3</span></div>
-                    <div class="col-xs-4 plan">计划 <span id="progress-bar-month-used">151.5</span></div>
+                    <div class="col-xs-4 used">已用 <span id="progress-bar-month-used">121.3</span></div>
+                    <div class="col-xs-4 plan">计划 <span id="progress-bar-month-plan">151.5</span></div>
                     <div class="col-xs-4 deviation">偏离 <span id="progress-bar-month-deviation">35%</span></div>
                 </div>
             </div>
@@ -103,8 +103,8 @@
                 <div class="col-xs-4 label">年能耗定额<br/><span class="unit">kWh</span></div>
                 <div class="col-xs-8 data">
                     <div id="progress-bar-year"></div>
-                    <div class="col-xs-4 used">已用 <span id="progress-bar-year-plan">121.3</span></div>
-                    <div class="col-xs-4 plan">计划 <span id="progress-bar-year-used">151.5</span></div>
+                    <div class="col-xs-4 used">已用 <span id="progress-bar-year-used">121.3</span></div>
+                    <div class="col-xs-4 plan">计划 <span id="progress-bar-year-plan">151.5</span></div>
                     <div class="col-xs-4 deviation">偏离 <span id="progress-bar-year-deviation">35%</span></div>
                 </div>
             </div>
@@ -204,74 +204,131 @@
                 }
             });
 
-            var progressBarDay = myChart.progressBar('#progress-bar-day', {
-                width: $('#progress-bar-day').width(),
-                height: 20,
-                max: 151.5,
-                itemSize: 3,
-                direction: 'vertical',
-                padding: {
-                    top: 2,
-                    left: 3,
-                    right: 3,
-                    bottom: 2
-                },
-                update : function(data) {
-                    $("#progress-bar-day-plan").text(data.max);
-                    $("#progress-bar-day-used").text(data.progress);
-                    $("#progress-bar-day-deviation").text(d3.round((data.max - data.progress) / data.max * 100, 0) + "%");
-                }
-            })
+            var progressBarDay;
 
-            var progressBarMonth = myChart.progressBar('#progress-bar-month', {
-                width: $('#progress-bar-month').width(),
-                height: 20,
-                max: 151.5,
-                itemSize: 3,
-                direction: 'vertical',
-                padding: {
-                    top: 2,
-                    left: 3,
-                    right: 3,
-                    bottom: 2
-                },
-                update : function(data) {
-                    $("#progress-bar-month-plan").text(data.max);
-                    $("#progress-bar-month-used").text(data.progress);
-                    $("#progress-bar-month-deviation").text(d3.round((data.max - data.progress) / data.max * 100, 0) + "%");
-                }
-            })
+            var progressBarMonth;
 
-            var progressBarYear = myChart.progressBar('#progress-bar-year', {
-                width: $('#progress-bar-year').width(),
-                height: 20,
-                max: 151.5,
-                itemSize: 3,
-                direction: 'vertical',
-                padding: {
-                    top: 2,
-                    left: 3,
-                    right: 3,
-                    bottom: 2
-                },
-                update : function(data) {
-                    $("#progress-bar-year-plan").text(data.max);
-                    $("#progress-bar-year-used").text(data.progress);
-                    $("#progress-bar-year-deviation").text(d3.round((data.max - data.progress) / data.max * 100, 0) + "%");
-                }
-            })
+            var progressBarYear;
 
             var format = d3.format('.1f');
 
+            var requestUrls = {
+                system: 'http://115.29.110.113:8080/ganweiems/phone/main/system.action',
+                energy_quota: 'http://115.29.110.113:8080/ganweiems/phone/main/energy_quota.action',
+                alert_num: 'http://115.29.110.113:8080/ganweiems/phone/main/alert_num.action',
+            }
+
+            $.getJSON(requestUrls.energy_quota, function(data){
+                progressBarDay = myChart.progressBar('#progress-bar-day', {
+                    width: $('#progress-bar-day').width(),
+                    height: 20,
+                    max: data.day.plan,
+                    itemSize: 3,
+                    direction: 'vertical',
+                    padding: {
+                        top: 2,
+                        left: 3,
+                        right: 3,
+                        bottom: 2
+                    },
+                    update : function(data2) {
+                        $("#progress-bar-day-plan").text(data2.max);
+                        $("#progress-bar-day-used").text(data2.progress);
+                        $("#progress-bar-day-deviation").text(Number(data.day.diverge) * 100 + "%");
+                    }
+                });
+                progressBarMonth = myChart.progressBar('#progress-bar-month', {
+                    width: $('#progress-bar-month').width(),
+                    height: 20,
+                    max: data.month.plan,
+                    itemSize: 3,
+                    direction: 'vertical',
+                    padding: {
+                        top: 2,
+                        left: 3,
+                        right: 3,
+                        bottom: 2
+                    },
+                    update : function(data2) {
+                        $("#progress-bar-month-plan").text(data2.max);
+                        $("#progress-bar-month-used").text(data2.progress);
+                        $("#progress-bar-month-deviation").text(Number(data.month.diverge) * 100 + "%");
+                    }
+                });
+                progressBarYear = myChart.progressBar('#progress-bar-year', {
+                    width: $('#progress-bar-year').width(),
+                    height: 20,
+                    max: data.year.plan,
+                    itemSize: 3,
+                    direction: 'vertical',
+                    padding: {
+                        top: 2,
+                        left: 3,
+                        right: 3,
+                        bottom: 2
+                    },
+                    update : function(data2) {
+                        $("#progress-bar-year-plan").text(data2.max);
+                        $("#progress-bar-year-used").text(data2.progress);
+                        $("#progress-bar-year-deviation").text(Number(data.year.diverge) * 100 + "%");
+                    }
+                });
+
+
+            });
+
+
             function update() {
-                advGauge.update(format(Math.random() * 1200));
-                simpleGauge1.update(format(Math.random() * 7));
-                simpleGauge2.update(format(Math.random() * 35));
-                simpleGauge3.update(format(Math.random() * 14));
-                simpleGauge4.update(format(Math.random() * 35));
-                progressBarDay.update(format(Math.random() * 151.5));
-                progressBarMonth.update(format(Math.random() * 151.5));
-                progressBarYear.update(format(Math.random() * 151.5));
+
+                $.getJSON(requestUrls.system, function(data){
+                    $('#out_temp').text(data.out_temp + '°C');
+
+                    $('.sys-status strong').removeClass();
+                    switch(data.system_state) {
+                        case '1': 
+                            $('.sys-status strong').addClass('status-a');
+                            $('#system_state').text('优');
+                            break;
+                        case '2': 
+                            $('.sys-status strong').addClass('status-b');
+                            $('#system_state').text('良');
+                            break;
+                        case '3': 
+                            $('.sys-status strong').addClass('status-c');
+                            $('#system_state').text('差');
+                            break;
+                        default:
+                            $('.sys-status strong').addClass('status-a');
+                            $('#system_state').text('优');
+                    }
+
+                    advGauge.update(data.used_energy_day);
+                    simpleGauge1.update(data.system_cop);
+                    simpleGauge2.update(data.in_temp);
+                    simpleGauge3.update(data.cw_temp);
+                    simpleGauge4.update(data.system_esaving);
+
+                    $('#system_esaving').text(Number(data.system_esaving) * 100 + '%');
+                    $('#saving_energy_day').text(Number(data.saving_energy_day) + 'kWh');
+                    $('#saving_fee_day').text(Number(data.saving_fee_day) + '元');
+                }); 
+
+                $.getJSON(requestUrls.energy_quota, function(data){
+                    progressBarDay.update(data.day.used);
+                    progressBarMonth.update(data.month.used);
+                    progressBarYear.update(data.year.used);
+                });
+                
+
+                // advGauge.update(format(Math.random() * 1200));
+                // simpleGauge1.update(format(Math.random() * 7));
+                // simpleGauge2.update(format(Math.random() * 35));
+                // simpleGauge3.update(format(Math.random() * 14));
+                // simpleGauge4.update(format(Math.random() * 35));
+                
+                // progressBarDay.update(format(Math.random() * 151.5));
+                // progressBarMonth.update(format(Math.random() * 151.5));
+                // progressBarYear.update(format(Math.random() * 151.5));
                 setTimeout(function() {
                     update()
                 }, 3000);
