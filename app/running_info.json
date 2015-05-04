@@ -1,0 +1,27 @@
+{
+    "running_info": [{
+        "time": "00:00",
+        "describe": "冷机2启动"
+    }, {
+        "time": "00:00",
+        "describe": "冷机1停止"
+    }, {
+        "time": "00:00",
+        "describe": "冷却泵1故障"
+    }, {
+        "time": "00:00",
+        "describe": "冷机2启动"
+    }, {
+        "time": "00:00",
+        "describe": "冷机1停止"
+    }, {
+        "time": "00:00",
+        "describe": "冷却泵1故障"
+    }, {
+        "time": "01:20",
+        "describe": "冷机2启动"
+    }, {
+        "time": "05:20",
+        "describe": "冷却泵2停止"
+    }]
+}

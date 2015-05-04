@@ -33,13 +33,13 @@
                 <h1><img src="images/title01.png" alt=""></h1>
                 <div class="header-wrap">
                     <img class="logo" src="images/logo02.png" alt="">
-                    <h2>系统状态：运行中<i>/</i>室外温度：4 ℃<i>/</i>室内温度：27 ℃<i>/</i>冷冻水温度：7 ℃<i>/</i>冷却水温度18 ℃<i>/</i>系统功率：345 kW</h2>
+                    <h2>系统状态：<span id="running_status">运行中</span><i>/</i>室外温度：<span id="outtemp">4</span> ℃<i>/</i>室内温度：<span id="intemp">27</span> ℃<i>/</i>冷冻水温度：<span id="lengdongtemp">7</span> ℃<i>/</i>冷却水温度：<span id="lengquetemp">18</span> ℃<i>/</i>系统功率：<span id="power">345</span> kW</h2>
                     <div class="tab">
                         <a class="data" href="#"><img src="images/pic01.png" alt=""></a>
                         <a class="" href="#"><img src="images/pic02.png" alt=""></a>
                     </div>
                     <div class="all-status">
-                        轻度污染
+                        <span id="weather_lever">轻度污染</span>
                     </div>
                     <div class="date">
                         <div class="year"><span>2</span>
@@ -169,7 +169,7 @@
                                             <th>事件</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="running_info">
                                         <tr>
                                             <th>08:00</th>
                                             <td>1号冷机启动</td>
@@ -322,60 +322,9 @@
             var winWidth = $(window).width();
 
 
-            var progressBarMonth = myChart.progressBar('#progress-bar-month', {
-                width: 40,
-                height: 286,
-                max: 151.5,
-                itemSize: 6,
-                direction: 'horizontal',
-                padding: {
-                    top: 5,
-                    left: 5,
-                    right: 5,
-                    bottom: 5
-                },
-                update: function(data) {
-                    $("#progress-bar-month-plan").text(data.max);
-                    $("#progress-bar-month-used").text(data.progress);
-                    $("#progress-bar-month-deviation").text(d3.round((data.max - data.progress) / data.max * 100, 0) + "%");
-                }
-            })
+            
 
-            var progressBarYear = myChart.progressBar('#progress-bar-year', {
-                width: 40,
-                height: 286,
-                max: 151.5,
-                itemSize: 6,
-                direction: 'horizontal',
-                padding: {
-                    top: 5,
-                    left: 5,
-                    right: 5,
-                    bottom: 5
-                },
-                update: function(data) {
-                    $("#progress-bar-year-plan").text(data.max);
-                    $("#progress-bar-year-used").text(data.progress);
-                    $("#progress-bar-year-deviation").text(d3.round((data.max - data.progress) / data.max * 100, 0) + "%");
-                }
-            })
-
-            var progressKnoba1 = myChart.progressKnob('#nenghao', {
-                max: 1345,
-                radius: 65,
-                update: function(data) {
-                    $("#nenghao-max").text(data.max);
-                    $("#nenbhao-current").text(data.progress);
-                }
-            });
-            var progressKnoba2 = myChart.progressKnob('#wendu', {
-                max: 28,
-                radius: 65,
-                update: function(data) {
-                    $("#wendu-max").text(data.max);
-                    $("#wendu-current").text(data.progress);
-                }
-            });
+            
 
             var speedGauge1 = myChart.speedGauge('#speed-gauge', {
                 width: 200,
@@ -514,18 +463,181 @@
             }]);
 
 
+            var requestUrls = {
+                basic_parameters: 'basic_parameters.json',
+                energy_quota: 'energy_quota.json',
+                energy_quota_setting: 'energy_quota_setting.json',
+                running_info: 'running_info.json',
+                energy_used_count: 'energy_used_count.json'
+            }
+
+            //年月定额
+            var progressBarMonth, progressBarYear;
+            $.getJSON(requestUrls.energy_quota, function(data){
+                progressBarMonth = myChart.progressBar('#progress-bar-month', {
+                    width: 40,
+                    height: 286,
+                    max: data.month.plan,
+                    itemSize: 6,
+                    direction: 'horizontal',
+                    padding: {
+                        top: 5,
+                        left: 5,
+                        right: 5,
+                        bottom: 5
+                    },
+                    update: function(updateData) {
+                        $("#progress-bar-month-plan").text(updateData.max);
+                        $("#progress-bar-month-used").text(updateData.progress);
+                        $("#progress-bar-month-deviation").text(d3.round((updateData.max - updateData.progress) / updateData.max * 100, 0) + "%");
+                    }
+                });
+                progressBarYear = myChart.progressBar('#progress-bar-year', {
+                    width: 40,
+                    height: 286,
+                    max: data.year.plan,
+                    itemSize: 6,
+                    direction: 'horizontal',
+                    padding: {
+                        top: 5,
+                        left: 5,
+                        right: 5,
+                        bottom: 5
+                    },
+                    update: function(updateData) {
+                        $("#progress-bar-year-plan").text(updateData.max);
+                        $("#progress-bar-year-used").text(updateData.progress);
+                        $("#progress-bar-year-deviation").text(d3.round((updateData.max - updateData.progress) / updateData.max * 100, 0) + "%");
+                    }
+                })
+            });
+
+            var progressKnoba1;
+            var progressKnoba2;
+            $.getJSON(requestUrls.energy_quota_setting, function(data){
+                progressKnoba1 = myChart.progressKnob('#nenghao', {
+                    max: data.energy_quota,
+                    radius: 65,
+                    update: function(updateData) {
+                        $("#nenghao-max").text(updateData.max);
+                        $("#nenbhao-current").text(updateData.progress);
+                    }
+                });
+                progressKnoba2 = myChart.progressKnob('#wendu', {
+                    max: data.temp_max,
+                    radius: 65,
+                    update: function(data) {
+                        $("#wendu-max").text(data.max);
+                        $("#wendu-current").text(data.progress);
+                    }
+                });
+            });
+
             function update() {
+                //系统基本参数
+                $.getJSON(requestUrls.basic_parameters, function(data){
+
+                    //系统停止和启动状态
+                    $('#switch').bootstrapSwitch('state', data.status, true);
+                    //系统运行模式 #0：手动，1：半自动，2：自动
+                    $('#mode-slider').slider('setValue', 100 * Number(data.mode));
+                    //系统运行状态
+                    switch(data.running_status) {
+                        case 0:
+                            $('#running_status').text('待机中');
+                            break;
+                        case 1:
+                        default:
+                            $('#running_status').text('运行中');
+                            break;
+                    }
+
+                    $('#intemp').text(data.intemp);
+                    $('#outtemp').text(data.outtemp);
+
+                    $('#lengquetemp').text(data.lengquetemp);
+                    $('#lengdongtemp').text(data.lengdongtemp);
+
+                    $('#power').text(data.power);
+
+                    $('#weather_lever').text(data.weather_lever);
+                });
+
+                //年月定额
+                $.getJSON(requestUrls.energy_quota, function(data){
+
+                    progressBarMonth.update(data.month.used);
+                    progressBarYear.update(data.year.used);
+                });
+
+                $.getJSON(requestUrls.energy_quota_setting, function(data){
+                    //模拟今日能耗
+                    progressKnoba1.update(data.energy_used);
+                    progressKnoba2.update(data.real_temp);
+
+                    smallGauge1.update(data.lengji_cop);
+                    smallGauge2.update(data.energy_saving_ration);
+                    smallGauge3.update(data.energy_saving);
+
+                    speedGauge1.update(data.real_power);
+                });
+
+                $.getJSON(requestUrls.running_info, function(data){
+
+                    $('#running_info').html('');
+                    $.each(data.running_info, function(i, item){
+                        $('#running_info').append('<tr><th>' + item.time + '</th><td>' + item.describe + '</td></tr>')
+                    });
+                });
+
+
+                $.getJSON(requestUrls.energy_used_count, function(data){
+                    console.log(requestUrls.energy_used_count);
+                    histogram1.update([{
+                        label: '日',
+                        values: [Number(data.day.quota_total), Number(data.day.predict_total)]
+                    }, {
+                        label: '月',
+                        values: [Number(data.month.quota_total), Number(data.month.predict_total)]
+                    }, {
+                        label: '年',
+                        values: [Number(data.year.quota_total), Number(data.year.predict_total)]
+                    }]);
+
+                    histogram2.update([{
+                        label: '日',
+                        values: [Number(data.day.predict_energy), Number(data.day.used_energy)]
+                    }, {
+                        label: '月',
+                        values: [Number(data.month.predict_energy), Number(data.month.used_energy)]
+                    }, {
+                        label: '年',
+                        values: [Number(data.year.predict_energy), Number(data.year.used_energy)]
+                    }]);
+
+                    histogram3.update([{
+                        label: '日',
+                        values: [Number(data.day.fee_saved), Number(data.day.fee_used)]
+                    }, {
+                        label: '月',
+                        values: [Number(data.month.fee_saved), Number(data.month.fee_used)]
+                    }, {
+                        label: '年',
+                        values: [Number(data.year.fee_saved), Number(data.year.fee_used)]
+                    }]);
+                });
+
                 //模拟今日能耗
-                progressKnoba1.update(Math.floor(Math.random() * 1345));
+                // progressKnoba1.update(Math.floor(Math.random() * 1345));
                 //模拟当前温度
-                progressKnoba2.update(Math.floor(Math.random() * 28));
+                // progressKnoba2.update(Math.floor(Math.random() * 28));
 
                 //模拟年定额消耗
-                progressBarMonth.update(format(Math.random() * 151.5));
+                // progressBarMonth.update(format(Math.random() * 151.5));
                 //模拟月定额消耗
-                progressBarYear.update(format(Math.random() * 151.5));
+                // progressBarYear.update(format(Math.random() * 151.5));
 
-                speedGauge1.update(format(Math.random() * 300));
+                
                 lollipopPie.update([{
                     label: '#1',
                     data: [{
@@ -598,46 +710,10 @@
                 }]);
                 progressBall.update(format(Math.random()));
 
-                smallGauge1.update(format(Math.random() * 7));
-                smallGauge2.update(format(Math.random() * 35));
-                smallGauge3.update(format(Math.random() * 35));
+                
 
                 //模拟状态变化
                 $('.chart-status i.status').toggleClass('status-warning status-stopping status-running');
-
-
-                histogram1.update([{
-                    label: '日',
-                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
-                }, {
-                    label: '月',
-                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
-                }, {
-                    label: '年',
-                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
-                }]);
-
-                histogram2.update([{
-                    label: '日',
-                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
-                }, {
-                    label: '月',
-                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
-                }, {
-                    label: '年',
-                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
-                }]);
-
-                histogram3.update([{
-                    label: '日',
-                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
-                }, {
-                    label: '月',
-                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
-                }, {
-                    label: '年',
-                    values: [Number(format(Math.random() * 3)), Number(format(Math.random() * 3)) + Number(format(Math.random() * 3))]
-                }]);
 
                 setTimeout(function() {
                     update()

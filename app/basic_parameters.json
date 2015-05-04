@@ -1,0 +1,13 @@
+{
+    "weather_humidity": 20.0,
+    "status": 0,
+    "weather_lever": "轻度污染",
+    "weather_temp": 20.0,
+    "intemp": 0.0,
+    "outtemp": 0.0,
+    "power": 0.0,
+    "lengquetemp": 0.0,
+    "running_status": 0,
+    "lengdongtemp": 0.0,
+    "mode": 2
+}

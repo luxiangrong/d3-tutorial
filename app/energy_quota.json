@@ -1,0 +1,12 @@
+{
+    "month": {
+        "diverge": 0.2,
+        "plan": 100.0,
+        "used": 20.0
+    },
+    "year": {
+        "diverge": 0.5,
+        "plan": 20.0,
+        "used": 10.0
+    }
+}
