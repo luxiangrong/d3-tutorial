@@ -206,7 +206,7 @@
             <div class="row">
                 <div class="gray-box tongji">
                     <h1>能耗统计</h1>
-                    <h2>节能效益：耗电量25.6万度，<span class="grade-a">节省18.2万元</span></h2>
+                    <h2>节能效益：耗电量<span id="energy_used">25.6</span>万度，<span class="grade-a">节省<span id="fee_saved">18.2</span>万元</span></h2>
                     <div class="bar-wrap">
                         <div class="histogram-wrap" id="histogram1"></div>
                         <div class="histogram-wrap" id="histogram2"></div>
@@ -217,8 +217,8 @@
                     <div class="youhua">
                         <div id="progress-youhua"></div>
                     </div>
-                    <p><a href="#">系统评级</a>：<span class="grade-a">优</span></p>
-                    <p><a href="#">系统COP</a>：<span class="grade-a">6.7</span></p>
+                    <p><a href="#">系统评级</a>：<span class="grade-a" id="system_rating">优</span></p>
+                    <p><a href="#">系统COP</a>：<span class="grade-a" id="system_cop">6.7</span></p>
                 </div>
             </div>
             <div class="row">
@@ -590,9 +590,8 @@
                     });
                 });
 
-
+                //能耗统计
                 $.getJSON(requestUrls.energy_used_count, function(data){
-                    console.log(requestUrls.energy_used_count);
                     histogram1.update([{
                         label: '日',
                         values: [Number(data.day.quota_total), Number(data.day.predict_total)]
@@ -625,6 +624,29 @@
                         label: '年',
                         values: [Number(data.year.fee_saved), Number(data.year.fee_used)]
                     }]);
+
+                    $('#system_cop').text(data.system_cop);
+                    switch(data.system_cop) {
+                        case '1': 
+                            $('#system_cop').removeClass().addClass('grade-a');
+                            $('#system_state').removeClass().addClass('grade-a');
+                            $('#system_state').text('优');
+                            break;
+                        case '2': 
+                            $('#system_cop').removeClass().addClass('grade-b');
+                            $('#system_state').removeClass().addClass('grade-b');
+                            $('#system_state').text('良');
+                            break;
+                        case '3': 
+                            default:
+                            $('#system_cop').removeClass().addClass('grade-b');
+                            $('#system_state').removeClass().addClass('grade-b');
+                            $('#system_state').text('差');
+                            break;
+                    }
+
+                    $('#energy_used').text(data.energy_used);
+                    $('#fee_saved').text(data.fee_saved);
                 });
 
                 //模拟今日能耗

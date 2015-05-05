@@ -2,29 +2,29 @@
     "energy_used": 0.0,
     "fee_saved": 0.0,
     "month": {
-        "predict_total": 5.0,
-        "fee_saved": 6.0,
-        "predict_energy": 3.0,
-        "used_energy": 2.0,
-        "fee_used": 4.0,
-        "quota_total": 5.0
+        "predict_total": 10.0,
+        "fee_saved": 10.0,
+        "predict_energy": 10.0,
+        "used_energy": 10.0,
+        "fee_used": 10.0,
+        "quota_total": 10.0
     },
     "system_cop": 0.0,
     "year": {
-        "predict_total": 1.0,
-        "fee_saved": 3.0,
-        "predict_energy": 4.0,
-        "used_energy": 02.0,
-        "fee_used": 3.0,
-        "quota_total": 4.0
+        "predict_total": 20.0,
+        "fee_saved": 20.0,
+        "predict_energy": 20.0,
+        "used_energy": 20.0,
+        "fee_used": 20.0,
+        "quota_total": 20.0
     },
     "day": {
-        "predict_total": 10.0,
-        "fee_saved": 3.0,
-        "predict_energy": 2.0,
-        "used_energy": 4.0,
-        "fee_used": 5.0,
-        "quota_total": 6.0
+        "predict_total": 30.0,
+        "fee_saved": 30.0,
+        "predict_energy": 30.0,
+        "used_energy": 30.0,
+        "fee_used": 30.0,
+        "quota_total": 30.0
     },
     "system_rating": 0.0
 }
