@@ -457,6 +457,12 @@ $font-size-base: 12px !default;
             padding-right: 10px;
             position: relative;
             top: -13px;
+            a {
+                color: #04c7ff;
+                &:hover {
+                    text-decoration: none;
+                }
+            }
         }
     }
     .gray-box {
@@ -477,6 +483,12 @@ $font-size-base: 12px !default;
             padding-right: 10px;
             position: relative;
             top: -13px;
+            a {
+                color: #9a9b9b;
+                &:hover {
+                    text-decoration: none;
+                }
+            }
         }
         .body {
             text-align: left;
