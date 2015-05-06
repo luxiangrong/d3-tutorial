@@ -128,14 +128,14 @@
                     <div class="col-left">
                         <div class="chart-status">
                             <img src="images/pic03.png" alt="">
-                            <i class="status status-warning status-1"></i>
-                            <i class="status status-running status-2"></i>
-                            <i class="status status-stopping status-3"></i>
-                            <i class="status status-running status-4"></i>
-                            <i class="status status-warning status-5"></i>
-                            <i class="status status-stopping status-6"></i>
-                            <i class="status status-running status-7"></i>
-                            <i class="status status-stopping status-8"></i>
+                            <i class="status status-warning status-1" id="lengdongbeng_2"></i>
+                            <i class="status status-running status-2" id="lengdongbeng_1"></i>
+                            <i class="status status-stopping status-3" id="lengji_2"></i>
+                            <i class="status status-running status-4" id="lengji_1"></i>
+                            <i class="status status-warning status-5" id="lengquebeng_2"></i>
+                            <i class="status status-stopping status-6" id="lengquebeng_1"></i>
+                            <i class="status status-running status-7" id="lengta_1"></i>
+                            <i class="status status-stopping status-8" id="lengta_2"></i>
                         </div>
                         <div class="system-status">
                             <i class="status status-warning"></i>
@@ -144,10 +144,10 @@
                         </div>
                         <div class="shuiwei-status clearfix">
                             <ul>
-                                <li>冷冻水供水温度：7 ℃</li>
-                                <li>冷冻水回水温度：12 ℃</li>
-                                <li>冷却水供水温度：26 ℃</li>
-                                <li>冷却水回水温度：26 ℃</li>
+                                <li>冷冻水供水温度：<sapn id="running_monitor_temp1">7</sapn> ℃</li>
+                                <li>冷冻水回水温度：<span id="running_monitor_temp2">12</span> ℃</li>
+                                <li>冷却水供水温度：<span id="running_monitor_temp3">26</span> ℃</li>
+                                <li>冷却水回水温度：<span id="running_monitor_temp4">26</span> ℃</li>
                             </ul>
                         </div>
                         <div class="btngroup">
@@ -230,10 +230,10 @@
                         </div>
                         <div class="info">
                             <div id="progressBall"></div>
-                            <h4>25 ℃<small>125kw</small></h4>
+                            <h4><span id="device_control_intemp">25</span> ℃<small><span id="device_control_system_power">125</span>kw</small></h4>
                         </div>
                         <ul class="description">
-                            <li><i class="cube cube-a"></i>故障</li>
+                            <!-- <li><i class="cube cube-a"></i>故障</li> -->
                             <li><i class="cube cube-b"></i>停机</li>
                             <li><i class="cube cube-c"></i>运行</li>
                         </ul>
@@ -251,6 +251,7 @@
     <script src="bower_components/jquery-bridget/jquery.bridget.js"></script>
     <script src="bower_components/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
     <script src="bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({app,.tmp}) scripts/main.js -->
@@ -259,6 +260,19 @@
     <script type="text/javascript">
     (function($) {
         $(document).ready(function() {
+            var requestUrls = {
+                basic_parameters: 'basic_parameters.json',
+                energy_quota: 'energy_quota.json',
+                energy_quota_setting: 'energy_quota_setting.json',
+                running_info: 'running_info.json',
+                energy_used_count: 'energy_used_count.json',
+                device_control: 'device_control.json',
+                running_monitor: 'running_monitor.json',
+                setting_status: 'http://115.29.110.113:8080/ganweiems/main/setting_status.action',
+                setting_mode: 'http://115.29.110.113:8080/ganweiems/main/setting_mode.action'
+            }
+
+
             $('#switch').bootstrapSwitch({
                 size: 'mini',
                 inverse: true
@@ -290,12 +304,15 @@
                 var value = slideSwitch.getValue();
                 if (value < 60) {
                     slideSwitch.setValue(0);
+                    $.getJSON(requestUrls.setting_mode, {mode: 0})
                 }
                 if (value >= 60 && value < 140) {
                     slideSwitch.setValue(100);
+                    $.getJSON(requestUrls.setting_mode, {mode: 1})
                 }
                 if (value >= 140) {
                     slideSwitch.setValue(200);
+                    $.getJSON(requestUrls.setting_mode, {mode: 2})
                 }
             }
             var slideSwitch = $("#mode-slider").slider({
@@ -321,10 +338,34 @@
 
             var winWidth = $(window).width();
 
+            //将时间转换为分钟为单位
+            function convertTimeToMinute(time) {
+                var reg = /(\d+)\s*:\s*(\d+)/i;
+                var matches = time.match(reg);
 
-            
+                return Number(matches[1]) * 60 + Number(matches[2]);
+            }
+            function convertTimeData(data) {
+                var g0 = [];
+                _.each(data, function(item){
 
-            
+                    _.each(_.values(item), function(time){
+                        g0 = g0.concat(convertTimeToMinute(time))
+                    });
+                });
+
+                g0 = _.sortBy(g0, function(num){ return num});
+                var g0Data = [];
+                var last = 0;
+                _.each(g0, function(g,key){
+                    g0Data.push({label: key % 2 == 0 ?'停机':'运行', value: g - last});
+                    last = g;
+                });
+                g0Data.push({label: '停机', value: 24 * 60 - last});
+
+                return g0Data;
+            }
+
 
             var speedGauge1 = myChart.speedGauge('#speed-gauge', {
                 width: 200,
@@ -463,13 +504,13 @@
             }]);
 
 
-            var requestUrls = {
-                basic_parameters: 'basic_parameters.json',
-                energy_quota: 'energy_quota.json',
-                energy_quota_setting: 'energy_quota_setting.json',
-                running_info: 'running_info.json',
-                energy_used_count: 'energy_used_count.json'
-            }
+            
+
+            $('#switch').on('switchChange.bootstrapSwitch', function(event, state) {
+              $.getJSON(requestUrls.setting_status, {status:state}, function(data){
+                console.log(data);
+              });
+            });
 
             //年月定额
             var progressBarMonth, progressBarYear;
@@ -649,93 +690,147 @@
                     $('#fee_saved').text(data.fee_saved);
                 });
 
-                //模拟今日能耗
-                // progressKnoba1.update(Math.floor(Math.random() * 1345));
-                //模拟当前温度
-                // progressKnoba2.update(Math.floor(Math.random() * 28));
+                $.getJSON(requestUrls.device_control, function(data){
+                    $('#device_control_intemp').text(data.intemp);
+                    $('#device_control_system_power').text(data.system_power);
 
-                //模拟年定额消耗
-                // progressBarMonth.update(format(Math.random() * 151.5));
-                //模拟月定额消耗
-                // progressBarYear.update(format(Math.random() * 151.5));
+                    var g0 = [];
+                    _.each(data.group_0, function(item){
+
+                        _.each(_.values(item), function(time){
+                            g0 = g0.concat(convertTimeToMinute(time))
+                        });
+                    });
+
+                    g0 = _.sortBy(g0, function(num){ return num});
+                    var g0Data = [];
+                    var last = 0;
+                    _.each(g0, function(g,key){
+                        g0Data.push({label: key % 2 == 0 ?'停机':'运行', value: g - last});
+                        last = g;
+                    });
+                    g0Data.push({label: '停机', value: 24 * 60 - last});
+
+                    lollipopPie.update([{
+                        label: '#1',
+                        data: convertTimeData(data.group_0)
+                    }, {
+                        label: '#2',
+                        data: convertTimeData(data.group_1)
+                    }, {
+                        label: '#3',
+                        data: convertTimeData(data.group_2)
+                    }, {
+                        label: '#4',
+                        data: convertTimeData(data.group_3)
+                    }, {
+                        label: '#5',
+                        data: convertTimeData(data.group_4)
+                    }]);
+                    
+                });
 
                 
-                lollipopPie.update([{
-                    label: '#1',
-                    data: [{
-                        label: '运行',
-                        value: Math.random() * 24
-                    }, {
-                        label: '故障',
-                        value: Math.random() * 24
-                    }, {
-                        label: '停机',
-                        value: Math.random() * 24
-                    }]
-                }, {
-                    label: '#2',
-                    data: [{
-                        label: '运行',
-                        value: Math.random() * 24
-                    }, {
-                        label: '故障',
-                        value: Math.random() * 24
-                    }, {
-                        label: '停机',
-                        value: Math.random() * 24
-                    }]
-                }, {
-                    label: '#3',
-                    data: [{
-                        label: '运行',
-                        value: Math.random() * 24
-                    }, {
-                        label: '故障',
-                        value: Math.random() * 24
-                    }, {
-                        label: '停机',
-                        value: Math.random() * 24
-                    }, {
-                        label: '运行',
-                        value: Math.random() * 24
-                    }, {
-                        label: '故障',
-                        value: Math.random() * 24
-                    }, {
-                        label: '停机',
-                        value: Math.random() * 24
-                    }]
-                }, {
-                    label: '#4',
-                    data: [{
-                        label: '运行',
-                        value: Math.random() * 24
-                    }, {
-                        label: '故障',
-                        value: Math.random() * 24
-                    }, {
-                        label: '停机',
-                        value: Math.random() * 24
-                    }]
-                }, {
-                    label: '#5',
-                    data: [{
-                        label: '运行',
-                        value: Math.random() * 24
-                    }, {
-                        label: '故障',
-                        value: Math.random() * 24
-                    }, {
-                        label: '停机',
-                        value: Math.random() * 24
-                    }]
-                }]);
                 progressBall.update(format(Math.random()));
 
-                
+                $.getJSON(requestUrls.running_monitor, function(data){
+                    $('#running_monitor_temp1').text(data.temp1);
+                    $('#running_monitor_temp2').text(data.temp2);
+                    $('#running_monitor_temp3').text(data.temp3);
+                    $('#running_monitor_temp4').text(data.temp4);
+
+                    switch(data.lengji_1) {
+                        case 10: 
+                            $('#lengji_1').removeClass('status-warning status-running status-stopping').addClass('status-running');
+                            break;
+                        case 0:
+                            $('#lengji_1').removeClass('status-warning status-running status-stopping').addClass('status-stopping');
+                            break
+                        case 20:
+                            $('#lengji_1').removeClass('status-warning status-running status-stopping').addClass('status-warning');
+                            break;
+                    }
+                    switch(data.lengji_2) {
+                        case 10: 
+                            $('#lengji_2').removeClass('status-warning status-running status-stopping').addClass('status-running');
+                            break;
+                        case 0:
+                            $('#lengji_2').removeClass('status-warning status-running status-stopping').addClass('status-stopping');
+                            break
+                        case 20:
+                            $('#lengji_2').removeClass('status-warning status-running status-stopping').addClass('status-warning');
+                            break;
+                    }
+                    switch(data.lengta_1) {
+                        case 10: 
+                            $('#lengta_1').removeClass('status-warning status-running status-stopping').addClass('status-running');
+                            break;
+                        case 0:
+                            $('#lengta_1').removeClass('status-warning status-running status-stopping').addClass('status-stopping');
+                            break
+                        case 20:
+                            $('#lengta_1').removeClass('status-warning status-running status-stopping').addClass('status-warning');
+                            break;
+                    }
+                    switch(data.lengta_2) {
+                        case 10: 
+                            $('#lengta_2').removeClass('status-warning status-running status-stopping').addClass('status-running');
+                            break;
+                        case 0:
+                            $('#lengta_2').removeClass('status-warning status-running status-stopping').addClass('status-stopping');
+                            break
+                        case 20:
+                            $('#lengta_2').removeClass('status-warning status-running status-stopping').addClass('status-warning');
+                            break;
+                    }
+                    switch(data.lengdongbeng_1) {
+                        case 10: 
+                            $('#lengdongbeng_1').removeClass('status-warning status-running status-stopping').addClass('status-running');
+                            break;
+                        case 0:
+                            $('#lengdongbeng_1').removeClass('status-warning status-running status-stopping').addClass('status-stopping');
+                            break
+                        case 20:
+                            $('#lengdongbeng_1').removeClass('status-warning status-running status-stopping').addClass('status-warning');
+                            break;
+                    }
+                    switch(data.lengdongbeng_2) {
+                        case 10: 
+                            $('#lengdongbeng_2').removeClass('status-warning status-running status-stopping').addClass('status-running');
+                            break;
+                        case 0:
+                            $('#lengdongbeng_2').removeClass('status-warning status-running status-stopping').addClass('status-stopping');
+                            break
+                        case 20:
+                            $('#lengdongbeng_2').removeClass('status-warning status-running status-stopping').addClass('status-warning');
+                            break;
+                    }
+                    switch(data.lengqueben_1) {
+                        case 10: 
+                            $('#lengquebeng_1').removeClass('status-warning status-running status-stopping').addClass('status-running');
+                            break;
+                        case 0:
+                            $('#lengquebeng_1').removeClass('status-warning status-running status-stopping').addClass('status-stopping');
+                            break
+                        case 20:
+                            $('#lengquebeng_1').removeClass('status-warning status-running status-stopping').addClass('status-warning');
+                            break;
+                    }
+                    switch(data.lengqueben_2) {
+                        case 10: 
+                            $('#lengquebeng_2').removeClass('status-warning status-running status-stopping').addClass('status-running');
+                            break;
+                        case 0:
+                            $('#lengquebeng_2').removeClass('status-warning status-running status-stopping').addClass('status-stopping');
+                            break
+                        case 20:
+                            $('#lengquebeng_2').removeClass('status-warning status-running status-stopping').addClass('status-warning');
+                            break;
+                    }
+                });
 
                 //模拟状态变化
-                $('.chart-status i.status').toggleClass('status-warning status-stopping status-running');
+                // $('.chart-status i.status').toggleClass('status-warning status-stopping status-running');
 
                 setTimeout(function() {
                     update()

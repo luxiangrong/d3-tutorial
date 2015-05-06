@@ -1,0 +1,54 @@
+{
+    "system_power": 0.0,
+    "intemp": 0.0,
+    "group_0": [{
+        "stop_time": "14:00",
+        "start_time": "13:00"
+    }, {
+        "stop_time": "15:00",
+        "start_time": "14:00"
+    }, {
+        "stop_time": "13:00",
+        "start_time": "12:00"
+    }],
+    "group_1": [{
+        "stop_time": "15:00",
+        "start_time": "14:00"
+    }, {
+        "stop_time": "14:00",
+        "start_time": "13:00"
+    }, {
+        "stop_time": "13:00",
+        "start_time": "12:00"
+    }],
+    "group_2": [{
+        "stop_time": "10:00",
+        "start_time": "02:00"
+    }, {
+        "stop_time": "00:00",
+        "start_time": "00:00"
+    }, {
+        "stop_time": "00:00",
+        "start_time": "00:00"
+    }],
+    "group_3": [{
+        "stop_time": "00:00",
+        "start_time": "00:00"
+    }, {
+        "stop_time": "00:00",
+        "start_time": "00:00"
+    }, {
+        "stop_time": "00:00",
+        "start_time": "00:00"
+    }],
+    "group_4": [{
+        "stop_time": "00:00",
+        "start_time": "00:00"
+    }, {
+        "stop_time": "00:00",
+        "start_time": "00:00"
+    }, {
+        "stop_time": "00:00",
+        "start_time": "00:00"
+    }]
+}

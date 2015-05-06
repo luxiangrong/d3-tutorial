@@ -467,7 +467,7 @@
                 <div class="info">
                     <form class="form-horizontal">
                         <div class="form-group form-group-lg form-group-input">
-                            <label class="col-sm-6 control-label" for="input1">冷冻水温度最大值  ℃</label>
+                            <label class="col-sm-6 control-label" for="input1">冷冻水温度最大值 ℃</label>
                             <div class="col-sm-6 form-control-wrap">
                                 <input class="form-control" type="text" id="input1" placeholder="" value="12">
                             </div>
@@ -490,13 +490,13 @@
                                 <input class="form-control" type="text" id="input4" placeholder="" value="15">
                             </div>
                         </div>
-                         <div class="form-group form-group-lg form-group-input">
+                        <div class="form-group form-group-lg form-group-input">
                             <label class="col-sm-6 control-label" for="input5">冷冻水温度最大值 ℃</label>
                             <div class="col-sm-6 form-control-wrap">
                                 <input class="form-control" type="text" id="input5" placeholder="" value="15">
                             </div>
                         </div>
-                         <div class="form-group form-group-lg form-group-input">
+                        <div class="form-group form-group-lg form-group-input">
                             <label class="col-sm-6 control-label" for="input6">冷冻水温度最大值 ℃</label>
                             <div class="col-sm-6 form-control-wrap">
                                 <input class="form-control" type="text" id="input6" placeholder="" value="15">
@@ -552,6 +552,7 @@
     <script src="bower_components/jquery-bridget/jquery.bridget.js"></script>
     <script src="bower_components/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
     <script src="bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({app,.tmp}) scripts/main.js -->
@@ -592,46 +593,73 @@
             });
 
             //用于开始和停止的范围选择
-            $('.start-time .btn-group-hour input[name="start_hour"]').parent().on('click', function(){
+            $('.start-time .btn-group-hour input[name="start_hour"]').parent().on('click', function() {
                 var startHour = $(this).find('input').val();
-                disableOutofRangeButtons({startHour: startHour});
+                disableOutofRangeButtons({
+                    startHour: startHour
+                });
             });
-            $('.start-time .btn-group-minute input[name="start_minute"]').parent().on('click', function(){
+            $('.start-time .btn-group-minute input[name="start_minute"]').parent().on('click', function() {
                 var startMinute = $(this).find('input').val();
-                disableOutofRangeButtons({startMinute: startMinute});
+                disableOutofRangeButtons({
+                    startMinute: startMinute
+                });
             });
-            $('.stop-time .btn-group-hour input[name="stop_hour"]').parent().on('click', function(){
+            $('.stop-time .btn-group-hour input[name="stop_hour"]').parent().on('click', function() {
                 var stopHour = $(this).find('input').val();
-                disableOutofRangeButtons({stopHour: stopHour});
+                disableOutofRangeButtons({
+                    stopHour: stopHour
+                });
             });
-            $('.stop-time .btn-group-minute input[name="stop_minute"]').parent().on('click', function(){
+            $('.stop-time .btn-group-minute input[name="stop_minute"]').parent().on('click', function() {
                 var stopMinute = $(this).find('input').val();
-                disableOutofRangeButtons({stopMinute: stopMinute});
+                disableOutofRangeButtons({
+                    stopMinute: stopMinute
+                });
             });
+
             function disableOutofRangeButtons(range) {
-                if(range.startHour !== undefined) {
+                var startHour = range.startHour == undefined ? $('.start-time input[name="start_hour"]:checked').val() : range.startHour;
+                var stopHour = range.stopHour == undefined ? $('.stop-time input[name="stop_hour"]:checked').val() : range.stopHour;
+
+                if (startHour === stopHour) {
+                    var startMinute = range.startMinute == undefined ? $('.start-time input[name="start_minute"]:checked').val() : range.startMinute;
+                    var stopMinute = range.stopMinute == undefined ? $('.stop-time input[name="stop_minute"]:checked').val() : range.stopMinute;
+
+                    if(startMinute >= stopMinute) {
+                        startMinute = '00';
+                        stopMinute = '05';
+                        $('.start-time input[name="start_minute"][value="' + startMinute + '"]').parent().button('toggle');
+                        $('.stop-time input[name="stop_minute"][value="' + stopMinute + '"]').parent().button('toggle');
+                    }
+
+                    console.log("s:", startMinute);
+                    console.log("t:", stopMinute);
+
+                    $('.stop-time input[name="stop_minute"]').parent().removeClass('disabled');
+                    $('.stop-time input[name="stop_minute"][value="' + startMinute + '"]').parent().addClass('disabled');
+                    $('.stop-time input[name="stop_minute"][value="' + startMinute + '"]').parent().prevAll().addClass('disabled');
+                    $('.start-time input[name="start_minute"]').parent().removeClass('disabled');
+                    $('.start-time input[name="start_minute"][value="' + stopMinute + '"]').parent().addClass('disabled');
+                    $('.start-time input[name="start_minute"][value="' + stopMinute + '"]').parent().nextAll().addClass('disabled');
+                } else {
+                    $('.start-time input[name="start_minute"]').parent().removeClass('disabled');
+                    $('.stop-time input[name="stop_minute"]').parent().removeClass('disabled');
+                }
+
+                if (range.startHour !== undefined) {
                     $('.stop-time input[name="stop_hour"]').parent().removeClass('disabled');
                     $('.stop-time input[name="stop_hour"][value="' + range.startHour + '"]').parent().prevAll().addClass('disabled');
                 }
 
-                if(range.startMinute !== undefined) {
-                    $('.stop-time input[name="stop_minute"]').parent().removeClass('disabled');
-                    $('.stop-time input[name="stop_minute"][value="' + range.startMinute + '"]').parent().prevAll().addClass('disabled');
-                }
-
-                if(range.stopHour !== undefined) {
+                if (range.stopHour !== undefined) {
                     $('.start-time input[name="start_hour"]').parent().removeClass('disabled');
                     $('.start-time input[name="start_hour"][value="' + range.stopHour + '"]').parent().nextAll().addClass('disabled');
-                }
-
-                if(range.stopMinute !== undefined) {
-                    $('.start-time input[name="start_minute"]').parent().removeClass('disabled');
-                    $('.start-time input[name="start_minute"][value="' + range.stopMinute + '"]').parent().nextAll().addClass('disabled');
                 }
             }
 
 
-            $('.dialog-settings .btn-ok').on('click', function(){
+            $('.dialog-settings .btn-ok').on('click', function() {
                 var groupId = $('.dialog-settings').data('groupId');
                 var rangeId = $('.dialog-settings').data('rangeId');
 
@@ -639,7 +667,7 @@
                 var startMinute = $('.start-time input[name="start_minute"]:checked').val();
 
                 var stopHour = $('.stop-time input[name="stop_hour"]:checked').val();
-                var stopMinute = $('.stop-time input[name="stop_minute"]:checked').val()
+                var stopMinute = $('.stop-time input[name="stop_minute"]:checked').val();
 
 
 
