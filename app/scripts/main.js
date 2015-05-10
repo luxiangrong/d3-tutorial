@@ -140,9 +140,11 @@ myChart.progressBar = function(selector, config) {
     var progressBar = function() {};
 
     //更新进度条的状态
-    progressBar.update = function(progress) {
+    progressBar.update = function(progress, total) {
 
-        var progressData = d3.range(0, Math.floor(itemCount * progress / config.max), 1);
+        var max = total !== undefined ? Number(total) : config.max;
+
+        var progressData = d3.range(0, Math.floor(itemCount * progress / total), 1);
 
         var progressItemBar = svg.selectAll('rect.progress')
             .data(progressData, function(d) {
@@ -183,7 +185,7 @@ myChart.progressBar = function(selector, config) {
 
         if (config.update !== null) {
             var data = {
-                max: config.max,
+                max: max,
                 progress: progress
             };
             config.update.call(progressBar, data);
@@ -326,8 +328,19 @@ myChart.progressKnob = function(selector, config) {
 
     progressKnob.update = function(progress) {
 
-        var progressAngle = progress / config.max * 2 * Math.PI;
-        var lastProgressAngle = lastProgress / config.max * 2 * Math.PI;
+        
+
+
+        if(config.max === 0) {
+            var progressAngle = 0;
+            var lastProgressAngle = 0;
+        } else {
+            var lastProgressAngle = lastProgress / config.max * 2 * Math.PI;
+            var progressAngle = progress / config.max * 2 * Math.PI;
+        }
+        
+
+        console.log(lastProgressAngle);
 
         progressSlice.transition()
             .duration(800)
@@ -346,24 +359,24 @@ myChart.progressKnob = function(selector, config) {
                 };
             });
 
-        progressDot.transition()
-            .duration(800)
-            .attrTween('x', function() {
-                this._current = this._current || progressAngle;
-                var interpolate = d3.interpolate(lastProgressAngle, progressAngle);
-                this._current = interpolate(0);
-                return function(t) {
-                    return (radius - 30) * Math.cos(interpolate(t) - Math.PI / 2) - 6;
-                };
-            })
-            .attrTween('y', function() {
-                this._current = this._current || progressAngle;
-                var interpolate = d3.interpolate(lastProgressAngle, progressAngle);
-                this._current = interpolate(0);
-                return function(t) {
-                    return (radius - 30) * Math.sin(interpolate(t) - Math.PI / 2) - 6;
-                };
-            });
+        // progressDot.transition()
+        //     .duration(800)
+        //     .attrTween('x', function() {
+        //         this._current = this._current || progressAngle;
+        //         var interpolate = d3.interpolate(lastProgressAngle, progressAngle);
+        //         this._current = interpolate(0);
+        //         return function(t) {
+        //             return (radius - 30) * Math.cos(interpolate(t) - Math.PI / 2) - 6;
+        //         };
+        //     })
+        //     .attrTween('y', function() {
+        //         this._current = this._current || progressAngle;
+        //         var interpolate = d3.interpolate(lastProgressAngle, progressAngle);
+        //         this._current = interpolate(0);
+        //         return function(t) {
+        //             return (radius - 30) * Math.sin(interpolate(t) - Math.PI / 2) - 6;
+        //         };
+        //     });
 
         lastProgress = progress;
 

@@ -521,6 +521,8 @@ $font-size-base: 12px !default;
             }
             p {
                 margin-bottom: 40px;
+                width: 32px;
+                white-space: nowrap;
                 span {
                     display: block;
                 }

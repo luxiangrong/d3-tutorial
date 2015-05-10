@@ -278,6 +278,7 @@
                 inverse: true
             });
 
+            // 格式化顶部的日期
             var currentTime = new Date();
             var year = currentTime.getFullYear();
             var month = currentTime.getMonth() + 1;
@@ -291,6 +292,7 @@
             var format = d3.format('.1f');
             var format2 = d3.format('.f');
 
+            // 能耗滑动条初始化
             $("#nenghao-slider").slider({
                 min: 0,
                 max: 100,
@@ -299,6 +301,7 @@
                 ticks_labels: [0, 50, 100]
             });
 
+            
             function setSlideValue() {
                 $('#mode-slider-wrap').find('.slider-handle').removeClass('disable-animate');
                 var value = slideSwitch.getValue();
@@ -607,8 +610,8 @@
                 //年月定额
                 $.getJSON(requestUrls.energy_quota, function(data){
 
-                    progressBarMonth.update(data.month.used);
-                    progressBarYear.update(data.year.used);
+                    progressBarMonth.update(data.month.used, data.month.plan);
+                    progressBarYear.update(data.year.used, data.year.plan);
                 });
 
                 $.getJSON(requestUrls.energy_quota_setting, function(data){

@@ -315,9 +315,9 @@
                 }); 
 
                 $.getJSON(requestUrls.energy_quota, function(data){
-                    progressBarDay.update(data.day.used);
-                    progressBarMonth.update(data.month.used);
-                    progressBarYear.update(data.year.used);
+                    progressBarDay.update(data.day.used, data.day.plan);
+                    progressBarMonth.update(data.month.used, data.month.plan);
+                    progressBarYear.update(data.year.used, data.year.plan);
                 });
                 
 

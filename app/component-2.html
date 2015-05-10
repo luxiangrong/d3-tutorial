@@ -49,42 +49,52 @@
     <!-- endbuild -->
 
     <script type="text/javascript">
-         var progressBar = myChart.progressBar('#component1', {width: 60, height: 490, max: 150, itemSize: 6});
+         var progressBar = myChart.progressBar('#component1', {width: 60, height: 490, max: 150, itemSize: 6, update:function(data){
+            console.log('progress:' + data.progress);
+            console.log('total' + data.max);
+         }});
         
+        
+
         function update() {
-            progressBar.update({progress: Math.floor(Math.random() * 150)});
+
+var max = Math.floor(Math.random() * 200);
+        var progress = Math.floor(Math.random() * max);
+
+
+            progressBar.update(progress, max);
             setTimeout(function(){update()}, 1000);
         }
 
-        // update();
+        update();
         
-        window.setTimeout(function(){
-            progressBar.update({progress: 0});
-        }, 1000);
-        window.setTimeout(function(){
-            progressBar.update({progress: 150});
-        }, 3000);
-        window.setTimeout(function(){
-            progressBar.update({progress: 75});
-        }, 5000);
-        window.setTimeout(function(){
-            progressBar.update({progress: 150});
-        }, 7000);
-        window.setTimeout(function(){
-            progressBar.update({progress: 0});
-        }, 9000);
-        window.setTimeout(function(){
-            progressBar.update({progress: 75});
-        }, 11000);
-        window.setTimeout(function(){
-            progressBar.update({progress: 150});
-        }, 13000);
-        window.setTimeout(function(){
-            progressBar.update({progress: 0});
-        }, 15000);
-        window.setTimeout(function(){
-            progressBar.update({progress: 150});
-        }, 17000);
+        // window.setTimeout(function(){
+        //     progressBar.update({progress: 0});
+        // }, 1000);
+        // window.setTimeout(function(){
+        //     progressBar.update({progress: 150});
+        // }, 3000);
+        // window.setTimeout(function(){
+        //     progressBar.update({progress: 75});
+        // }, 5000);
+        // window.setTimeout(function(){
+        //     progressBar.update({progress: 150});
+        // }, 7000);
+        // window.setTimeout(function(){
+        //     progressBar.update({progress: 0});
+        // }, 9000);
+        // window.setTimeout(function(){
+        //     progressBar.update({progress: 75});
+        // }, 11000);
+        // window.setTimeout(function(){
+        //     progressBar.update({progress: 150});
+        // }, 13000);
+        // window.setTimeout(function(){
+        //     progressBar.update({progress: 0});
+        // }, 15000);
+        // window.setTimeout(function(){
+        //     progressBar.update({progress: 150});
+        // }, 17000);
         
     </script>
 </body>
