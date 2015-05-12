@@ -697,6 +697,8 @@
                     $('#device_control_intemp').text(data.intemp);
                     $('#device_control_system_power').text(data.system_power);
 
+                    progressBall.update(data.power_ratio);
+
                     var g0 = [];
                     _.each(data.group_0, function(item){
 
@@ -715,26 +717,26 @@
                     g0Data.push({label: '停机', value: 24 * 60 - last});
 
                     lollipopPie.update([{
-                        label: '#1',
-                        data: convertTimeData(data.group_0)
-                    }, {
-                        label: '#2',
-                        data: convertTimeData(data.group_1)
-                    }, {
-                        label: '#3',
-                        data: convertTimeData(data.group_2)
+                        label: '#5',
+                        data: convertTimeData(data.group_4)
                     }, {
                         label: '#4',
                         data: convertTimeData(data.group_3)
                     }, {
-                        label: '#5',
-                        data: convertTimeData(data.group_4)
+                        label: '#3',
+                        data: convertTimeData(data.group_2)
+                    }, {
+                        label: '#2',
+                        data: convertTimeData(data.group_1)
+                    }, {
+                        label: '#1',
+                        data: convertTimeData(data.group_0)
                     }]);
                     
                 });
 
                 
-                progressBall.update(format(Math.random()));
+                
 
                 $.getJSON(requestUrls.running_monitor, function(data){
                     $('#running_monitor_temp1').text(data.temp1);
