@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="zh-CN" class="settings">
+
+<head>
+    <meta charset="utf-8">
+    <title>冷站能效检测系统</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+</head>
+
+<body>
+    <!--[if lt IE 9]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <header>
+        <div class="container">
+            <nav class="navbar navbar-default navbar-p">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#"><img src="images/logo03.png" alt=""></a>
+                </div>
+                <div class="navbar-text system-name">冷站能效监测系统</div>
+                <div class="navbar-text pull-right project-name">
+                    项目名称：富豪宾馆
+                </div>
+            </nav>
+        </div>
+    </header>
+    <section class="cop-info">
+    	<div class="container">
+    		<div class="row">
+    			<div class="col-left">
+    				<div class="cop-jifang">
+    					机房COP/kW/ton  
+						<strong>3.75/1.5</strong>
+    				</div>
+    			</div>
+    			<div class="col-middle">
+    				<div class="progress-cop">
+    					<div class="point-1"></div>
+    					<div class="point-2"></div>
+    				</div>
+    			</div>
+    			<div class="col-right">
+    				<div class="row">
+    					<div class="col-xs-6">
+    						<dl>
+    							<dt>冷却水出水温度</dt>
+    							<dd>30℃</dd>
+    						</dl>
+    					</div>
+    					<div class="col-xs-6">
+    						<dl>
+    							<dt>冷却水回水温度</dt>
+    							<dd>30℃</dd>
+    						</dl>
+    					</div>
+    				</div>
+    				<div class="row">
+    					<div class="col-xs-6">
+    						<dl>
+    							<dt>冷冻水出水温度</dt>
+    							<dd>30℃</dd>
+    						</dl>
+    					</div>
+    					<div class="col-xs-6">
+    						<dl>
+    							<dt>冷冻水回水温度</dt>
+    							<dd>30℃</dd>
+    						</dl>
+    					</div>
+    				</div>
+    				<div class="row">
+    					<div class="col-xs-6">
+    						<dl>
+    							<dt>机房负载率</dt>
+    							<dd>35%</dd>
+    						</dl>
+    					</div>
+    					<div class="col-xs-6">
+    						<dl>
+    							<dt>室外温度</dt>
+    							<dd>28℃</dd>
+    						</dl>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </section>
+    <section class="system-status">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4 system-switch-status">
+                    <h3>系统开关机状况</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>冷机</th>
+                                <th>冷却泵</th>
+                                <th>冷冻泵</th>
+                                <th>冷塔</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1</strong>号</td>
+                                <td><img src="images/switch-status-1-lengji.png" height="60" width="60" alt=""></td>
+                                <td><img src="images/switch-status-1-beng.png" height="60" width="60" alt=""></td>
+                                <td><img src="images/switch-status-1-beng.png" height="60" width="60" alt=""></td>
+                                <td><img src="images/switch-status-1-ta.png" height="60" width="60" alt=""></td>
+                            </tr>
+                            <tr>
+                                <td><strong>2</strong>号</td>
+                                <td><img src="images/switch-status-2-lengji.png" height="60" width="60" alt=""></td>
+                                <td><img src="images/switch-status-2-beng.png" height="60" width="60" alt=""></td>
+                                <td><img src="images/switch-status-2-beng.png" height="60" width="60" alt=""></td>
+                                <td><img src="images/switch-status-2-ta.png" height="60" width="60" alt=""></td>
+                            </tr>
+                            <tr>
+                                <td><strong>3</strong>号</td>
+                                <td><img src="images/switch-status-3-lengji.png" height="60" width="60" alt=""></td>
+                                <td><img src="images/switch-status-3-beng.png" height="60" width="60" alt=""></td>
+                                <td><img src="images/switch-status-3-beng.png" height="60" width="60" alt=""></td>
+                                <td><img src="images/switch-status-3-ta.png" height="60" width="60" alt=""></td>
+                            </tr>
+                            <tr>
+                                <td><strong>4</strong>号</td>
+                                <td><img src="images/switch-status-1-lengji.png" height="60" width="60" alt=""></td>
+                                <td><img src="images/switch-status-2-beng.png" height="60" width="60" alt=""></td>
+                                <td><img src="images/switch-status-3-beng.png" height="60" width="60" alt=""></td>
+                                <td><img src="images/switch-status-3-ta.png" height="60" width="60" alt=""></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-4 detail-status">
+                    <table class="table">
+                        <tbody>
+                            <tr class="row-1">
+                                <td colspan="3" class="machine">
+                                    <img src="images/switch-status-1-beng.png" height="60" width="60" alt="">
+                                    <strong>1</strong><span>号冷机</span>
+                                </td>
+                                <td rowspan="2" class="wendu">
+                                    <div class="lengque">
+                                        <h4>冷却水</h4>
+                                        <p class="in">进水：39°C</p>
+                                        <p class="out">出水：37°C</p>
+                                    </div>
+                                    <div class="lengdong">
+                                        <h4>冷冻水</h4>
+                                        <p>进水：39°C</p>
+                                        <p>出水：37°C</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="row-2">
+                                <td>
+                                    实时COP
+                                    <h5 class="cop-real">5.5</h5>
+                                </td>
+                                <td>
+                                    标况COP
+                                    <h5 class="cop-standard">5.5</h5>
+                                </td>
+                                <td>
+                                    冷机负载率
+                                    <h5 class="fuzai">5.5</h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <tbody>
+                            <tr class="row-1">
+                                <td colspan="3" class="machine">
+                                    <img src="images/switch-status-1-beng.png" height="60" width="60" alt="">
+                                    <strong>1</strong><span>号冷机</span>
+                                </td>
+                                <td rowspan="2" class="wendu">
+                                    <div class="lengque">
+                                        <h4>冷却水</h4>
+                                        <p class="in">进水：39°C</p>
+                                        <p class="out">出水：37°C</p>
+                                    </div>
+                                    <div class="lengdong">
+                                        <h4>冷冻水</h4>
+                                        <p>进水：39°C</p>
+                                        <p>出水：37°C</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="row-2">
+                                <td>
+                                    实时COP
+                                    <h5 class="cop-real">5.5</h5>
+                                </td>
+                                <td>
+                                    标况COP
+                                    <h5 class="cop-standard">5.5</h5>
+                                </td>
+                                <td>
+                                    冷机负载率
+                                    <h5 class="fuzai">5.5</h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-4 detail-status">
+                    <table class="table">
+                        <tbody>
+                            <tr class="row-1">
+                                <td colspan="3" class="machine">
+                                    <img src="images/switch-status-1-beng.png" height="60" width="60" alt="">
+                                    <strong>1</strong><span>号冷机</span>
+                                </td>
+                                <td rowspan="2" class="wendu">
+                                    <div class="lengque">
+                                        <h4>冷却水</h4>
+                                        <p class="in">进水：39°C</p>
+                                        <p class="out">出水：37°C</p>
+                                    </div>
+                                    <div class="lengdong">
+                                        <h4>冷冻水</h4>
+                                        <p>进水：39°C</p>
+                                        <p>出水：37°C</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="row-2">
+                                <td>
+                                    实时COP
+                                    <h5 class="cop-real">5.5</h5>
+                                </td>
+                                <td>
+                                    标况COP
+                                    <h5 class="cop-standard">5.5</h5>
+                                </td>
+                                <td>
+                                    冷机负载率
+                                    <h5 class="fuzai">5.5</h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <tbody>
+                            <tr class="row-1">
+                                <td colspan="3" class="machine">
+                                    <img src="images/switch-status-1-beng.png" height="60" width="60" alt="">
+                                    <strong>1</strong><span>号冷机</span>
+                                </td>
+                                <td rowspan="2" class="wendu">
+                                    <div class="lengque">
+                                        <h4>冷却水</h4>
+                                        <p class="in">进水：39°C</p>
+                                        <p class="out">出水：37°C</p>
+                                    </div>
+                                    <div class="lengdong">
+                                        <h4>冷冻水</h4>
+                                        <p>进水：39°C</p>
+                                        <p>出水：37°C</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="row-2">
+                                <td>
+                                    实时COP
+                                    <h5 class="cop-real">5.5</h5>
+                                </td>
+                                <td>
+                                    标况COP
+                                    <h5 class="cop-standard">5.5</h5>
+                                </td>
+                                <td>
+                                    冷机负载率
+                                    <h5 class="fuzai">5.5</h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container"></div>
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/jquery-bridget/jquery.bridget.js"></script>
+    <script src="bower_components/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
+    <script src="bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+    <script type="text/javascript">
+    (function($) {
+        $(document).ready(function() {
+        	var o = d3.scale.linear().domain([0, 2.9, 3.2, 3.5, 3.9, 4.4, 5.0, 5.9, 7.0]).range([0, 80, 160, 240, 320, 400, 480, 560, 640, 720]);
+			function update() {
+				var cop1 = Math.random() * 7;
+				var cop2 = Math.random() * 7;
+
+				$('.progress-cop .point-1').animate({
+					left: 761 - o(cop1)
+				});
+
+				$('.progress-cop .point-2').animate({
+					left: 761 - o(cop2)
+				});
+
+				setTimeout(function() {
+	                update()
+	            }, 3000);
+			}
+            
+            update();
+        });
+    })(jQuery);
+    </script>
+</body>
+
+</html>
