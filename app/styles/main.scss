@@ -99,7 +99,13 @@ $font-size-base: 12px !default;
     }
 }
 
+.mt20 {
+    margin-top: 20px;
+}
 
+.mb20 {
+    margin-bottom: 20px;
+}
 
 /**
  * 手机页面样式
@@ -1780,9 +1786,126 @@ section.system-status {
 section.device-info {
     .container {
         padding: 0 30px;
+        background-color: #ececec;
     }
     .col-main {
         @include make-xs-column(8);
         width: 820px;
+        h1.title {
+            font-size: 30px;
+            color: #000000;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #808080;
+        }
+        .col-left {
+            @include make-xs-column(8);
+            width: 139px;
+            p {
+                font-size: 18px;
+                &.top {
+                    margin-top: 35px;
+                }
+                &.bottom {
+                    margin-top: 52px;
+                }
+            }
+        }
+        .col-right {
+            @include make-xs-column(8);
+            width: 681px;
+            .other-info {
+                margin-left: -1px;
+                margin-right: -1px;
+                .col-xs-4 {
+                    text-align: center;
+                    padding-left: 1px;
+                    padding-right: 1px;
+                    p {
+                        font-size: 14px;
+                        background-color: #bec0c2;
+                        padding-top: 10px;
+                        padding-bottom: 10px;
+                    }
+                }
+            }
+        }
+        .progress-cop2 {
+            height: 102px;
+            background: url(../images/bgp2.png) right center no-repeat;
+            margin: 35px 0;
+            position: relative;
+            .point-1, .point-2 {
+                width: 19px;
+                height: 34px;
+                position: absolute;
+                right: -8px;
+            }
+            .point-1 {
+                top: -16px;
+                background: url(../images/pointer05.png) no-repeat center center;
+            }
+            .point-2 {
+                top: 84px;
+                background: url(../images/pointer06.png) no-repeat center center;
+            }
+        }
+        .col-table {
+            @include make-xs-column(8);
+            width: 340px;
+            .table-wrap {
+                border: 1px solid #ffffff;
+                padding: 9px; 
+                .table {
+                    margin-bottom: 0;
+                    font-size: 14px;
+                    td,th {
+                        background-color: #fff;
+                        vertical-align: middle;
+                    }
+                    th {
+                        text-align: center;
+                        font-size: 18px;
+                        font-weight: normal; 
+                    }
+                }
+            }
+        }
+        .col-fuzai {
+            @include make-xs-column(8);
+            padding-left: 10px;
+            width: 480px;
+            .progress-cop3 {
+                position: relative;
+                width: 467px;
+                height: 358px;
+                background: url(../images/bgp3.png) no-repeat center center;
+                .point {
+                    width: 58px;
+                    height: 213px;
+                    position: absolute;
+                    right: 68px;
+                    top: 70px;
+                    background: url(../images/pointer07.png) no-repeat center center;
+                }
+            }
+        }
+    }
+    .col-side {
+        @include make-xs-column(8);
+        width: 370px;
+        .echart-wrap {
+            background-color: #fff;
+            box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.3);
+            margin-top: 20px;
+            h4 {
+                padding-top: 10px;
+                padding-left: 10px;
+            }
+            .echart {
+                width: 100%;
+                height: 170px;
+            }
+        }
+        
     }
 }
