@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js">
+<html lang="zh-CN" class="settings">
 
 <head>
     <meta charset="utf-8">
-    <title>d3 tutorial</title>
+    <title>冷站能效检测系统P2</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="shortcut icon" href="/favicon.ico">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
@@ -21,46 +21,39 @@
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
-
 </head>
 
 <body>
-    <!--[if lt IE 10]>
+    <!--[if lt IE 9]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="list-group">
-                    <a href="pc.html" class="list-group-item" target="_blank">
-                        <h4 class="list-group-item-heading">PC</h4>
-                    </a>
-                    <a href="sp.html" class="list-group-item" target="_blank">
-                        <h4 class="list-group-item-heading">手机</h4>
-                    </a>
-                    <a href="sp2.html" class="list-group-item" target="_blank">
-                        <h4 class="list-group-item-heading">手机2</h4>
-                    </a>
-                    <a href="settings.html" class="list-group-item" target="_blank">
-                        <h4 class="list-group-item-heading">设置页面</h4>
-                    </a>
+    <header>
+        <div class="container">
+            <nav class="navbar navbar-default navbar-p">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#"><img src="images/logo03.png" alt=""></a>
                 </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="list-group">
-                    <a href="p1.html" class="list-group-item" target="_blank">
-                        <h4 class="list-group-item-heading">冷站能效检测系统P1</h4>
-                    </a>
-                    <a href="p2.html" class="list-group-item" target="_blank">
-                        <h4 class="list-group-item-heading">冷站能效检测系统P2</h4>
-                    </a>
+                <div class="navbar-text system-name">冷站能效监测系统</div>
+                <div class="navbar-text pull-right project-name">
+                    项目名称：富豪宾馆
                 </div>
-            </div>
+            </nav>
         </div>
-    </div>
-    
-
+    </header>
+    <section class="device-info">
+    	<div class="container">
+    		<div class="row">
+    			<div class="col-main">
+    				<h1 class="title">1号冷机</h1>
+    				<div class="progress-cop2">
+    					<div class="point-1"></div>
+    					<div class="point-2"></div>
+    				</div>
+    			</div>
+    			<div class="col-side"></div>
+    		</div>
+    	</div>
+    </section>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -73,12 +66,34 @@
     <script src="bower_components/underscore/underscore.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-
     <!-- build:js({app,.tmp}) scripts/main.js -->
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
+    <script type="text/javascript">
+    (function($) {
+        $(document).ready(function() {
+        	var o = d3.scale.linear().domain([0, 2.9, 3.2, 3.5, 3.9, 4.4, 5.0, 5.9, 7.0]).range([0, 80, 160, 240, 320, 400, 480, 560, 640, 720]);
+			function update() {
+				var cop1 = Math.random() * 7;
+				var cop2 = Math.random() * 7;
 
-   
+				$('.progress-cop .point-1').animate({
+					right: o(cop1) - 12
+				});
+
+				$('.progress-cop .point-2').animate({
+					right: o(cop2) - 12
+				});
+
+				setTimeout(function() {
+	                update()
+	            }, 3000);
+			}
+            
+            update();
+        });
+    })(jQuery);
+    </script>
 </body>
 
 </html>

@@ -1776,3 +1776,13 @@ section.system-status {
         }
     }
 }
+
+section.device-info {
+    .container {
+        padding: 0 30px;
+    }
+    .col-main {
+        @include make-xs-column(8);
+        width: 820px;
+    }
+}
