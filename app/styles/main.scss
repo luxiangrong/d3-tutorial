@@ -107,6 +107,9 @@ $font-size-base: 12px !default;
     margin-bottom: 20px;
 }
 
+.mt60 {
+    margin-top: 60px !important;
+}
 /**
  * 手机页面样式
  */
@@ -1697,6 +1700,54 @@ section.system-status {
         background-color: #ececec;
         padding-left: 30px;
         padding-right: 30px;
+        .switch-status-lengji {
+            width: 60px;
+            height: 60px;
+            display: inline-block;
+            background: url(../images/switch-status-lengji.png) no-repeat 0 0;
+            transition: background 0.3s;
+            &.status-1 {
+                background-position: 0 0;
+            }
+            &.status-2 {
+                background-position: -60px 0px;
+            }
+            &.status-3 {
+                background-position: -120px 0px;
+            }
+        }
+        .switch-status-ta {
+            width: 60px;
+            height: 60px;
+            display: inline-block;
+            background: url(../images/switch-status-ta.png) no-repeat 0 0;
+            transition: background 0.3s;
+            &.status-1 {
+                background-position: 0 0;
+            }
+            &.status-2 {
+                background-position: -60px 0px;
+            }
+            &.status-3 {
+                background-position: -120px 0px;
+            }
+        }
+        .switch-status-beng {
+            width: 60px;
+            height: 60px;
+            display: inline-block;
+            background: url(../images/switch-status-beng.png) no-repeat 0 0;
+            transition: background 0.3s;
+            &.status-1 {
+                background-position: 0 0;
+            }
+            &.status-2 {
+                background-position: -60px 0px;
+            }
+            &.status-3 {
+                background-position: -120px 0px;
+            }
+        }
         .system-switch-status {
             h3 {
                 font-size: 18px;
@@ -1725,6 +1776,7 @@ section.system-status {
                     }
                 }
             }
+            
         }
         .detail-status {
             margin-top: 20px;
@@ -1738,6 +1790,7 @@ section.system-status {
                     &.wendu {
                         background-color: #f6f6f6;
                         border-left: 1px solid #d3d2d2;
+                        width: 30%;
                         h4 {
                             font-size: 14px;
                             border-bottom: 1px solid #d3d2d2;
@@ -1799,7 +1852,7 @@ section.device-info {
         }
         .col-left {
             @include make-xs-column(8);
-            width: 139px;
+            width: 109px;
             p {
                 font-size: 18px;
                 &.top {
@@ -1812,7 +1865,8 @@ section.device-info {
         }
         .col-right {
             @include make-xs-column(8);
-            width: 681px;
+            width: 701px;
+            padding-right: 30px;
             .other-info {
                 margin-left: -1px;
                 margin-right: -1px;
@@ -1896,7 +1950,7 @@ section.device-info {
         .echart-wrap {
             background-color: #fff;
             box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.3);
-            margin-top: 20px;
+            margin-top: 10px;
             h4 {
                 padding-top: 10px;
                 padding-left: 10px;

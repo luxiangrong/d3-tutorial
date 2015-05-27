@@ -24,9 +24,6 @@
 </head>
 
 <body>
-    <!--[if lt IE 9]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
     <header>
         <div class="container">
             <nav class="navbar navbar-default navbar-p">
@@ -46,7 +43,7 @@
     			<div class="col-left">
     				<div class="cop-jifang">
     					机房COP/kW/ton  
-						<strong><span class="random-num">3.75</span>/1.5</strong>
+						<strong><span id="data-1" class="random-num">3.75</span>/<span id="data-2">1.5</span></strong>
     				</div>
     			</div>
     			<div class="col-middle">
@@ -60,13 +57,13 @@
     					<div class="col-xs-6">
     						<dl>
     							<dt>冷却水出水温度</dt>
-    							<dd><span class="random-int">30</span>℃</dd>
+    							<dd><span id="data-3" class="random-int">30</span>℃</dd>
     						</dl>
     					</div>
     					<div class="col-xs-6">
     						<dl>
     							<dt>冷却水回水温度</dt>
-    							<dd><span class="random-int">30</span>℃</dd>
+    							<dd><span id="data-4" class="random-int">30</span>℃</dd>
     						</dl>
     					</div>
     				</div>
@@ -74,13 +71,13 @@
     					<div class="col-xs-6">
     						<dl>
     							<dt>冷冻水出水温度</dt>
-    							<dd><span class="random-int">30</span>℃</dd>
+    							<dd><span id="data-5" class="random-int">30</span>℃</dd>
     						</dl>
     					</div>
     					<div class="col-xs-6">
     						<dl>
     							<dt>冷冻水回水温度</dt>
-    							<dd><span class="random-int">30</span>℃</dd>
+    							<dd><span id="data-6" class="random-int">30</span>℃</dd>
     						</dl>
     					</div>
     				</div>
@@ -88,13 +85,13 @@
     					<div class="col-xs-6">
     						<dl>
     							<dt>机房负载率</dt>
-    							<dd><span class="random-int">35</span>%</dd>
+    							<dd><span id="data-7" class="random-int">35</span>%</dd>
     						</dl>
     					</div>
     					<div class="col-xs-6">
     						<dl>
     							<dt>室外温度</dt>
-    							<dd><span class="random-int">28</span>℃</dd>
+    							<dd><span id="data-8" class="random-int">28</span>℃</dd>
     						</dl>
     					</div>
     				</div>
@@ -120,104 +117,62 @@
                         <tbody>
                             <tr>
                                 <td><strong>1</strong>号</td>
-                                <td><img class="random-icon" src="images/switch-status-1-lengji.png" height="60" width="60" alt=""></td>
-                                <td><img class="random-icon" src="images/switch-status-1-beng.png" height="60" width="60" alt=""></td>
-                                <td><img class="random-icon" src="images/switch-status-1-beng.png" height="60" width="60" alt=""></td>
-                                <td><img class="random-icon"src="images/switch-status-1-ta.png" height="60" width="60" alt=""></td>
+                                <td>
+                                    <i id="switch-status-lengji-1" class="switch-status-lengji status-1"></i>
+                                </td>
+                                <td>
+                                    <i id="switch-status-lengquebeng-1" class="switch-status-beng status-1"></i>
+                                </td>
+                                <td>
+                                    <i id="switch-status-lengdongbeng-1" class="switch-status-beng status-1"></i>
+                                </td>
+                                <td>
+                                    <i id="switch-status-lengta-1" class="switch-status-ta status-1"></i>
+                                </td>
                             </tr>
                             <tr>
                                 <td><strong>2</strong>号</td>
-                                <td><img class="random-icon" src="images/switch-status-2-lengji.png" height="60" width="60" alt=""></td>
-                                <td><img class="random-icon" src="images/switch-status-2-beng.png" height="60" width="60" alt=""></td>
-                                <td><img class="random-icon" src="images/switch-status-2-beng.png" height="60" width="60" alt=""></td>
-                                <td><img class="random-icon" src="images/switch-status-2-ta.png" height="60" width="60" alt=""></td>
+                                <td>
+                                    <i id="switch-status-lengji-2" class="switch-status-lengji status-1"></i>
+                                </td>
+                                <td>
+                                    <i id="switch-status-lengquebeng-2" class="switch-status-beng status-1"></i>
+                                </td>
+                                <td>
+                                    <i id="switch-status-lengdongbeng-2" class="switch-status-beng status-1"></i>
+                                </td>
+                                <td>
+                                    <i id="switch-status-lengta-2" class="switch-status-ta status-1"></i>
+                                </td>
                             </tr>
                             <tr>
                                 <td><strong>3</strong>号</td>
-                                <td><img class="random-icon" src="images/switch-status-3-lengji.png" height="60" width="60" alt=""></td>
-                                <td><img class="random-icon" src="images/switch-status-3-beng.png" height="60" width="60" alt=""></td>
-                                <td><img class="random-icon" src="images/switch-status-3-beng.png" height="60" width="60" alt=""></td>
-                                <td><img class="random-icon" src="images/switch-status-3-ta.png" height="60" width="60" alt=""></td>
+                                <td>
+                                    <i id="switch-status-lengji-3" class="switch-status-lengji status-1"></i>
+                                </td>
+                                <td>
+                                    <i id="switch-status-lengquebeng-3" class="switch-status-beng status-1"></i>
+                                </td>
+                                <td>
+                                    <i id="switch-status-lengdongbeng-3" class="switch-status-beng status-1"></i>
+                                </td>
+                                <td>
+                                    <i id="switch-status-lengta-3" class="switch-status-ta status-1"></i>
+                                </td>
                             </tr>
                             <tr>
                                 <td><strong>4</strong>号</td>
-                                <td><img class="random-icon" src="images/switch-status-1-lengji.png" height="60" width="60" alt=""></td>
-                                <td><img class="random-icon" src="images/switch-status-2-beng.png" height="60" width="60" alt=""></td>
-                                <td><img class="random-icon" src="images/switch-status-3-beng.png" height="60" width="60" alt=""></td>
-                                <td><img class="random-icon" src="images/switch-status-3-ta.png" height="60" width="60" alt=""></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-xs-4 detail-status">
-                    <table class="table">
-                        <tbody>
-                            <tr class="row-1">
-                                <td colspan="3" class="machine">
-                                    <img class="random-icon" src="images/switch-status-1-beng.png" height="60" width="60" alt="">
-                                    <strong>1</strong><span>号冷机</span>
-                                </td>
-                                <td rowspan="2" class="wendu">
-                                    <div class="lengque">
-                                        <h4>冷却水</h4>
-                                        <p class="in">进水：<span class="random-int">39</span>°C</p>
-                                        <p class="out">出水：<span class="random-int">37</span>°C</p>
-                                    </div>
-                                    <div class="lengdong">
-                                        <h4>冷冻水</h4>
-                                        <p>进水：<span class="random-int">39</span>°C</p>
-                                        <p>出水：<span class="random-int">37</span>°C</p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="row-2">
                                 <td>
-                                    实时COP
-                                    <h5 class="cop-real"><span class="random-num">5.5</span></h5>
+                                    <i id="switch-status-lengji-4" class="switch-status-lengji status-1"></i>
                                 </td>
                                 <td>
-                                    标况COP
-                                    <h5 class="cop-standard"><span class="random-num">5.5</span></h5>
+                                    <i id="switch-status-lengquebeng-4" class="switch-status-beng status-1"></i>
                                 </td>
                                 <td>
-                                    冷机负载率
-                                    <h5 class="fuzai"><span class="random-num">5.5</span></h5>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table">
-                        <tbody>
-                            <tr class="row-1">
-                                <td colspan="3" class="machine">
-                                    <img class="random-icon" src="images/switch-status-1-beng.png" height="60" width="60" alt="">
-                                    <strong>1</strong><span>号冷机</span>
-                                </td>
-                                <td rowspan="2" class="wendu">
-                                    <div class="lengque">
-                                        <h4>冷却水</h4>
-                                        <p class="in">进水：<span class="random-int">39</span>°C</p>
-                                        <p class="out">出水：<span class="random-int">37</span>°C</p>
-                                    </div>
-                                    <div class="lengdong">
-                                        <h4>冷冻水</h4>
-                                        <p>进水：<span class="random-int">39</span>°C</p>
-                                        <p>出水：<span class="random-int">37</span>°C</p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="row-2">
-                                <td>
-                                    实时COP
-                                    <h5 class="cop-real"><span class="random-num">5.5</span></h5>
+                                    <i id="switch-status-lengdongbeng-4" class="switch-status-beng status-1"></i>
                                 </td>
                                 <td>
-                                    标况COP
-                                    <h5 class="cop-standard"><span class="random-num">5.5</span></h5>
-                                </td>
-                                <td>
-                                    冷机负载率
-                                    <h5 class="fuzai"><span class="random-num">5.5</span></h5>
+                                    <i id="switch-status-lengta-4" class="switch-status-ta status-1"></i>
                                 </td>
                             </tr>
                         </tbody>
@@ -228,34 +183,34 @@
                         <tbody>
                             <tr class="row-1">
                                 <td colspan="3" class="machine">
-                                    <img class="random-icon" src="images/switch-status-1-beng.png" height="60" width="60" alt="">
+                                    <i id="switch-status-lengji-11" class="switch-status-lengji status-1"></i>
                                     <strong>1</strong><span>号冷机</span>
                                 </td>
                                 <td rowspan="2" class="wendu">
                                     <div class="lengque">
                                         <h4>冷却水</h4>
-                                        <p class="in">进水：<span class="random-int">39</span>°C</p>
-                                        <p class="out">出水：<span class="random-int">37</span>°C</p>
+                                        <p class="in">进水：<span id="data-9" class="random-int">39</span>°C</p>
+                                        <p class="out">出水：<span id="data-10" class="random-int">37</span>°C</p>
                                     </div>
                                     <div class="lengdong">
                                         <h4>冷冻水</h4>
-                                        <p>进水：<span class="random-int">39</span>°C</p>
-                                        <p>出水：<span class="random-int">37</span>°C</p>
+                                        <p>进水：<span id="data-11" class="random-int">39</span>°C</p>
+                                        <p>出水：<span id="data-12" class="random-int">37</span>°C</p>
                                     </div>
                                 </td>
                             </tr>
                             <tr class="row-2">
                                 <td>
                                     实时COP
-                                    <h5 class="cop-real"><span class="random-num">5.5</span></h5>
+                                    <h5 class="cop-real"><span id="data-13" class="random-num">5.5</span></h5>
                                 </td>
                                 <td>
                                     标况COP
-                                    <h5 class="cop-standard"><span class="random-num">5.5</span></h5>
+                                    <h5 class="cop-standard"><span id="data-14" class="random-num">5.5</span></h5>
                                 </td>
                                 <td>
                                     冷机负载率
-                                    <h5 class="fuzai"><span class="random-num">5.5</span></h5>
+                                    <h5 class="fuzai"><span id="data-15" class="random-num">5.5</span></h5>
                                 </td>
                             </tr>
                         </tbody>
@@ -264,34 +219,108 @@
                         <tbody>
                             <tr class="row-1">
                                 <td colspan="3" class="machine">
-                                    <img class="random-icon" src="images/switch-status-1-beng.png" height="60" width="60" alt="">
-                                    <strong>1</strong><span>号冷机</span>
+                                    <i id="switch-status-lengji-13" class="switch-status-lengji status-1"></i>
+                                    <strong>3</strong><span>号冷机</span>
                                 </td>
                                 <td rowspan="2" class="wendu">
                                     <div class="lengque">
                                         <h4>冷却水</h4>
-                                        <p class="in">进水：<span class="random-int">39</span>°C</p>
-                                        <p class="out">出水：<span class="random-int">37</span>°C</p>
+                                        <p class="in">进水：<span id="data-16" class="random-int">39</span>°C</p>
+                                        <p class="out">出水：<span id="data-17" class="random-int">37</span>°C</p>
                                     </div>
                                     <div class="lengdong">
                                         <h4>冷冻水</h4>
-                                        <p>进水：<span class="random-int">39</span>°C</p>
-                                        <p>出水：<span class="random-int">37</span>°C</p>
+                                        <p>进水：<span id="data-18" class="random-int">39</span>°C</p>
+                                        <p>出水：<span id="data-19" class="random-int">37</span>°C</p>
                                     </div>
                                 </td>
                             </tr>
                             <tr class="row-2">
                                 <td>
                                     实时COP
-                                    <h5 class="cop-real"><span class="random-num">5.5</span></h5>
+                                    <h5 class="cop-real"><span id="data-20" class="random-num">5.5</span></h5>
                                 </td>
                                 <td>
                                     标况COP
-                                    <h5 class="cop-standard"><span class="random-num">5.5</span></h5>
+                                    <h5 class="cop-standard"><span id="data-21" class="random-num">5.5</span></h5>
                                 </td>
                                 <td>
                                     冷机负载率
-                                    <h5 class="fuzai"><span class="random-num">5.5</span></h5>
+                                    <h5 class="fuzai"><span id="data-22" class="random-num">5.5</span></h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-4 detail-status">
+                    <table class="table">
+                        <tbody>
+                            <tr class="row-1">
+                                <td colspan="3" class="machine">
+                                    <i id="switch-status-lengji-12" class="switch-status-lengji status-1"></i>
+                                    <strong>2</strong><span>号冷机</span>
+                                </td>
+                                <td rowspan="2" class="wendu">
+                                    <div class="lengque">
+                                        <h4>冷却水</h4>
+                                        <p class="in">进水：<span id="data-23" class="random-int">39</span>°C</p>
+                                        <p class="out">出水：<span id="data-24" class="random-int">37</span>°C</p>
+                                    </div>
+                                    <div class="lengdong">
+                                        <h4>冷冻水</h4>
+                                        <p>进水：<span id="data-25" class="random-int">39</span>°C</p>
+                                        <p>出水：<span id="data-26" class="random-int">37</span>°C</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="row-2">
+                                <td>
+                                    实时COP
+                                    <h5 class="cop-real"><span id="data-27" class="random-num">5.5</span></h5>
+                                </td>
+                                <td>
+                                    标况COP
+                                    <h5 class="cop-standard"><span id="data-28" class="random-num">5.5</span></h5>
+                                </td>
+                                <td>
+                                    冷机负载率
+                                    <h5 class="fuzai"><span id="data-29" class="random-num">5.5</span></h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <tbody>
+                            <tr class="row-1">
+                                <td colspan="3" class="machine">
+                                    <i id="switch-status-lengji-14" class="switch-status-lengji status-1"></i>
+                                    <strong>4</strong><span>号冷机</span>
+                                </td>
+                                <td rowspan="2" class="wendu">
+                                    <div class="lengque">
+                                        <h4>冷却水</h4>
+                                        <p class="in">进水：<span id="data-30" class="random-int">39</span>°C</p>
+                                        <p class="out">出水：<span id="data-31" class="random-int">37</span>°C</p>
+                                    </div>
+                                    <div class="lengdong">
+                                        <h4>冷冻水</h4>
+                                        <p>进水：<span id="data-32" class="random-int">39</span>°C</p>
+                                        <p>出水：<span id="data-33" class="random-int">37</span>°C</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="row-2">
+                                <td>
+                                    实时COP
+                                    <h5 class="cop-real"><span id="data-34" class="random-num">5.5</span></h5>
+                                </td>
+                                <td>
+                                    标况COP
+                                    <h5 class="cop-standard"><span id="data-35" class="random-num">5.5</span></h5>
+                                </td>
+                                <td>
+                                    冷机负载率
+                                    <h5 class="fuzai"><span id="data-36" class="random-num">5.5</span></h5>
                                 </td>
                             </tr>
                         </tbody>
@@ -322,10 +351,10 @@
         $(document).ready(function() {
             var format = d3.format('.1f');
 
-        	var o = d3.scale.linear().domain([0, 2.9, 3.2, 3.5, 3.9, 4.4, 5.0, 5.9, 7.0]).range([0, 80, 160, 240, 320, 400, 480, 560, 640, 720]);
+        	var o = d3.scale.linear().domain([0.4, 1.3]).range([711, 0]);
 			function update() {
-				var cop1 = Math.random() * 7;
-				var cop2 = Math.random() * 7;
+				var cop1 = Math.random() * 0.9 + 0.4;
+				var cop2 = Math.random() * 0.9 + 0.4;
 
 				$('.progress-cop .point-1').animate({
 					right: o(cop1) - 12
@@ -335,13 +364,66 @@
 					right: o(cop2) - 12
 				});
 
-                $('.random-int').text(Math.ceil(Math.random() * 50));
-                $('.random-num').text(format(Math.random() * 10));
-                $('.random-icon').each(function(i,data){
-                    var src = $(this).attr('src');
-                    src = src.replace(/\d/, Math.ceil((Math.random() * 3)));
-                    $(this).attr('src', src);
-                });
+                $('#switch-status-lengji-1').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengquebeng-1').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengdongbeng-1').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengta-1').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengji-2').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengquebeng-2').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengdongbeng-2').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengta-2').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengji-3').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengquebeng-3').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengdongbeng-3').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengta-3').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengji-4').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengquebeng-4').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengdongbeng-4').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengta-4').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+
+                $('#switch-status-lengji-11').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengji-12').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengji-13').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                $('#switch-status-lengji-14').removeClass('status-1 status-2 status-3').addClass(['status-1', 'status-2', 'status-3'][Math.floor(Math.random() * 3)]);
+                
+                $('#data-1').text(format(Math.random() * 30));
+                $('#data-2').text(format(Math.random() * 30));
+                $('#data-3').text(format(Math.random() * 30));
+                $('#data-4').text(format(Math.random() * 30));
+                $('#data-5').text(format(Math.random() * 30));
+                $('#data-6').text(format(Math.random() * 30));
+                $('#data-7').text(format(Math.random() * 30));
+                $('#data-8').text(format(Math.random() * 30));
+                $('#data-9').text(format(Math.random() * 30));
+                $('#data-10').text(format(Math.random() * 30));
+                $('#data-11').text(format(Math.random() * 30));
+                $('#data-12').text(format(Math.random() * 30));
+                $('#data-13').text(format(Math.random() * 30));
+                $('#data-14').text(format(Math.random() * 30));
+                $('#data-15').text(format(Math.random() * 30));
+                $('#data-16').text(format(Math.random() * 30));
+                $('#data-17').text(format(Math.random() * 30));
+                $('#data-18').text(format(Math.random() * 30));
+                $('#data-19').text(format(Math.random() * 30));
+                $('#data-20').text(format(Math.random() * 30));
+                $('#data-21').text(format(Math.random() * 30));
+                $('#data-22').text(format(Math.random() * 30));
+                $('#data-23').text(format(Math.random() * 30));
+                $('#data-24').text(format(Math.random() * 30));
+                $('#data-25').text(format(Math.random() * 30));
+                $('#data-26').text(format(Math.random() * 30));
+                $('#data-27').text(format(Math.random() * 30));
+                $('#data-28').text(format(Math.random() * 30));
+                $('#data-29').text(format(Math.random() * 30));
+                $('#data-30').text(format(Math.random() * 30));
+                $('#data-31').text(format(Math.random() * 30));
+                $('#data-32').text(format(Math.random() * 30));
+                $('#data-33').text(format(Math.random() * 30));
+                $('#data-34').text(format(Math.random() * 30));
+                $('#data-35').text(format(Math.random() * 30));
+                $('#data-36').text(format(Math.random() * 30));
+                
+                
                 $('.random-text').text(['富豪宾馆','中国石化', '特斯拉特斯拉特斯拉'][Math.floor(Math.random() * 3)]);
 
 				setTimeout(function() {

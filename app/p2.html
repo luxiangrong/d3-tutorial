@@ -24,9 +24,6 @@
 </head>
 
 <body>
-    <!--[if lt IE 9]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
     <header>
         <div class="container">
             <nav class="navbar navbar-default navbar-p">
@@ -57,13 +54,13 @@
                             </div>
                             <div class="row other-info">
                                 <div class="col-xs-4">
-                                    <p>冷冻水出水温度：<span class="random-int">XXX XX</span></p>
+                                    <p>冷冻水出水温度：<span id="data-1" class="random-int">XXX XX</span></p>
                                 </div>
                                 <div class="col-xs-4">
-                                    <p>冷却水进水温度：<span class="random-int">XXXXXX</span></p>
+                                    <p>冷却水进水温度：<span id="data-2" class="random-int">XXXXXX</span></p>
                                 </div>
                                 <div class="col-xs-4">
-                                    <p>冷机负载率：<span class="random-int">35</span>%</p>
+                                    <p>冷机负载率：<span id="data-3" class="random-int">35</span>%</p>
                                 </div>
                             </div>
                         </div>
@@ -74,47 +71,47 @@
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>
-                                            <th rowspan="3">蒸发器</th>
-                                            <td>冷冻水进水温度</td>
-                                            <td><span class="random-int">XXX</span></td>
+                                            <th rowspan="3" style="width: 30%">蒸发器</th>
+                                            <td style="width: 45%">冷冻水进水温度</td>
+                                            <td style="width: 25%"><span id="data-4" class="random-int">XXX</span></td>
                                         </tr>
                                         <tr>
                                             <td>冷冻水出水温度</td>
-                                            <td><span class="random-int">XXXXXX</span></td>
+                                            <td><span id="data-5" class="random-int">XXXXXX</span></td>
                                         </tr>
                                         <tr>
                                             <td>流量</td>
-                                            <td><span class="random-int">XXX</span></td>
+                                            <td><span id="data-6" class="random-int">XXX</span></td>
                                         </tr>
                                         <tr>
                                             <th rowspan="3">冷凝器</th>
                                             <td>冷冻水进水温度</td>
-                                            <td><span class="random-int">XXX</span></td>
+                                            <td><span id="data-7" class="random-int">XXX</span></td>
                                         </tr>
                                         <tr>
                                             <td>冷冻水出水温度</td>
-                                            <td><span class="random-int">XXX</span></td>
+                                            <td><span id="data-8" class="random-int">XXX</span></td>
                                         </tr>
                                         <tr>
                                             <td>端差</td>
-                                            <td><span class="random-int">XXX</span></td>
+                                            <td><span id="data-9" class="random-int">XXX</span></td>
                                         </tr>
                                         <tr>
                                             <th rowspan="4">COP</th>
                                             <td>设计COP</td>
-                                            <td><span class="random-int">XXX</span></td>
+                                            <td><span id="data-10" class="random-int">XXX</span></td>
                                         </tr>
                                         <tr>
                                             <td>实际COP</td>
-                                            <td><span class="random-int">XXX</span></td>
+                                            <td><span id="data-11" class="random-int">XXX</span></td>
                                         </tr>
                                         <tr>
                                             <td>标况COP</td>
-                                            <td><span class="random-int">XXX</span></td>
+                                            <td><span id="data-12" class="random-int">XXX</span></td>
                                         </tr>
                                         <tr>
                                             <td>衰减率</td>
-                                            <td><span class="random-int">XXX</span></td>
+                                            <td><span id="data-13" class="random-int">XXX</span></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -128,7 +125,7 @@
                     </div>
                 </div>
                 <div class="col-side">
-                    <div class="echart-wrap">
+                    <div class="echart-wrap mt60">
                         <h4>COP与负载率</h4>
                         <div class="echart" id="chart1">
                         </div>
@@ -167,34 +164,42 @@
     (function($) {
         $(document).ready(function() {
             var format = d3.format('.1f');
-            var o = d3.scale.linear().domain([0, 2.9, 3.2, 3.5, 3.9, 4.4, 5.0, 5.9, 7.0]).range([0, 80, 160, 240, 320, 400, 480, 560, 640, 720]);
-            var o2 = d3.scale.linear().domain([0, 1]).range([0, 308]);
+            var o = d3.scale.linear().domain([3.1, 6.6]).range([0, 671]);
+            var o2 = d3.scale.linear().domain([0, 1]).range([308, 0]);
 
             function update() {
-                var cop1 = Math.random() * 7;
-                var cop2 = Math.random() * 7;
+                var cop1 = Math.random() * 3.5 + 3.1;
+                var cop2 = Math.random() * 3.5 + 3.1;
                 var fuzai1 = Math.random();
 
                 $('.progress-cop2 .point-1').animate({
-                    right: o(cop1) - 12
+                    right: o(cop1) - 9
                 });
 
                 $('.progress-cop2 .point-2').animate({
-                    right: o(cop2) - 12
+                    right: o(cop2) - 9
                 });
 
                 $('.progress-cop3 .point').animate({
                     right: o2(fuzai1) + 68
                 });
 
-                $('.random-int').text(Math.ceil(Math.random() * 50));
-                $('.random-num').text(format(Math.random() * 10));
-                $('.random-icon').each(function(i, data) {
-                    var src = $(this).attr('src');
-                    src = src.replace(/\d/, Math.ceil((Math.random() * 3)));
-                    $(this).attr('src', src);
-                });
+                
                 $('.random-text').text(['富豪宾馆', '中国石化', '特斯拉特斯拉特斯拉'][Math.floor(Math.random() * 3)]);
+
+                $('#data-1').text(format(Math.random() * 30));
+                $('#data-2').text(format(Math.random() * 30));
+                $('#data-3').text(format(Math.random() * 30));
+                $('#data-4').text(format(Math.random() * 30));
+                $('#data-5').text(format(Math.random() * 30));
+                $('#data-6').text(format(Math.random() * 30));
+                $('#data-7').text(format(Math.random() * 30));
+                $('#data-8').text(format(Math.random() * 30));
+                $('#data-9').text(format(Math.random() * 30));
+                $('#data-10').text(format(Math.random() * 30));
+                $('#data-11').text(format(Math.random() * 30));
+                $('#data-12').text(format(Math.random() * 30));
+                $('#data-13').text(format(Math.random() * 30));
 
                 chart1.addData([
                     [
@@ -210,6 +215,9 @@
                         false
                     ]
                 ]);
+				// option1.series[0].data = [Math.random() * 7, Math.random() * 7, Math.random() * 7, Math.random() * 7, Math.random() * 7, Math.random() * 7, Math.random() * 7, Math.random() * 7, Math.random() * 7, Math.random() * 7, Math.random() * 7, Math.random() * 7];
+				// chart1.setOption(option1);
+
                 chart2.addData([
                     [
                         0,
