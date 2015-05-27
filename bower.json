@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "jquery": "= 1.11.2",
-    "bootstrap-sass": "~3.3.2",
+    "bootstrap-sass-official": "~3.3.4",
     "modernizr": "~2.8.2",
     "d3": "~3.5.5",
     "seiyria-bootstrap-slider": "~4.5.7",
