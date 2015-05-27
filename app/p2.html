@@ -168,7 +168,7 @@
         $(document).ready(function() {
             var format = d3.format('.1f');
             var o = d3.scale.linear().domain([0, 2.9, 3.2, 3.5, 3.9, 4.4, 5.0, 5.9, 7.0]).range([0, 80, 160, 240, 320, 400, 480, 560, 640, 720]);
-            var o2 = d3.scale.linear().domain([0,1]).range([0, 308]);
+            var o2 = d3.scale.linear().domain([0, 1]).range([0, 308]);
 
             function update() {
                 var cop1 = Math.random() * 7;
@@ -189,19 +189,62 @@
 
                 $('.random-int').text(Math.ceil(Math.random() * 50));
                 $('.random-num').text(format(Math.random() * 10));
-                $('.random-icon').each(function(i,data){
+                $('.random-icon').each(function(i, data) {
                     var src = $(this).attr('src');
                     src = src.replace(/\d/, Math.ceil((Math.random() * 3)));
                     $(this).attr('src', src);
                 });
-                $('.random-text').text(['富豪宾馆','中国石化', '特斯拉特斯拉特斯拉'][Math.floor(Math.random() * 3)]);
+                $('.random-text').text(['富豪宾馆', '中国石化', '特斯拉特斯拉特斯拉'][Math.floor(Math.random() * 3)]);
+
+                chart1.addData([
+                    [
+                        0,
+                        Math.random() * 7,
+                        false,
+                        false
+                    ],
+                    [
+                        1,
+                        Math.random(),
+                        false,
+                        false
+                    ]
+                ]);
+                chart2.addData([
+                    [
+                        0,
+                        Math.random() * 7,
+                        false,
+                        false
+                    ],
+                    [
+                        1,
+                        Math.random() * 7,
+                        false,
+                        false
+                    ]
+                ]);
+                chart3.addData([
+                    [
+                        0,
+                        Math.random() * 7,
+                        false,
+                        false
+                    ],
+                    [
+                        1,
+                        Math.random() * 7,
+                        false,
+                        false
+                    ]
+                ]);
 
                 setTimeout(function() {
                     update()
                 }, 3000);
             }
 
-            update();
+
 
             var option1 = {
                 tooltip: {
@@ -328,6 +371,7 @@
             var chart3 = echarts.init(document.getElementById('chart3'));
             chart3.setOption(option3);
 
+            update();
         });
     })(jQuery);
     </script>
