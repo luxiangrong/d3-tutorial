@@ -51,6 +51,7 @@
                             <div class="progress-cop2">
                                 <div class="point-1"></div>
                                 <div class="point-2"></div>
+                                <div class="point-3"></div>
                             </div>
                             <div class="row other-info">
                                 <div class="col-xs-4">
@@ -170,6 +171,7 @@
             function update() {
                 var cop1 = Math.random() * 3.5 + 3.1;
                 var cop2 = Math.random() * 3.5 + 3.1;
+                var cop3 = Math.random() * 3.5 + 3.1;
                 var fuzai1 = Math.random();
 
                 $('.progress-cop2 .point-1').animate({
@@ -178,6 +180,10 @@
 
                 $('.progress-cop2 .point-2').animate({
                     right: o(cop2) - 9
+                });
+
+                $('.progress-cop2 .point-3').animate({
+                    right: o(cop3) - 9
                 });
 
                 $('.progress-cop3 .point').animate({

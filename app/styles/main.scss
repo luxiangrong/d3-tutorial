@@ -1637,13 +1637,16 @@ section.cop-info {
             border: 1px solid #00a8ff;
             padding: 10px;
             line-height: 1;
-            margin-top: 50px;
+            margin-top: 20px;
             strong {
                 display: block;
                 margin-top: 10px;
                 font-size: 30px;
                 color: #00a8ff;
                 font-weight: normal;
+            }
+            p {
+                margin-bottom: 10px;
             }
         }
     }
@@ -1655,7 +1658,7 @@ section.cop-info {
             height: 201px;
             background: url(../images/bgp1.png) no-repeat center center;
             position: relative;
-            .point-1, .point-2 {
+            .point-1, .point-2, .point-3 {
                 width: 28px;
                 height: 24px;
                 position: absolute;
@@ -1668,6 +1671,10 @@ section.cop-info {
             .point-2 {
                 top: 130px;
                 background: url(../images/pointer04.png) no-repeat center center;
+            }
+            .point-3 {
+                top: 30px;
+                background: url(../images/pointer08.png) no-repeat center center;
             }
         }
     }
@@ -1888,7 +1895,7 @@ section.device-info {
             background: url(../images/bgp2.png) right center no-repeat;
             margin: 35px 0;
             position: relative;
-            .point-1, .point-2 {
+            .point-1, .point-2, .point-3 {
                 width: 19px;
                 height: 34px;
                 position: absolute;
@@ -1901,6 +1908,10 @@ section.device-info {
             .point-2 {
                 top: 84px;
                 background: url(../images/pointer06.png) no-repeat center center;
+            }
+            .point-3 {
+                top: -16px;
+                background: url(../images/pointer09.png) no-repeat center center;
             }
         }
         .col-table {
