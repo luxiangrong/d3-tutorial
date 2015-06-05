@@ -1641,7 +1641,7 @@ section.cop-info {
             strong {
                 display: block;
                 margin-top: 10px;
-                font-size: 22px;
+                font-size: 20px;
                 color: #00a8ff;
                 font-weight: normal;
             }
@@ -1696,8 +1696,15 @@ section.cop-info {
                 font-size: 12px;
             }
             dd {
-                font-size: 30px;
+                font-size: 26px;
             }
+        }
+        .current-date {
+            font-size: 20px;
+            text-align: center;
+            margin-top: -33px;
+            margin-bottom: 5px;
+            height: 28px;
         }
     }
 }
@@ -1834,7 +1841,7 @@ section.system-status {
                         border-right: 1px solid #d3d2d2;
                         vertical-align: middle;
                         h5 {
-                            font-size: 30px;
+                            font-size: 26px;
                         }
                     }
                 }
@@ -1971,6 +1978,12 @@ section.device-info {
                 height: 170px;
             }
         }
-        
+        .current-date {
+            font-size: 20px;
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            height: 28px;
+        }
     }
 }
